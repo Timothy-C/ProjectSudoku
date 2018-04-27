@@ -5,7 +5,7 @@ public class MainClass extends PApplet {
 		PApplet.main("MainClass");
 		new SudokuBoard();
 	}
-	
+	/*
 	@Override
 	public void settings() {
 		size(300, 300);
@@ -20,5 +20,5 @@ public class MainClass extends PApplet {
 	public void draw() {
 		ellipse(mouseX, mouseY, 30, 30);
 		
-	}
+	}*/
 }
