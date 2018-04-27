@@ -1,11 +1,15 @@
+import processing.core.PApplet;
+
 import java.util.Arrays;
 import java.util.Random;
 
-public class SudokuBoard {
+public class SudokuBoard extends DrawableElement {
 	SudokuCell[][] board;
 	
-	SudokuBoard() {
-		board = new SudokuCell[9][9];
+	SudokuBoard(PApplet parent) {
+		super(parent);
+		
+		this.board = new SudokuCell[9][9];
 		for (int x = 0; x < board.length; x++) {
 			for (int y = 0; y < board[x].length; y++) {
 				board[x][y] = new SudokuCell(new Coordinate(x, y));
@@ -85,5 +89,14 @@ public class SudokuBoard {
 				return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public void draw() {
+		parent.textFont(parent.createFont("Consolas", 15, true));
+		parent.fill(0);
+		for (int i = 0; i < 9; i++) {
+			parent.text(Arrays.toString(board[i]), this.position.x, this.position.y + i * 20);
+		}
 	}
 }

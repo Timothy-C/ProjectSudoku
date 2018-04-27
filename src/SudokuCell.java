@@ -36,4 +36,9 @@ public class SudokuCell {
 		
 		neighbors.remove(this.position);
 	}
+	
+	@Override
+	public String toString() {
+		return value + "";
+	}
 }

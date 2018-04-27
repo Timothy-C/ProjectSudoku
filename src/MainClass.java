@@ -1,9 +1,11 @@
 import processing.core.PApplet;
 
 public class MainClass extends PApplet {
+	
+	SudokuBoard board;
+	
 	public static void main(String[] args) {
 		PApplet.main("MainClass");
-		new SudokuBoard();
 	}
 	
 	@Override
@@ -13,12 +15,12 @@ public class MainClass extends PApplet {
 	
 	@Override
 	public void setup() {
-		fill(120, 50, 240);
+		board = new SudokuBoard(this);
+		board.setPosition(60, 60);
 	}
 	
 	@Override
 	public void draw() {
-		ellipse(mouseX, mouseY, 30, 30);
-		
+		board.draw();
 	}
 }
