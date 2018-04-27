@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Random;
 
 public class SudokuBoard {
@@ -10,81 +11,79 @@ public class SudokuBoard {
 				board[x][y] = new SudokuCell(new Coordinate(x, y));
 			}
 		}
-		printBoard();
+		while (!isValid()) {
+			generate();
+			printBoard();
+		}
 	}
-    //Testing the commit
+	
+	public void generate() {
+		Random rand = new Random();
+		boolean repeated;
+		
+		// generate first row
+		for (int i = 0; i < 9; i++) {
+			// generate unique number
+			do {
+				repeated = false;
+				// randomly generate some number from 1-9
+				board[0][i].value = rand.nextInt(9) + 1;
+				
+				// check row for repeats
+				for (int j = 0; j < i; j++) {
+					if (board[0][i].value == board[0][j].value) {
+						repeated = true;
+						break;
+					}
+				}
+			} while (repeated);
+		}
+		
+		// perform row shifts
+		// https://gamedev.stackexchange.com/a/138228
+		for (int i = 1; i < 9; i++) {
+			int shift = i % 3 == 0 ? 1 : 3;
+			for (int j = 0; j < 9; j++) {
+				board[i][j] = board[i - 1][(j + shift) % 9];
+			}
+		}
+	}
+	
 	void printBoard() {
 		for (SudokuCell[] row : board) {
-				for (SudokuCell cell : row) {
+			for (SudokuCell cell : row) {
 				System.out.print(cell.value + " ");
 			}
 			System.out.println();
 		}
 	}
-
-	public static void generate(String[] args) {
-		// write your code here
-		Random rand = new Random();
-		//r.ints()
-		int[][] board;
-		//   int[][] ans;
-		boolean repeated=false;
-		board= new int[9][9];
-		for(int i=0;i<9;i++)
-		{
-			board[0][i]=rand.nextInt(9) + 1;;
-			repeated=false;
-			while(true)
-			{
-				if(repeated==true)
-				{
-					board[0][i]=rand.nextInt(9) + 1;
-				}
-				repeated=false;
-				for(int j=0;j<i;j++)
-				{
-					if(board[0][i]==board[0][j])
-					{
-						repeated=true;
-						break;
-					}
-				}
-				if(repeated==false)
-				{
-					break;
-				}
+	
+	private boolean isValid() {
+		for (int i = 0; i < 9; i++) {
+			
+			int[] row = new int[9];
+			int[] square = new int[9];
+			int[] column = new int[9];
+			
+			for (int j = 0; j < 9; j++) {
+				column[j] = board[i][j].value;
+				row[j] = board[j][i].value;
+				square[j] = board[(i / 3) * 3 + j / 3][i * 3 % 9 + j % 3].value;
+				
 			}
+			if (!(validArray(column) && validArray(row) && validArray(square)))
+				return false;
 		}
-
-		for(int i=1;i<9;i++)
-		{
-			for(int j=0;j<9;j++)
-			{
-				board[i][j]=board[i-1][j]+3;
-				if(board[i][j]>9)
-				{
-					board[i][j]-=9;
-				}
-			}
+		return true;
+	}
+	
+	private boolean validArray(int[] check) {
+		int i = 0;
+		Arrays.sort(check);
+		for (int number : check) {
+			if (number != ++i)
+				return false;
 		}
-        /*for(int i=0;i<9;i++)
-        {
-            for(int j=0;j<9;j++)
-            {
-                ans[i][j]=board[i][j];
-            }
-        }*/
-		for(int i=0;i<30;i++)
-		{
-			board[rand.nextInt(8) + 0][rand.nextInt(8) + 0]=0;
-		}
-		for(int i=0;i<9;i++)
-		{
-			for(int j=0;j<9;j++)
-			{
-				System.out.print(board[i][j]);
-			}
-			System.out.println();
-		}
+		return true;
 	}
 }
