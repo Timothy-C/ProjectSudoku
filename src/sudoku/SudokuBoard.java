@@ -1,4 +1,7 @@
+package sudoku;
+
 import processing.core.PApplet;
+import sudoku.transform.ITransformation;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -6,7 +9,7 @@ import java.util.Random;
 public class SudokuBoard extends DrawableElement {
 	SudokuCell[][] board;
 	
-	SudokuBoard(PApplet parent) {
+	public SudokuBoard(PApplet parent) {
 		super(parent);
 		
 		this.board = new SudokuCell[9][9];
@@ -17,7 +20,6 @@ public class SudokuBoard extends DrawableElement {
 		}
 		while (!isValid()) {
 			generate();
-			printBoard();
 		}
 	}
 	
@@ -98,5 +100,17 @@ public class SudokuBoard extends DrawableElement {
 		for (int i = 0; i < 9; i++) {
 			parent.text(Arrays.toString(board[i]), this.position.x, this.position.y + i * 20);
 		}
+	}
+	
+	public SudokuBoard transformBoard(ITransformation transformation) {
+		printBoard();
+		System.out.println(isValid() ? "valid" : "invalid");
+		
+		transformation.apply(board);
+		
+		System.out.println();
+		printBoard();
+		System.out.println(isValid() ? "valid" : "invalid");
+		return this;
 	}
 }

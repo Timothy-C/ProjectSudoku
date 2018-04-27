@@ -1,8 +1,10 @@
+package sudoku;
+
 import processing.core.PApplet;
 
 public abstract class DrawableElement {
-	PApplet parent;
-	Coordinate position;
+	protected PApplet parent;
+	protected Coordinate position;
 	
 	public DrawableElement(PApplet parent) {
 		this.parent = parent;

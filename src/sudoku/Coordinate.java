@@ -1,3 +1,5 @@
+package sudoku;
+
 public class Coordinate implements Comparable<Coordinate> {
 	
 	public int x;
