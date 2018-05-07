@@ -120,7 +120,7 @@ public class SudokuBoard extends DrawableElement {
                 parent.fill(255);
                 parent.rect(cellX, cellY, sideLength, sideLength);
                 // cell number
-                parent.fill(127, 127, 127);
+	            parent.fill(0, 0, 0);
                 parent.text(board[x][y].value, cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
             }
         }
