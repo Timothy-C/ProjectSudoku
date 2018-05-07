@@ -3,7 +3,7 @@ package sudoku.transform;
 import sudoku.SudokuCell;
 
 public class TransformRotate implements ITransformation {
-	int rotations;
+    private int rotations;
 	
 	public TransformRotate(int rotations) {
 		this.rotations = rotations;
