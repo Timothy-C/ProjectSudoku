@@ -20,6 +20,12 @@ public class SudokuCell {
         this.generateNeighbors();
     }
 
+    SudokuCell(int x, int y, int value) {
+        this.position = new Coordinate(x, y);
+        this.value = value;
+        this.generateNeighbors();
+    }
+
     private void generateNeighbors() {
         // column
         for (int i = 0; i < 9; i++)
@@ -39,7 +45,7 @@ public class SudokuCell {
 
     @Override
     public String toString() {
-        return value + "";
+        return value != 0 ? value + "" : "";
     }
 
     enum Status {
