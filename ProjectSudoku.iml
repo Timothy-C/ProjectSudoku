@@ -10,5 +10,6 @@
     <orderEntry type="library" name="ProcessingCore" level="project" />
     <orderEntry type="library" name="ProcessingCore" level="project" />
     <orderEntry type="library" name="core" level="project" />
+    <orderEntry type="library" name="ProjectSudoku" level="project" />
   </component>
 </module>

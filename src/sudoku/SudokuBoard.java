@@ -114,17 +114,19 @@ public class SudokuBoard extends DrawableElement {
         parent.rectMode(PConstants.CORNER);
 
         // draw board backing
+     /*   parent.strokeWeight(10);
         parent.rect(this.position.x - spacing, this.position.y - spacing, (sideLength + spacing) * 9 + spacing, (sideLength + spacing) * 9 + spacing);
 
         // draw 3x3 boxes
-        parent.fill(127, 127, 127);
-        for (int x = 0; x < 3; x++) {
+        parent.fill(127, 127, 127);//Is this line really necessary?
+        for (int x = 0; x < 3; x++) {//Draws thicc lines between the major boxes
             for (int y = 0; y < 3; y++) {
                 int boxX = this.position.x - (spacing / 2) + 3 * x * (sideLength + spacing);
                 int boxY = this.position.y - (spacing / 2) + 3 * y * (sideLength + spacing);
                 parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
             }
         }
+        parent.strokeWeight(0.0001f);*/
 
         // draw cells
         for (int x = 0; x < 9; x++) {
@@ -175,11 +177,27 @@ public class SudokuBoard extends DrawableElement {
                 }
                 parent.fill(fillColor);
                 parent.rect(cellX, cellY, sideLength, sideLength);
+
                 // cell number
 	            parent.fill(0, 0, 0);
                 parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
             }
         }
+        parent.strokeWeight(5);
+     //   parent.rect(this.position.x - spacing, this.position.y - spacing, (sideLength + spacing) * 9 + spacing, (sideLength + spacing) * 9 + spacing);
+
+        // draw 3x3 boxes
+        parent.noFill();
+        for (int x = 0; x < 3; x++) {//Draws thicc lines between the major boxes
+            for (int y = 0; y < 3; y++) {
+                int boxX = this.position.x - (spacing / 2) + 3 * x * (sideLength + spacing);
+                int boxY = this.position.y - (spacing / 2) + 3 * y * (sideLength + spacing);
+                parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
+            }
+        }
+        parent.fill(100, 100, 100);
+        parent.strokeWeight(0.0001f);
+
     }
 
     public SudokuBoard transformBoard(ITransformation transformation) {

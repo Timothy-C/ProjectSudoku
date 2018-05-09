@@ -6,8 +6,9 @@ public class SudokuCell {
     public int value = 0;
     Coordinate position;
 
+    boolean unknown = false;//This is true if the cell is empty
     boolean isClue = false;
-    boolean[] notes = new boolean[9];
+    boolean[] notes = new boolean[9];//Notes for the cell
     Status status = Status.UNSELECTED;
 
     /**
