@@ -173,7 +173,7 @@ public class SudokuBoard extends DrawableElement {
 
         // draw 3x3 boxes
         parent.noFill();
-        for (int x = 0; x < 3; x++) {//Draws thicc lines between the major boxes
+        for (int x = 0; x < 3; x++) {//Draws thicc borders between the major boxes
             for (int y = 0; y < 3; y++) {
                 int boxX = this.position.x - (spacing / 2) + 3 * x * (sideLength + spacing);
                 int boxY = this.position.y - (spacing / 2) + 3 * y * (sideLength + spacing);
