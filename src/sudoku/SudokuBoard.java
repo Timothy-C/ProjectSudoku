@@ -111,11 +111,11 @@ public class SudokuBoard extends DrawableElement {
 	}
 	
 	public void draw() {
-		parent.textFont(parent.createFont("Consolas", 50, true));
+		parent.textFont(parent.createFont("Consolas", 50, true));//change font size for sideboxes
 		parent.fill(100, 100, 100);
 		parent.strokeWeight(0.0001f);
 		int placeX = 450;
-		int placeY= 50;
+		int placeY= 50;//Puts the sideboxes for selecting numbers
 		for (int i=0;i<5;i++)
 		{
 			parent.text(nums[i], placeX, 400-placeY);
@@ -126,9 +126,9 @@ public class SudokuBoard extends DrawableElement {
 		{
 			parent.text(nums[i], placeX, 400-placeY);
 			placeY+=75;
-		}
+		}//end of sideboxes thing
 		parent.rectMode(PConstants.CORNER);
-        parent.textFont(parent.createFont("Consolas", 40, true));
+        parent.textFont(parent.createFont("Consolas", 40, true));//change back font size
 		// draw cells
 		for (int x = 0; x < 9; x++) {
 			for (int y = 0; y < 9; y++) {
