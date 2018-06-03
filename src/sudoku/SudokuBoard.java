@@ -32,7 +32,7 @@ public class SudokuBoard extends DrawableElement {
 				board[x][y] = new SudokuCell(new Coordinate(x, y));
 			}
 		}
-		for (int blyat = 0; blyat < 9; blyat++) {
+		for (int blyat = 0; blyat < 9; blyat++) {//makes the array of sideboxes
 			nums[blyat] = blyat + 1;
 		}
 		while (!isValid()) {
