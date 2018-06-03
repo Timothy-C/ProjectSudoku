@@ -8,13 +8,14 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SudokuBoard extends DrawableElement {
-	public static final int sideLength = 30;
-	public static final int spacing = 2;
+	private static final int sideLength = 30;
+	private static final int spacing = 2;
 	
 	SudokuCell[][] board;
 	
 	SudokuCell selected;
-	
+	private int[] nums = new int[9];
+
 	// board is organized like this
 	// board[x][y]
 	// 0 x -
@@ -30,6 +31,9 @@ public class SudokuBoard extends DrawableElement {
 			for (int y = 0; y < board[x].length; y++) {
 				board[x][y] = new SudokuCell(new Coordinate(x, y));
 			}
+		}
+		for (int blyat = 0; blyat < 9; blyat++) {
+			nums[blyat] = blyat + 1;
 		}
 		while (!isValid()) {
 			generate();
@@ -107,11 +111,24 @@ public class SudokuBoard extends DrawableElement {
 	}
 	
 	public void draw() {
-		parent.textFont(parent.createFont("Consolas", 30, true));
+		parent.textFont(parent.createFont("Consolas", 50, true));
 		parent.fill(100, 100, 100);
-		
+		parent.strokeWeight(0.0001f);
+		int placeX = 450;
+		int placeY= 50;
+		for (int i=0;i<5;i++)
+		{
+			parent.text(nums[i], placeX, 400-placeY);
+			placeY += 75;
+		}
+		placeY=50;placeX=550;
+		for (int i=5;i<9;i++)
+		{
+			parent.text(nums[i], placeX, 400-placeY);
+			placeY+=75;
+		}
 		parent.rectMode(PConstants.CORNER);
-		
+        parent.textFont(parent.createFont("Consolas", 40, true));
 		// draw cells
 		for (int x = 0; x < 9; x++) {
 			for (int y = 0; y < 9; y++) {
@@ -175,7 +192,9 @@ public class SudokuBoard extends DrawableElement {
 			}
 		}
 		parent.fill(100, 100, 100);
-		parent.strokeWeight(0.0001f);
+
+		parent.textFont(parent.createFont("Consolas", 40, true));
+		int fillColor= 0;
 		
 	}
 	
