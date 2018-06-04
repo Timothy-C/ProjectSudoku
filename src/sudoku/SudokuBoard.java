@@ -14,7 +14,6 @@ public class SudokuBoard extends DrawableElement {
 	SudokuCell[][] board;
 	
 	SudokuCell selected;
-	private int[] nums = new int[9];
 
 	// board is organized like this
 	// board[x][y]
@@ -32,9 +31,7 @@ public class SudokuBoard extends DrawableElement {
 				board[x][y] = new SudokuCell(new Coordinate(x, y));
 			}
 		}
-		for (int blyat = 0; blyat < 9; blyat++) {//makes the array of sideboxes
-			nums[blyat] = blyat + 1;
-		}
+		
 		while (!isValid()) {
 			generate();
 		}
@@ -111,24 +108,11 @@ public class SudokuBoard extends DrawableElement {
 	}
 	
 	public void draw() {
-		parent.textFont(parent.createFont("Consolas", 50, true));//change font size for sideboxes
+		parent.textFont(parent.createFont("Consolas", 30, true));
 		parent.fill(100, 100, 100);
 		parent.strokeWeight(0.0001f);
-		int placeX = 450;
-		int placeY= 50;//Puts the sideboxes for selecting numbers
-		for (int i=0;i<5;i++)
-		{
-			parent.text(nums[i], placeX, 400-placeY);
-			placeY += 75;
-		}
-		placeY=50;placeX=550;
-		for (int i=5;i<9;i++)
-		{
-			parent.text(nums[i], placeX, 400-placeY);
-			placeY+=75;
-		}//end of sideboxes thing
+		
 		parent.rectMode(PConstants.CORNER);
-        parent.textFont(parent.createFont("Consolas", 40, true));//change back font size
 		// draw cells
 		for (int x = 0; x < 9; x++) {
 			for (int y = 0; y < 9; y++) {
@@ -140,7 +124,6 @@ public class SudokuBoard extends DrawableElement {
 				if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
 					if (selected != board[x][y]) {
 						if (selected != null) {
-							System.out.println(selected.position.toString());
 							selected.status = SudokuCell.Status.UNSELECTED;
 							for (Coordinate neighbor : selected.neighbors) {
 								board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
@@ -149,7 +132,6 @@ public class SudokuBoard extends DrawableElement {
 						
 						selected = board[x][y];
 						selected.status = SudokuCell.Status.SELECTED;
-						System.out.println(selected.position.toString());
 						for (Coordinate neighbor : selected.neighbors) {
 							board[neighbor.x][neighbor.y].status = SudokuCell.Status.HIGHLIGHTED;
 						}
