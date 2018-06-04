@@ -13,7 +13,7 @@ public class MainClass extends PApplet {
 
     @Override
     public void settings() {
-        size(600, 400);//Space on the right for the numbers
+        size(900, 600);//Space on the right for the numbers
     }
 
     @Override
@@ -22,12 +22,14 @@ public class MainClass extends PApplet {
         digits = new DigitBoard(this);
         
         board.setPosition(60, 60);
-        digits.setPosition(375, 100);
+        digits.setPosition(500 - 10, 60 - 4);
     }
 
     @Override
     public void draw() {
         board.draw();
         digits.draw();
+
+        System.out.println(mouseButton);
     }
 }

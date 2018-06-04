@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class SudokuBoard extends DrawableElement {
-	private static final int sideLength = 30;
-	private static final int spacing = 2;
+	private static final int sideLength = 40;
+	private static final int spacing = 5;
 	
 	SudokuCell[][] board;
 	
