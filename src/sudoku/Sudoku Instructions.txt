@@ -5,4 +5,4 @@ In our game, placing a number into the box is done by first selecting a number b
 
 When right-clicking, if there is no note on a cell(note is a possibility of what a number could be), there will be a note added to the cell with the selected number. If there already is a note with the selected number, the note will be removed.
 
-When a cell is filled by a number, all notes will be removed. When a cell is filled by an invalid number, the cell will be highlighted red. Given cells, which are the cells that are filled when the board is generated, are always highlighted grey and cannot be edited.
+When a cell is filled by a number, all notes will be removed. When a cell is filled by an invalid number, the cell will be highlighted red. Given cells, which are the cells that are filled when the board is generated, are always highlighted grey and cannot be edited by adding a number or a note.
