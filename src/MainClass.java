@@ -1,12 +1,11 @@
 import processing.core.PApplet;
-import sudoku.DigitBoard;
 import sudoku.Input;
-import sudoku.SudokuBoard;
+import sudoku.states.GameState;
+import sudoku.states.StateGame;
 
 public class MainClass extends PApplet {
 
-    SudokuBoard board;
-    DigitBoard digits;
+    public GameState gameState;
 
     public static void main(String[] args) {
         PApplet.main("MainClass");
@@ -19,22 +18,12 @@ public class MainClass extends PApplet {
 
     @Override
     public void setup() {
+        gameState = new StateGame(this);
         Input.parent = this;
-
-        board = new SudokuBoard(this);
-        digits = new DigitBoard(this);
-        
-        board.setPosition(60, 60);
-        digits.setPosition(500 - 10, 60 - 4);
     }
 
     @Override
     public void draw() {
-        Input.updateInput();
-        board.update();
-        digits.update();
 
-        board.draw();
-        digits.draw();
     }
 }

@@ -1,0 +1,21 @@
+package sudoku.states;
+
+import processing.core.PApplet;
+
+public abstract class GameState {
+    PApplet parent;
+
+    public GameState(PApplet parent) {
+        this.parent = parent;
+    }
+
+    // Run once
+    public abstract void start();
+
+    public abstract void end();
+
+    // Run every frame
+    public abstract void update();
+
+    public abstract void draw();
+}
