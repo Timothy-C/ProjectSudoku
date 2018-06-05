@@ -106,7 +106,33 @@ public class SudokuBoard extends DrawableElement {
 		}
 		return true;
 	}
-	
+
+    public void update() {
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                int cellX = this.position.x + x * (sideLength + spacing);
+                int cellY = this.position.y + y * (sideLength + spacing);
+
+                if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
+                    if (selected != board[x][y]) {
+                        if (selected != null) {
+                            selected.status = SudokuCell.Status.UNSELECTED;
+                            for (Coordinate neighbor : selected.neighbors) {
+                                board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
+                            }
+                        }
+
+                        selected = board[x][y];
+                        selected.status = SudokuCell.Status.SELECTED;
+                        for (Coordinate neighbor : selected.neighbors) {
+                            board[neighbor.x][neighbor.y].status = SudokuCell.Status.HIGHLIGHTED;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 	public void draw() {
 		parent.textFont(parent.createFont("Consolas", 30, true));
 		parent.fill(100, 100, 100);
@@ -120,24 +146,7 @@ public class SudokuBoard extends DrawableElement {
 				int cellY = this.position.y + y * (sideLength + spacing);
 				
 				int fillColor = 0x000000;
-				
-				if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
-					if (selected != board[x][y]) {
-						if (selected != null) {
-							selected.status = SudokuCell.Status.UNSELECTED;
-							for (Coordinate neighbor : selected.neighbors) {
-								board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
-							}
-						}
-						
-						selected = board[x][y];
-						selected.status = SudokuCell.Status.SELECTED;
-						for (Coordinate neighbor : selected.neighbors) {
-							board[neighbor.x][neighbor.y].status = SudokuCell.Status.HIGHLIGHTED;
-						}
-					}
-				}
-				
+
 				// cell rectangle
 				switch (board[x][y].status) {
 					case UNSELECTED:
@@ -179,8 +188,9 @@ public class SudokuBoard extends DrawableElement {
 		int fillColor= 0;
 		
 	}
-	
-	public SudokuBoard transformBoard(ITransformation transformation) {
+
+
+    public SudokuBoard transformBoard(ITransformation transformation) {
 		transformation.apply(board);
 		return this;
 	}

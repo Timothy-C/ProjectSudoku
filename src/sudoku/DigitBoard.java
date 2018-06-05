@@ -17,29 +17,34 @@ public class DigitBoard extends DrawableElement {
         
         digits = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9};
     }
-    
-    @Override
-    public void draw() {
-        parent.textFont(parent.createFont("Consolas", 50, true));
 
-        parent.strokeWeight(0.0001f);
-        
+
+    @Override
+    public void update() {
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
 
-
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
-//                    if (selectedDigit != digits[x+y*3] && parent.mousePressed) {
-//                        selected = board[x][y];
-//                        selected.status = SudokuCell.Status.SELECTED;
-//                        for (Coordinate neighbor : selected.neighbors) {
-//                            board[neighbor.x][neighbor.y].status = SudokuCell.Status.HIGHLIGHTED;
-//                        }
-//                    }
+                    if (selectedDigit != digits[x + y * 3] && Input.getMouseButton(Button.LEFT, Event.PRESS)) {
+                        selectedDigit = digits[x + y * 3];
+                    }
                 }
+            }
+        }
+    }
 
+    @Override
+    public void draw() {
+        parent.textFont(parent.createFont("Consolas", 50, true));
+
+        parent.strokeWeight(0.0001f);
+
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                int cellX = this.position.x + x * (sideLength + spacing);
+                int cellY = this.position.y + y * (sideLength + spacing);
 
                 parent.fill(0x00000000);
                 parent.rect(cellX, cellY, sideLength, sideLength);

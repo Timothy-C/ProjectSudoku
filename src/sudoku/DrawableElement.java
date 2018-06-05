@@ -10,6 +10,8 @@ public abstract class DrawableElement {
         this.parent = parent;
     }
 
+    public abstract void update();
+
     public abstract void draw();
 
     public void setPosition(int x, int y) {

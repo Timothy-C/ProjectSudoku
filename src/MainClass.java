@@ -1,5 +1,6 @@
 import processing.core.PApplet;
 import sudoku.DigitBoard;
+import sudoku.Input;
 import sudoku.SudokuBoard;
 
 public class MainClass extends PApplet {
@@ -18,6 +19,8 @@ public class MainClass extends PApplet {
 
     @Override
     public void setup() {
+        Input.parent = this;
+
         board = new SudokuBoard(this);
         digits = new DigitBoard(this);
         
@@ -27,9 +30,11 @@ public class MainClass extends PApplet {
 
     @Override
     public void draw() {
+        Input.updateInput();
+        board.update();
+        digits.update();
+
         board.draw();
         digits.draw();
-
-        System.out.println(mouseButton);
     }
 }
