@@ -46,8 +46,18 @@ public class DigitBoard extends DrawableElement {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
 
-                parent.fill(0x00000000);
-                parent.rect(cellX, cellY, sideLength, sideLength);
+                if(digits[x + y * 3]==selectedDigit)
+                {
+                    parent.fill(0x80808080);
+                    parent.rect(cellX, cellY, sideLength, sideLength);
+                }
+                else
+                {
+                    parent.fill(0x00000000);
+
+                    parent.rect(cellX, cellY, sideLength, sideLength);
+                }
+
 
                 parent.fill(100, 100, 100);
                 parent.text(digits[x + y * 3], cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
