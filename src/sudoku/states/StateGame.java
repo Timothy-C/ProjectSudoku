@@ -14,7 +14,12 @@ public class StateGame extends GameState {
         super(parent);
     }
 
-    public static StateGame getInstance() {
+    /**
+     * Gets the singleton instance of this GameState
+     *
+     * @return the instance of this GameState
+     */
+    public static GameState getInstance() {
         if (instance == null) instance = new StateGame(GameEngine.getInstance().parent);
         return instance;
     }

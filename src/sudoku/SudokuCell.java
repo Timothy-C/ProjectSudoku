@@ -26,6 +26,9 @@ public class SudokuCell {
         this.generateNeighbors();
     }
 
+    /**
+     * Populates the {@link #neighbors neighbors} HashSet with the {@link Coordinate Coordinates} that can interfere with this cell.
+     */
     private void generateNeighbors() {
         // column
         for (int i = 0; i < 9; i++)
