@@ -12,85 +12,84 @@ public class SudokuBoard extends DrawableElement {
     private static final int spacing = 5;
 
     SudokuCell[][] board;
-	
-	SudokuCell selected;
+
+    SudokuCell selected;
 
     public DigitBoard digitBoard;
-	private int selnum;
 
-	// board is organized like this
-	// board[x][y]
-	// 0 x -
-	// y
-	// |
-	
-	public SudokuBoard(PApplet parent) {
-		super(parent);
-		this.board = new SudokuCell[9][9];
-		selected = null;
-		for (int x = 0; x < board.length; x++) {
-			for (int y = 0; y < board[x].length; y++) {
-				board[x][y] = new SudokuCell(new Coordinate(x, y));
-			}
-		}
-		
-		while (!isValid()) {
-			generate();
-		}
-		removeNumber();//Removes numbers
-	}
+    // board is organized like this
+    // board[x][y]
+    // 0 x -
+    // y
+    // |
+
+    public SudokuBoard(PApplet parent) {
+        super(parent);
+        this.board = new SudokuCell[9][9];
+        selected = null;
+        for (int x = 0; x < board.length; x++) {
+            for (int y = 0; y < board[x].length; y++) {
+                board[x][y] = new SudokuCell(new Coordinate(x, y));
+            }
+        }
+
+        while (!isValid()) {
+            generate();
+        }
+        removeNumber();//Removes numbers
+    }
 
     /**
      * Generates a valid Sudoku board arrangement using a row shift algorithm.
      *
      * @see <a href="URL#https://gamedev.stackexchange.com/a/138228">generation algorithm</a>
      */
-	public void generate() {
-		Random rand = new Random();
-		boolean repeated;
-		
-		// generate first row
-		for (int i = 0; i < 9; i++) {
-			// generate unique number
+    public void generate() {
+        Random rand = new Random();
+        boolean repeated;
 
-			do {
-				repeated = false;
-				// randomly generate some number from 1-9
-				board[0][i].value = rand.nextInt(9) + 1;
-				
-				// check row for repeats
-				for (int j = 0; j < i; j++) {
-					if (board[0][i].value == board[0][j].value) {
-						repeated = true;
-						break;
-					}
-				}
-			} while (repeated);
-		}
-		
-		// perform row shifts(transformations)
-		// https://gamedev.stackexchange.com/a/138228
-		for (int i = 1; i < 9; i++) {
-			int shift = i % 3 == 0 ? 1 : 3;
-			for (int j = 0; j < 9; j++) {
-				board[i][j] = new SudokuCell(i, j, board[i - 1][(j + shift) % 9].value);
-				board[i][j].status=SudokuCell.Status.GIVEN;//Sets default to be given
-                board[i][j].unknown=false;//Sets default to be known
-			}
-		}
-	}
+        // generate first row
+        for (int i = 0; i < 9; i++) {
+            // generate unique number
+
+            do {
+                repeated = false;
+                // randomly generate some number from 1-9
+                board[0][i].value = rand.nextInt(9) + 1;
+
+                // check row for repeats
+                for (int j = 0; j < i; j++) {
+                    if (board[0][i].value == board[0][j].value) {
+                        repeated = true;
+                        break;
+                    }
+                }
+            } while (repeated);
+        }
+
+        // perform row shifts(transformations)
+        // https://gamedev.stackexchange.com/a/138228
+        for (int i = 1; i < 9; i++) {
+            int shift = i % 3 == 0 ? 1 : 3;
+            for (int j = 0; j < 9; j++) {
+                board[i][j] = new SudokuCell(i, j, board[i - 1][(j + shift) % 9].value);
+                board[i][j].status = SudokuCell.Status.GIVEN;//Sets default to be given
+                board[i][j].unknown = false;//Sets default to be known
+            }
+        }
+    }
 
     /**
      * Prints the current board arrangement to the console.
      */
-	void printBoard() {
-		for (SudokuCell[] row : board) {
-			for (SudokuCell cell : row) {
-				System.out.print(cell.value + " ");
-			}
-			System.out.println();
-		}
-	}
+    void printBoard() {
+        for (SudokuCell[] row : board) {
+            for (SudokuCell cell : row) {
+                System.out.print(cell.value + " ");
+            }
+            System.out.println();
+        }
+    }
 
     /**
      * Checks if the board arrangement is valid.
@@ -98,35 +97,34 @@ public class SudokuBoard extends DrawableElement {
      *
      * @return whether the board arrangement is valid
      */
-	private boolean isValid() {//Checks full board using the private validArray
-		for (int i = 0; i < 9; i++) {
-			
-			int[] row = new int[9];
-			int[] square = new int[9];
-			int[] column = new int[9];
-			
-			for (int j = 0; j < 9; j++) {
-				column[j] = board[i][j].value;
-				row[j] = board[j][i].value;
-				square[j] = board[(i / 3) * 3 + j / 3][i * 3 % 9 + j % 3].value;
-				
-			}
-			if (!(validArray(column) && validArray(row) && validArray(square)))
-				return false;
-		}
-		return true;
-	}
-	
-	private boolean validArray(int[] check) {//Checks if array contains all numbers from 1 to 9
-		int i = 0;
-		Arrays.sort(check);
-		for (int number : check)
-		{
-			if (number != ++i)
-				return false;
-		}
-		return true;
-	}
+    private boolean isValid() {
+        for (int i = 0; i < 9; i++) {
+
+            int[] row = new int[9];
+            int[] square = new int[9];
+            int[] column = new int[9];
+
+            for (int j = 0; j < 9; j++) {
+                column[j] = board[i][j].value;
+                row[j] = board[j][i].value;
+                square[j] = board[(i / 3) * 3 + j / 3][i * 3 % 9 + j % 3].value;
+
+            }
+            if (!(validArray(column) && validArray(row) && validArray(square)))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean validArray(int[] check) {//Checks if array contains all numbers from 1 to 9
+        int i = 0;
+        Arrays.sort(check);
+        for (int number : check) {
+            if (number != ++i)
+                return false;
+        }
+        return true;
+    }
 
     /**
      * Randomly selects cells to be removed.
@@ -134,6 +132,7 @@ public class SudokuBoard extends DrawableElement {
     public void removeNumber() {
         Random rand = new Random();
         int tempX, tempY;
+
         //Removes the number in 50 random places
         for (int i = 0; i < 50; i++) {
             tempX = rand.nextInt(9);
@@ -143,24 +142,19 @@ public class SudokuBoard extends DrawableElement {
         }
     }
 
-	@Override
-    public void update()
-    {
-        selnum=digitBoard.selectedDigit;
-        for (int x = 0; x < 9; x++)
-        {
-            for (int y = 0; y < 9; y++)
-            {
+    @Override
+    public void update() {
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
 
-                if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength))
-                {//Conditions for the mouse location
-                    if (selected != board[x][y])
-                    {
-                        if (selected != null)
-                        {//First time, first move
-                            if(selected.status != SudokuCell.Status.GIVEN) {
+                // if the cursor is in this box
+                if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
+                        (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
+                    if (selected != board[x][y]) {
+                        if (selected != null) {//First time, first move
+                            if (selected.status != SudokuCell.Status.GIVEN) {
                                 selected.status = SudokuCell.Status.UNSELECTED;
 
                                 for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be highlighted.
@@ -176,15 +170,13 @@ public class SudokuBoard extends DrawableElement {
                         }
 
                     }
-                    if(selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS))//Mouse is pressed down to fill current box
-                    {
-                        selected.value=selnum;
-                        selected.unknown=false;
-                        for(int temp=0;temp<9;temp++)
-                        {
-                            selected.notes[temp]=false;
+                    //Mouse is pressed down to fill current box
+                    if (selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
+                        selected.value = digitBoard.selectedDigit;
+                        selected.unknown = false;
+                        for (int temp = 0; temp < 9; temp++) {
+                            selected.notes[temp] = false;
                         }
-
                     }
                 }
             }
@@ -228,14 +220,10 @@ public class SudokuBoard extends DrawableElement {
                 parent.rect(cellX, cellY, sideLength, sideLength);
 
                 // cell number
-
                 parent.fill(0, 0, 0);
-                if (board[x][y].status == SudokuCell.Status.GIVEN)// || board[x][y].status == SudokuCell.Status.)
-                {
+                if (board[x][y].status == SudokuCell.Status.GIVEN) {
                     parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
-                }
-                else if(board[x][y].unknown==false)//known number
-                {
+                } else if (!board[x][y].unknown) {
                     parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
                 }
             }

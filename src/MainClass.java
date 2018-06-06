@@ -17,8 +17,7 @@ public class MainClass extends PApplet {
     }
 
     @Override
-    public void setup()
-    {
+    public void setup() {
         Input.parent = this;
 
         gameEngine = GameEngine.getInstance();
@@ -28,15 +27,12 @@ public class MainClass extends PApplet {
     }
 
     @Override
-    public void draw()
-    {
-        if (gameEngine.running)
-        {
+    public void draw() {
+        if (gameEngine.running) {
             Input.updateInput();
             gameEngine.update();
             gameEngine.draw();
-        }
-        else {
+        } else {
             gameEngine.end();
             exit();
         }
