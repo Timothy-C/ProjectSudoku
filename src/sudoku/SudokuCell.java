@@ -7,9 +7,8 @@ public class SudokuCell {
     Coordinate position;
 
     boolean unknown = false;//This is true if the cell is empty
-    boolean isClue = false;
     boolean[] notes = new boolean[9];//Notes for the cell
-    Status status = Status.UNSELECTED;
+    Status status = Status.GIVEN;
 
     /**
      * Contains all coordinates that interact with this cell.
@@ -50,6 +49,6 @@ public class SudokuCell {
     }
 
     enum Status {
-        UNSELECTED, SELECTED, HIGHLIGHTED, CONFLICTED
+        UNSELECTED, SELECTED, HIGHLIGHTED, CONFLICTED, GIVEN//The "GIVEN" status makes it so that the player cannt mess with the given cells
     }
 }

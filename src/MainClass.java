@@ -20,9 +20,9 @@ public class MainClass extends PApplet {
     @Override
     public void setup() {
         Input.parent = this;
-
-        board = new SudokuBoard(this);
         digits = new DigitBoard(this);
+        board = new SudokuBoard(this, digits);
+
         
         board.setPosition(60, 60);
         digits.setPosition(500 - 10, 60 - 4);
@@ -31,7 +31,7 @@ public class MainClass extends PApplet {
     @Override
     public void draw() {
         Input.updateInput();
-        board.update();
+        board.update();//digits);
         digits.update();
 
         board.draw();
