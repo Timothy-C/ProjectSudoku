@@ -256,7 +256,7 @@ public class SudokuBoard extends DrawableElement {
                             tempy-=3;
                             counter++;
                         }
-                        tempy=counter;
+                        tempy=2-counter;
                         if(board[x][y].notes[i]) {
                             parent.text(i+1, cellX-3 + sideLength / 4+10*tempx, cellY+3+ sideLength - (sideLength / 4)-10*tempy);
                         }
