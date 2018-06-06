@@ -33,7 +33,7 @@ public class SudokuBoard extends DrawableElement {
         while (!isValid()) {
             generate();
         }
-        removeNumber();//Removes numbers
+        removeNumbers();//Removes numbers
     }
     
     /**
@@ -78,7 +78,7 @@ public class SudokuBoard extends DrawableElement {
     /**
      * Prints the current board arrangement to the console.
      */
-    void printBoard() {
+    private void printBoard() {
         for (SudokuCell[] row : board) {
             for (SudokuCell cell : row) {
                 System.out.print(cell.value + " ");
@@ -125,7 +125,7 @@ public class SudokuBoard extends DrawableElement {
     /**
      * Randomly selects cells to be removed.
      */
-    public void removeNumber() {
+    private void removeNumbers() {
         Random rand = new Random();
         int tempX, tempY;
         
@@ -148,8 +148,9 @@ public class SudokuBoard extends DrawableElement {
                 // if the cursor is in this box
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
                         (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
+                    // if the selected box is not this one
                     if (selected != board[x][y]) {
-                        if (selected != null) {//First time, first move
+                        if (selected != null) {
                             if (selected.status != SudokuCell.Status.GIVEN) {
                                 selected.status = SudokuCell.Status.UNSELECTED;
     
@@ -164,43 +165,39 @@ public class SudokuBoard extends DrawableElement {
                         if (selected.status != SudokuCell.Status.GIVEN) {
                             selected.status = SudokuCell.Status.SELECTED;
                         }
-
+    
                     }
-                    //Mouse is pressed down to fill current box
+    
+                    // mouse left click
                     if (selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-                        if(selected.unknown) {
+                        if (selected.unknown) {
                             selected.value = digitBoard.selectedDigit;
-                            selected.unknown = false;
-                            for (int temp = 0; temp < 9; temp++) {
-                                selected.notes[temp] = false;
-                            }
+                            for (int i = 0; i < 9; i++)
+                                selected.notes[i] = false;
                         }
-                        else
-                        {
-                            selected.unknown = true;
-                        }
+                        selected.unknown = !selected.unknown;
                     }
+    
+                    // mouse right click
                     if (selected.status == SudokuCell.Status.SELECTED && selected.unknown && Input.getMouseButton(Input.Button.RIGHT, Input.Event.PRESS)) {
-                        if(selected.notes[digitBoard.selectedDigit-1]==false) {
+                        if (!selected.notes[digitBoard.selectedDigit - 1])
                             selected.value = 0;
-                            selected.notes[digitBoard.selectedDigit - 1] = true;
-                        }
-                        else{
-                            selected.notes[digitBoard.selectedDigit - 1] = false;
-                        }
+                        selected.notes[digitBoard.selectedDigit - 1] = !selected.notes[digitBoard.selectedDigit - 1];
                     }
                 }
             }
         }
     }
-
+    
     @Override
     public void draw() {
-        parent.textFont(parent.createFont("Consolas", 30, true));
+        final int sideLength1Quarter = sideLength / 4;
+        final int sideLength3Quarter = sideLength - sideLength1Quarter;
+        
         parent.fill(100, 100, 100);
         parent.strokeWeight(0.0001f);
-        int tempx=0,tempy=0,counter=0;
         parent.rectMode(PConstants.CORNER);
+        
         // draw cells
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
@@ -209,55 +206,34 @@ public class SudokuBoard extends DrawableElement {
     
                 parent.fill(board[x][y].status.colour);
                 parent.rect(cellX, cellY, sideLength, sideLength);
-
+    
                 // cell number
                 parent.fill(0, 0, 0);
-                if (board[x][y].status == SudokuCell.Status.GIVEN) {//Given numbers
-                    parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
-                } else if (!board[x][y].unknown) {//Known numbers
-                    parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
-                }
-                else if(board[x][y].unknown) {//Notes
+                if (board[x][y].status == SudokuCell.Status.GIVEN || !board[x][y].unknown) { // not notes
+                    parent.textFont(parent.createFont("Consolas", 30, true));
+                    parent.text(board[x][y].toString(), cellX + sideLength1Quarter, cellY + sideLength3Quarter);
+                } else if (board[x][y].unknown) { // cell notes
                     parent.textFont(parent.createFont("Consolas", 13, true));
-                    for(int i=0;i<9;i++) {
-                        tempx=i;
-                        tempy=i;
-                        while(tempx>=3)
-                        {
-                            tempx-=3;
-                        }
-                        counter=0;
-                        while(tempy>=3)
-                        {
-                            tempy-=3;
-                            counter++;
-                        }
-                        tempy=2-counter;
-                        if(board[x][y].notes[i]) {
-                            parent.text(i+1, cellX-3 + sideLength / 4+10*tempx, cellY+3+ sideLength - (sideLength / 4)-10*tempy);
-                        }
+                    for (int i = 0; i < 9; i++) {
+                        if (board[x][y].notes[i])
+                            parent.text(i + 1, cellX + sideLength1Quarter * (i % 3 + 1) - 3, cellY + sideLength1Quarter * (i / 3 + 1) + 3);
                     }
                 }
-                parent.textFont(parent.createFont("Consolas", 30, true));
             }
         }
-
-        parent.strokeWeight(5);
-        // draw 3x3 boxes
+        
+        // draw 3*3 boxes
         parent.noFill();
+        parent.strokeWeight(5);
         for (int x = 0; x < 3; x++) {//Draws thicc lines between the major boxes
             for (int y = 0; y < 3; y++) {
-                int boxX = this.position.x - (spacing / 2) + 3 * x * (sideLength + spacing);
-                int boxY = this.position.y - (spacing / 2) + 3 * y * (sideLength + spacing);
+                int boxX = this.position.x - (spacing / 2) + x * 3 * (sideLength + spacing);
+                int boxY = this.position.y - (spacing / 2) + y * 3 * (sideLength + spacing);
                 parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
             }
         }
-        parent.fill(100, 100, 100);
-
-        parent.textFont(parent.createFont("Consolas", 40, true));
-
     }
-
+    
     /**
      * Applies a {@link ITransformation transformation} to the board.
      *
