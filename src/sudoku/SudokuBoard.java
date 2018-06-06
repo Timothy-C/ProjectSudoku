@@ -50,7 +50,7 @@ public class SudokuBoard extends DrawableElement {
 		while (!isValid()) {
 			generate();
 		}
-		removeNumber();
+		removeNumber();//Removes numbers
 	}
 	
 	public void generate() {
