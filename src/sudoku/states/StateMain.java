@@ -1,23 +1,30 @@
 package sudoku.states;
 
+import processing.core.PApplet;
+
 public class StateMain extends GameState {
+    
+    public StateMain(PApplet parent) {
+        super(parent);
+    }
+    
     @Override
-    void start() {
+    public void start() {
         parent.rect(30, 30, 30, 30);
     }
 
     @Override
-    void end() {
+    public void end() {
 
     }
 
     @Override
-    void update() {
+    public void update() {
 
     }
 
     @Override
-    void draw() {
+    public void draw() {
         parent.rect(30, 30, 30, 30);
     }
 }

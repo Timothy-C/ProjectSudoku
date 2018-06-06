@@ -9,13 +9,13 @@ public class StateGame extends GameState {
 
     SudokuBoard board;
     DigitBoard digits;
-
-    StateGame(PApplet parent) {
+    
+    public StateGame(PApplet parent) {
         super(parent);
     }
 
     @Override
-    void start() {
+    public void start() {
         board = new SudokuBoard(parent);
         digits = new DigitBoard(parent);
 
@@ -24,12 +24,12 @@ public class StateGame extends GameState {
     }
 
     @Override
-    void end() {
+    public void end() {
 
     }
 
     @Override
-    void update() {
+    public void update() {
         Input.updateInput();
 
         board.update();
@@ -37,7 +37,7 @@ public class StateGame extends GameState {
     }
 
     @Override
-    void draw() {
+    public void draw() {
         board.draw();
         digits.draw();
     }

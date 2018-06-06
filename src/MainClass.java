@@ -20,10 +20,14 @@ public class MainClass extends PApplet {
     public void setup() {
         gameState = new StateGame(this);
         Input.parent = this;
+    
+        gameState.start();
     }
 
     @Override
     public void draw() {
-
+        Input.updateInput();
+        gameState.update();
+        gameState.draw();
     }
 }
