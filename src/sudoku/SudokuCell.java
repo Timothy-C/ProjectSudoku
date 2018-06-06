@@ -6,7 +6,7 @@ public class SudokuCell {
     public int value = 0;
     Coordinate position;
 
-    boolean unknown = false;//This is true if the cell is empty
+    boolean unknown = false;//This is true if the cell is empty, not empty if the cell is filled
     boolean[] notes = new boolean[9];//Notes for the cell
     Status status = Status.GIVEN;
 
@@ -49,6 +49,6 @@ public class SudokuCell {
     }
 
     enum Status {
-        UNSELECTED, SELECTED, HIGHLIGHTED, CONFLICTED, GIVEN//The "GIVEN" status makes it so that the player cannt mess with the given cells
+        UNSELECTED, SELECTED, HIGHLIGHTED, CONFLICTED, GIVEN//The "GIVEN" status makes it so that the player cannot mess with the given cells
     }
 }

@@ -22,7 +22,7 @@ public class StateGame extends GameState {
     @Override
     public void start() {
         digits = new DigitBoard(parent);
-        board = new SudokuBoard(parent, digits);
+        board = new SudokuBoard(parent);
 
         board.setPosition(60, 60);
         digits.setPosition(500 - 10, 60 - 4);
@@ -35,9 +35,8 @@ public class StateGame extends GameState {
 
     @Override
     public void update() {
-        board.update();
         digits.update();
-
+        board.updateboard(digits.selectedDigit);//Should pass selected number in here
         if (digits.selectedDigit == 7) {
             changeState(StateMain.getInstance());
         } else if (digits.selectedDigit == 5) {

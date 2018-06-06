@@ -8,6 +8,8 @@ import sudoku.transform.ITransformation;
 import java.util.Arrays;
 import java.util.Random;
 
+import static sudoku.Input.Button.LEFT;
+
 
 public class SudokuBoard extends DrawableElement {
 	private static final int sideLength = 40;
@@ -25,8 +27,7 @@ public class SudokuBoard extends DrawableElement {
     SudokuCell[][] board;
 	
 	SudokuCell selected;
-
-	DigitBoard digitBoard;
+	private int selnum;
 
 	// board is organized like this
 	// board[x][y]
@@ -34,11 +35,8 @@ public class SudokuBoard extends DrawableElement {
 	// y
 	// |
 	
-	public SudokuBoard(PApplet parent, DigitBoard digitBoard) {
+	public SudokuBoard(PApplet parent) {
 		super(parent);
-
-		this.digitBoard = digitBoard;
-
 		this.board = new SudokuCell[9][9];
 		selected = null;
 		for (int x = 0; x < board.length; x++) {
@@ -140,20 +138,10 @@ public class SudokuBoard extends DrawableElement {
 		}
 	}
 
-	@Override
-    public void update()
+	//@Override
+    public void updateboard(int currentselect)
     {
-    //    int currentselect=selectednum.selectedDigit;
-   /*     for (int a = 0; a < 9; a++)
-        {
-            for (int b = 0; b < 9; b++)
-            {
-                if (board[a][b].value == last)
-                {
-                    board[a][b].status = SudokuCell.Status.UNSELECTED;
-                }
-            }
-        }*/
+        selnum=currentselect;
         for (int x = 0; x < 9; x++)
         {
             for (int y = 0; y < 9; y++)
@@ -161,8 +149,8 @@ public class SudokuBoard extends DrawableElement {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
 
-                if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
-                        (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {//Conditions for the mouse location
+                if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength))
+                {//Conditions for the mouse location
                     if (selected != board[x][y])
                     {
                         if (selected != null)
@@ -188,6 +176,16 @@ public class SudokuBoard extends DrawableElement {
                                 board[neighbor.x][neighbor.y].status = SudokuCell.Status.HIGHLIGHTED;
                             }
                         }*/
+                    }
+                    if(selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(LEFT, Input.Event.PRESS))//Mouse is pressed down to fill current box
+                    {
+                        selected.value=selnum;
+                        selected.unknown=false;
+                        for(int temp=0;temp<9;temp++)
+                        {
+                            selected.notes[temp]=false;
+                        }
+
                     }
                 }
             }
@@ -236,6 +234,10 @@ public class SudokuBoard extends DrawableElement {
 
                 parent.fill(0, 0, 0);
                 if(board[x][y].status == SudokuCell.Status.GIVEN)// || board[x][y].status == SudokuCell.Status.)
+                {
+                    parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
+                }
+                else if(board[x][y].unknown==false)//known number
                 {
                     parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
                 }
