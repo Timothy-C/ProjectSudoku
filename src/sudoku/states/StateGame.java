@@ -21,8 +21,8 @@ public class StateGame extends GameState {
 
     @Override
     public void start() {
-        board = new SudokuBoard(parent);
         digits = new DigitBoard(parent);
+        board = new SudokuBoard(parent, digits);
 
         board.setPosition(60, 60);
         digits.setPosition(500 - 10, 60 - 4);
