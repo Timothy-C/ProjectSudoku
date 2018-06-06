@@ -10,19 +10,16 @@ import java.util.Random;
 public class SudokuBoard extends DrawableElement {
     private static final int sideLength = 40;
     private static final int spacing = 5;
-
-    SudokuCell[][] board;
-
-    SudokuCell selected;
-
     public DigitBoard digitBoard;
-
+    SudokuCell[][] board;
+    SudokuCell selected;
+    
     // board is organized like this
     // board[x][y]
     // 0 x -
     // y
     // |
-
+    
     public SudokuBoard(PApplet parent) {
         super(parent);
         this.board = new SudokuCell[9][9];
@@ -32,13 +29,13 @@ public class SudokuBoard extends DrawableElement {
                 board[x][y] = new SudokuCell(new Coordinate(x, y));
             }
         }
-
+        
         while (!isValid()) {
             generate();
         }
         removeNumber();//Removes numbers
     }
-
+    
     /**
      * Generates a valid Sudoku board arrangement using a row shift algorithm.
      *
@@ -47,16 +44,15 @@ public class SudokuBoard extends DrawableElement {
     public void generate() {
         Random rand = new Random();
         boolean repeated;
-
+    
         // generate first row
         for (int i = 0; i < 9; i++) {
             // generate unique number
-
             do {
                 repeated = false;
                 // randomly generate some number from 1-9
                 board[0][i].value = rand.nextInt(9) + 1;
-
+    
                 // check row for repeats
                 for (int j = 0; j < i; j++) {
                     if (board[0][i].value == board[0][j].value) {
@@ -66,7 +62,7 @@ public class SudokuBoard extends DrawableElement {
                 }
             } while (repeated);
         }
-
+    
         // perform row shifts(transformations)
         // https://gamedev.stackexchange.com/a/138228
         for (int i = 1; i < 9; i++) {
@@ -78,7 +74,7 @@ public class SudokuBoard extends DrawableElement {
             }
         }
     }
-
+    
     /**
      * Prints the current board arrangement to the console.
      */
@@ -90,7 +86,7 @@ public class SudokuBoard extends DrawableElement {
             System.out.println();
         }
     }
-
+    
     /**
      * Checks if the board arrangement is valid.
      * For example, all columns, rows, and boxes contains the numbers from 1 to 9.
@@ -99,23 +95,23 @@ public class SudokuBoard extends DrawableElement {
      */
     private boolean isValid() {
         for (int i = 0; i < 9; i++) {
-
+    
             int[] row = new int[9];
             int[] square = new int[9];
             int[] column = new int[9];
-
+    
             for (int j = 0; j < 9; j++) {
                 column[j] = board[i][j].value;
                 row[j] = board[j][i].value;
                 square[j] = board[(i / 3) * 3 + j / 3][i * 3 % 9 + j % 3].value;
-
+        
             }
             if (!(validArray(column) && validArray(row) && validArray(square)))
                 return false;
         }
         return true;
     }
-
+    
     private boolean validArray(int[] check) {//Checks if array contains all numbers from 1 to 9
         int i = 0;
         Arrays.sort(check);
@@ -125,14 +121,14 @@ public class SudokuBoard extends DrawableElement {
         }
         return true;
     }
-
+    
     /**
      * Randomly selects cells to be removed.
      */
     public void removeNumber() {
         Random rand = new Random();
         int tempX, tempY;
-
+        
         //Removes the number in 50 random places
         for (int i = 0; i < 50; i++) {
             tempX = rand.nextInt(9);
@@ -141,14 +137,14 @@ public class SudokuBoard extends DrawableElement {
             board[tempX][tempY].unknown = true;
         }
     }
-
+    
     @Override
     public void update() {
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
-
+    
                 // if the cursor is in this box
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
                         (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
@@ -156,7 +152,7 @@ public class SudokuBoard extends DrawableElement {
                         if (selected != null) {//First time, first move
                             if (selected.status != SudokuCell.Status.GIVEN) {
                                 selected.status = SudokuCell.Status.UNSELECTED;
-
+    
                                 for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be highlighted.
                                     if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN) {
                                         board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
@@ -210,28 +206,8 @@ public class SudokuBoard extends DrawableElement {
             for (int y = 0; y < 9; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
-
-                int fillColor = 0x000000;
-
-                // cell rectangle
-                switch (board[x][y].status) {
-                    case UNSELECTED:
-                        fillColor = 0xFFFFFFFF;
-                        break;
-                    case SELECTED:
-                        fillColor = 0xFFA0A0A0;
-                        break;
-                    case HIGHLIGHTED:
-                        fillColor = 0xFFF0F000;
-                        break;
-                    case CONFLICTED:
-                        fillColor = 0xFFFF0000;
-                        break;
-                    case GIVEN:
-                        fillColor = 0x80808080;
-                        break;
-                }
-                parent.fill(fillColor);
+    
+                parent.fill(board[x][y].status.colour);
                 parent.rect(cellX, cellY, sideLength, sideLength);
 
                 // cell number

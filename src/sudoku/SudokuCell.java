@@ -50,8 +50,15 @@ public class SudokuCell {
     public String toString() {
         return value != 0 ? value + "" : "";
     }
-
+    
+    //The "GIVEN" status makes it so that the player cannot mess with the given cells
     enum Status {
-        UNSELECTED, SELECTED, HIGHLIGHTED, CONFLICTED, GIVEN//The "GIVEN" status makes it so that the player cannot mess with the given cells
+        UNSELECTED(0xFFFFFFFF), SELECTED(0xFFA0A0A0), HIGHLIGHTED(0xFFF0F000), CONFLICTED(0xFFFF0000), GIVEN(0x80808080);
+        
+        public final int colour;
+        
+        Status(int colour) {
+            this.colour = colour;
+        }
     }
 }
