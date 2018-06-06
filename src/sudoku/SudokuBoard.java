@@ -4,29 +4,18 @@ import processing.core.PApplet;
 import processing.core.PConstants;
 import sudoku.transform.ITransformation;
 
-
 import java.util.Arrays;
 import java.util.Random;
 
-import static sudoku.Input.Button.LEFT;
-
-
 public class SudokuBoard extends DrawableElement {
-	private static final int sideLength = 40;
-	private static final int spacing = 5;
-//	private int last=10;
-//	List<Integer> lastx = new ArrayList<Integer>();
-
-
-  //  List<int> lasty;
-
-    //{
-     //   lasty = new List<int>();
-    //}
+    private static final int sideLength = 40;
+    private static final int spacing = 5;
 
     SudokuCell[][] board;
 	
 	SudokuCell selected;
+
+    public DigitBoard digitBoard;
 	private int selnum;
 
 	// board is organized like this
@@ -50,7 +39,12 @@ public class SudokuBoard extends DrawableElement {
 		}
 		removeNumber();//Removes numbers
 	}
-	
+
+    /**
+     * Generates a valid Sudoku board arrangement using a row shift algorithm.
+     *
+     * @see <a href="URL#https://gamedev.stackexchange.com/a/138228">generation algorithm</a>
+     */
 	public void generate() {
 		Random rand = new Random();
 		boolean repeated;
@@ -85,7 +79,10 @@ public class SudokuBoard extends DrawableElement {
 			}
 		}
 	}
-	
+
+    /**
+     * Prints the current board arrangement to the console.
+     */
 	void printBoard() {
 		for (SudokuCell[] row : board) {
 			for (SudokuCell cell : row) {
@@ -94,7 +91,13 @@ public class SudokuBoard extends DrawableElement {
 			System.out.println();
 		}
 	}
-	
+
+    /**
+     * Checks if the board arrangement is valid.
+     * For example, all columns, rows, and boxes contains the numbers from 1 to 9.
+     *
+     * @return whether the board arrangement is valid
+     */
 	private boolean isValid() {//Checks full board using the private validArray
 		for (int i = 0; i < 9; i++) {
 			
@@ -125,23 +128,25 @@ public class SudokuBoard extends DrawableElement {
 		return true;
 	}
 
-	public void removeNumber()//Randomly selects numbers to be removed
-	{
-		Random rand = new Random();
-		int tempX, tempY;
-		for(int i=0;i<50;i++)//Removes 50 numbers in 50 random places... should probably make it so that there's no repeats, but whatever.
-		{
-			tempX=rand.nextInt(9);
-			tempY=rand.nextInt(9);
-		    board[tempX][tempY].status=SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
-            board[tempX][tempY].unknown=true;
-		}
-	}
+    /**
+     * Randomly selects cells to be removed.
+     */
+    public void removeNumber() {
+        Random rand = new Random();
+        int tempX, tempY;
+        //Removes the number in 50 random places
+        for (int i = 0; i < 50; i++) {
+            tempX = rand.nextInt(9);
+            tempY = rand.nextInt(9);
+            board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
+            board[tempX][tempY].unknown = true;
+        }
+    }
 
-	//@Override
-    public void updateboard(int currentselect)
+	@Override
+    public void update()
     {
-        selnum=currentselect;
+        selnum=digitBoard.selectedDigit;
         for (int x = 0; x < 9; x++)
         {
             for (int y = 0; y < 9; y++)
@@ -158,26 +163,20 @@ public class SudokuBoard extends DrawableElement {
                             if(selected.status != SudokuCell.Status.GIVEN) {
                                 selected.status = SudokuCell.Status.UNSELECTED;
 
-                                for (Coordinate neighbor : selected.neighbors)
-                                {//This is used to get all the neighboring cells to be highlighted.
-                                    if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN)
-                                    {
+                                for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be highlighted.
+                                    if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN) {
                                         board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
                                     }
                                 }
                             }
                         }
                         selected = board[x][y];
-                        if(selected.status != SudokuCell.Status.GIVEN) {
+                        if (selected.status != SudokuCell.Status.GIVEN) {
                             selected.status = SudokuCell.Status.SELECTED;
                         }
-                        /*for (Coordinate neighbor : selected.neighbors) {
-                            if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN ) {
-                                board[neighbor.x][neighbor.y].status = SudokuCell.Status.HIGHLIGHTED;
-                            }
-                        }*/
+
                     }
-                    if(selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(LEFT, Input.Event.PRESS))//Mouse is pressed down to fill current box
+                    if(selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS))//Mouse is pressed down to fill current box
                     {
                         selected.value=selnum;
                         selected.unknown=false;
@@ -191,26 +190,24 @@ public class SudokuBoard extends DrawableElement {
             }
         }
     }
-    public void draw()
-    {
+
+    @Override
+    public void draw() {
         parent.textFont(parent.createFont("Consolas", 30, true));
         parent.fill(100, 100, 100);
         parent.strokeWeight(0.0001f);
 
         parent.rectMode(PConstants.CORNER);
         // draw cells
-        for (int x = 0; x < 9; x++)
-        {
-            for (int y = 0; y < 9; y++)
-            {
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
 
                 int fillColor = 0x000000;
 
                 // cell rectangle
-                switch (board[x][y].status)
-                {
+                switch (board[x][y].status) {
                     case UNSELECTED:
                         fillColor = 0xFFFFFFFF;
                         break;
@@ -233,7 +230,7 @@ public class SudokuBoard extends DrawableElement {
                 // cell number
 
                 parent.fill(0, 0, 0);
-                if(board[x][y].status == SudokuCell.Status.GIVEN)// || board[x][y].status == SudokuCell.Status.)
+                if (board[x][y].status == SudokuCell.Status.GIVEN)// || board[x][y].status == SudokuCell.Status.)
                 {
                     parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
                 }
@@ -247,10 +244,8 @@ public class SudokuBoard extends DrawableElement {
         parent.strokeWeight(5);
         // draw 3x3 boxes
         parent.noFill();
-        for (int x = 0; x < 3; x++)
-        {//Draws thicc lines between the major boxes
-            for (int y = 0; y < 3; y++)
-            {
+        for (int x = 0; x < 3; x++) {//Draws thicc lines between the major boxes
+            for (int y = 0; y < 3; y++) {
                 int boxX = this.position.x - (spacing / 2) + 3 * x * (sideLength + spacing);
                 int boxY = this.position.y - (spacing / 2) + 3 * y * (sideLength + spacing);
                 parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
@@ -262,13 +257,14 @@ public class SudokuBoard extends DrawableElement {
 
     }
 
-
-    public SudokuBoard transformBoard(ITransformation transformation)
-    {
+    /**
+     * Applies a {@link ITransformation transformation} to the board.
+     *
+     * @param transformation transformation to apply
+     * @return this SudokuBoard for method chaining
+     */
+    public SudokuBoard transformBoard(ITransformation transformation) {
         transformation.apply(board);
         return this;
     }
-
-
-
 }

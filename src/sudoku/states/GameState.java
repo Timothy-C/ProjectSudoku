@@ -5,7 +5,9 @@ import processing.core.PApplet;
 public abstract class GameState {
     PApplet parent;
 
-    public GameState(PApplet parent) {
+    static GameState instance;
+
+    GameState(PApplet parent) {
         this.parent = parent;
     }
 

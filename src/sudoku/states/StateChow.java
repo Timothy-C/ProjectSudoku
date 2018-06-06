@@ -1,11 +1,10 @@
 package sudoku.states;
 
 import processing.core.PApplet;
-import sudoku.Input;
 
-public class StateMain extends GameState {
+public class StateChow extends GameState {
 
-    private StateMain(PApplet parent) {
+    private StateChow(PApplet parent) {
         super(parent);
     }
 
@@ -15,14 +14,13 @@ public class StateMain extends GameState {
      * @return the instance of this GameState
      */
     public static GameState getInstance() {
-        if (instance == null) instance = new StateMain(GameEngine.getInstance().parent);
+        if (instance == null) instance = new StateChow(GameEngine.getInstance().parent);
         return instance;
     }
 
     @Override
     public void start() {
-        parent.fill(50f);
-        parent.rect(30, 30, 30, 30);
+
     }
 
     @Override
@@ -32,14 +30,11 @@ public class StateMain extends GameState {
 
     @Override
     public void update() {
-        if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-            changeState(StateGame.getInstance());
-        }
+
     }
 
     @Override
     public void draw() {
-        parent.rect(30, 30, 30, 30);
-    }
 
+    }
 }
