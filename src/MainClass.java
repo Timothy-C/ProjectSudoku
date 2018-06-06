@@ -1,11 +1,11 @@
 import processing.core.PApplet;
 import sudoku.Input;
-import sudoku.states.GameState;
-import sudoku.states.StateGame;
+import sudoku.states.GameEngine;
+import sudoku.states.StateMain;
 
 public class MainClass extends PApplet {
 
-    public GameState gameState;
+    private GameEngine gameEngine;
 
     public static void main(String[] args) {
         PApplet.main("MainClass");
@@ -18,16 +18,23 @@ public class MainClass extends PApplet {
 
     @Override
     public void setup() {
-        gameState = new StateGame(this);
         Input.parent = this;
-    
-        gameState.start();
+
+        gameEngine = GameEngine.getInstance();
+        gameEngine.parent = this;
+        gameEngine.start();
+        gameEngine.changeState(StateMain.getInstance());
     }
 
     @Override
     public void draw() {
-        Input.updateInput();
-        gameState.update();
-        gameState.draw();
+        if (gameEngine.running) {
+            Input.updateInput();
+            gameEngine.update();
+            gameEngine.draw();
+        } else {
+            gameEngine.end();
+            exit();
+        }
     }
 }

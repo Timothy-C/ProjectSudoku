@@ -2,14 +2,6 @@ package sudoku;
 
 import processing.core.PApplet;
 
-enum Event {
-    PRESS, HELD, RELEASE
-}
-
-enum Button {
-    LEFT, MIDDLE, RIGHT
-}
-
 public class Input {
 
     public static PApplet parent;
@@ -17,10 +9,10 @@ public class Input {
     private static boolean[] isHeld = new boolean[3];
 
     public static void updateInput() {
-        for (int i = 0; i < 3; i++) wasHeld[i] = isHeld[i];
-        isHeld[0] = parent.mousePressed && parent.mouseButton == parent.LEFT;
-        isHeld[1] = parent.mousePressed && parent.mouseButton == parent.CENTER;
-        isHeld[2] = parent.mousePressed && parent.mouseButton == parent.RIGHT;
+        for (int i = 0; i < 3; i++) {
+            wasHeld[i] = isHeld[i];
+            isHeld[i] = parent.mousePressed && parent.mouseButton == Button.values()[i].keycode;
+        }
     }
 
     public static boolean getMouseButton(Button button, Event event) {
@@ -34,5 +26,19 @@ public class Input {
         }
 
         return false;
+    }
+
+    public enum Button {
+        LEFT(37), MIDDLE(3), RIGHT(39);
+
+        private final int keycode;
+
+        Button(int keycode) {
+            this.keycode = keycode;
+        }
+    }
+
+    public enum Event {
+        PRESS, HELD, RELEASE
     }
 }

@@ -27,7 +27,7 @@ public class DigitBoard extends DrawableElement {
                 int cellY = this.position.y + y * (sideLength + spacing);
 
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) && (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
-                    if (selectedDigit != digits[x + y * 3] && Input.getMouseButton(Button.LEFT, Event.PRESS)) {
+                    if (selectedDigit != digits[x + y * 3] && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
                         selectedDigit = digits[x + y * 3];
                     }
                 }

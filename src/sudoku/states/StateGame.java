@@ -2,16 +2,21 @@ package sudoku.states;
 
 import processing.core.PApplet;
 import sudoku.DigitBoard;
-import sudoku.Input;
 import sudoku.SudokuBoard;
 
 public class StateGame extends GameState {
 
-    SudokuBoard board;
-    DigitBoard digits;
-    
-    public StateGame(PApplet parent) {
+    private static StateGame instance;
+    private SudokuBoard board;
+    private DigitBoard digits;
+
+    private StateGame(PApplet parent) {
         super(parent);
+    }
+
+    public static StateGame getInstance() {
+        if (instance == null) instance = new StateGame(GameEngine.getInstance().parent);
+        return instance;
     }
 
     @Override
@@ -30,10 +35,14 @@ public class StateGame extends GameState {
 
     @Override
     public void update() {
-        Input.updateInput();
-
         board.update();
         digits.update();
+
+        if (digits.selectedDigit == 7) {
+            changeState(StateMain.getInstance());
+        } else if (digits.selectedDigit == 5) {
+            GameEngine.getInstance().exit();
+        }
     }
 
     @Override
