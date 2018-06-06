@@ -172,10 +172,25 @@ public class SudokuBoard extends DrawableElement {
                     }
                     //Mouse is pressed down to fill current box
                     if (selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-                        selected.value = digitBoard.selectedDigit;
-                        selected.unknown = false;
-                        for (int temp = 0; temp < 9; temp++) {
-                            selected.notes[temp] = false;
+                        if(selected.unknown) {
+                            selected.value = digitBoard.selectedDigit;
+                            selected.unknown = false;
+                            for (int temp = 0; temp < 9; temp++) {
+                                selected.notes[temp] = false;
+                            }
+                        }
+                        else
+                        {
+                            selected.unknown = true;
+                        }
+                    }
+                    if (selected.status == SudokuCell.Status.SELECTED && selected.unknown && Input.getMouseButton(Input.Button.RIGHT, Input.Event.PRESS)) {
+                        if(selected.notes[digitBoard.selectedDigit-1]==false) {
+                            selected.value = 0;
+                            selected.notes[digitBoard.selectedDigit - 1] = true;
+                        }
+                        else{
+                            selected.notes[digitBoard.selectedDigit - 1] = false;
                         }
                     }
                 }
@@ -188,7 +203,7 @@ public class SudokuBoard extends DrawableElement {
         parent.textFont(parent.createFont("Consolas", 30, true));
         parent.fill(100, 100, 100);
         parent.strokeWeight(0.0001f);
-
+        int tempx=0,tempy=0,counter=0;
         parent.rectMode(PConstants.CORNER);
         // draw cells
         for (int x = 0; x < 9; x++) {
@@ -221,11 +236,33 @@ public class SudokuBoard extends DrawableElement {
 
                 // cell number
                 parent.fill(0, 0, 0);
-                if (board[x][y].status == SudokuCell.Status.GIVEN) {
+                if (board[x][y].status == SudokuCell.Status.GIVEN) {//Given numbers
                     parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
-                } else if (!board[x][y].unknown) {
+                } else if (!board[x][y].unknown) {//Known numbers
                     parent.text(board[x][y].toString(), cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
                 }
+                else if(board[x][y].unknown) {//Notes
+                    parent.textFont(parent.createFont("Consolas", 13, true));
+                    for(int i=0;i<9;i++) {
+                        tempx=i;
+                        tempy=i;
+                        while(tempx>=3)
+                        {
+                            tempx-=3;
+                        }
+                        counter=0;
+                        while(tempy>=3)
+                        {
+                            tempy-=3;
+                            counter++;
+                        }
+                        tempy=counter;
+                        if(board[x][y].notes[i]) {
+                            parent.text(i+1, cellX-3 + sideLength / 4+10*tempx, cellY+3+ sideLength - (sideLength / 4)-10*tempy);
+                        }
+                    }
+                }
+                parent.textFont(parent.createFont("Consolas", 30, true));
             }
         }
 
