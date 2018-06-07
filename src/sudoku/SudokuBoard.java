@@ -128,18 +128,33 @@ public class SudokuBoard extends DrawableElement {
     }
     
     /**
-     * Randomly selects cells to be removed.
+     * Randomly selects up to 50 cells to be removed.
      */
     private void removeNumbers() {
         Random rand = new Random();
-        int tempX, tempY;
-        
-        //Removes the number in 50 random places
-        for (int i = 0; i < 50; i++) {
-            tempX = rand.nextInt(9);
-            tempY = rand.nextInt(9);
-            board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
-            board[tempX][tempY].unknown = true;
+        int tempX, tempY,counter;
+        boolean least=false;
+        while(!least) {
+            //Removes the numbers from 31 to 50 random cells
+            for (int i = 0; i < 50; i++) {
+                tempX = rand.nextInt(9);
+                tempY = rand.nextInt(9);
+                board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
+                board[tempX][tempY].unknown = true;
+            }
+            counter=0;
+            for (int x = 0; x < 9; x++) {
+                for (int y = 0; y < 9; y++) {
+                    if(board[x][y].unknown)
+                    {
+                        counter++;
+                    }
+                }
+            }
+            if(counter>30)
+            {
+                least=true;
+            }
         }
     }
     
