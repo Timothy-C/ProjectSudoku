@@ -38,28 +38,28 @@ public class DigitBoard extends DrawableElement {
     @Override
     public void draw() {
         parent.textFont(parent.createFont("Consolas", 50, true));
-
-        parent.strokeWeight(0.0001f);
+    
+        parent.noStroke();
 
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
-
-                if(digits[x + y * 3]==selectedDigit)
+    
+                if (digits[x + y * 3] == selectedDigit)
                 {
-                    parent.fill(0x80808080);
+                    parent.fill(SolarizedColours.getColour(4));
                     parent.rect(cellX, cellY, sideLength, sideLength);
                 }
                 else
                 {
-                    parent.fill(0x00000000);
+                    parent.fill(SolarizedColours.getColour(3));
 
                     parent.rect(cellX, cellY, sideLength, sideLength);
                 }
-
-
-                parent.fill(100, 100, 100);
+    
+    
+                parent.fill(SolarizedColours.getText());
                 parent.text(digits[x + y * 3], cellX + sideLength / 4, cellY + sideLength - (sideLength / 4));
 
             }

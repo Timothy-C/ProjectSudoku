@@ -45,7 +45,7 @@ public class StateGame extends GameState {
         board.update();//Should pass selected number in here
         if (digits.selectedDigit == 7) {
             changeState(StateMain.getInstance());
-        } else if (digits.selectedDigit == 5) {
+        } else if (digits.selectedDigit == 8) {
             GameEngine.getInstance().exit();
         }
     }

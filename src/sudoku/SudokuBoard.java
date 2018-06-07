@@ -9,7 +9,12 @@ import java.util.Random;
 
 public class SudokuBoard extends DrawableElement {
     private static final int sideLength = 40;
-    private static final int spacing = 5;
+    private static final int spacing = 4;
+    
+    private static final int backing = SolarizedColours.getColour(4);
+    private static final int border = SolarizedColours.getColour(1);
+    
+    
     public DigitBoard digitBoard;
     SudokuCell[][] board;
     SudokuCell selected;
@@ -89,7 +94,7 @@ public class SudokuBoard extends DrawableElement {
     
     /**
      * Checks if the board arrangement is valid.
-     * For example, all columns, rows, and boxes contains the numbers from 1 to 9.
+     * For example, all columns, rows, and border contains the numbers from 1 to 9.
      *
      * @return whether the board arrangement is valid
      */
@@ -193,11 +198,28 @@ public class SudokuBoard extends DrawableElement {
     public void draw() {
         final int sideLength1Quarter = sideLength / 4;
         final int sideLength3Quarter = sideLength - sideLength1Quarter;
-        
-        parent.fill(100, 100, 100);
-        parent.strokeWeight(0.0001f);
+    
+        parent.strokeWeight(1);
         parent.rectMode(PConstants.CORNER);
-        
+    
+        // draw backing
+        parent.noStroke();
+        parent.fill(backing);
+        parent.rect(this.position.x - spacing, this.position.y - spacing, 9 * (sideLength + spacing) + spacing, 9 * (sideLength + spacing) + spacing);
+    
+        // draw 3*3 border
+        parent.strokeWeight(spacing);
+        parent.noFill();
+        parent.stroke(border);
+        for (int x = 0; x < 3; x++) {
+            for (int y = 0; y < 3; y++) {
+                int boxX = this.position.x - (spacing / 2) + x * 3 * (sideLength + spacing);
+                int boxY = this.position.y - (spacing / 2) + y * 3 * (sideLength + spacing);
+                parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
+            }
+        }
+    
+        parent.noStroke();
         // draw cells
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
@@ -208,7 +230,7 @@ public class SudokuBoard extends DrawableElement {
                 parent.rect(cellX, cellY, sideLength, sideLength);
     
                 // cell number
-                parent.fill(0, 0, 0);
+                parent.fill(SolarizedColours.getText());
                 if (board[x][y].status == SudokuCell.Status.GIVEN || !board[x][y].unknown) { // not notes
                     parent.textFont(parent.createFont("Consolas", 30, true));
                     parent.text(board[x][y].toString(), cellX + sideLength1Quarter, cellY + sideLength3Quarter);
@@ -219,17 +241,6 @@ public class SudokuBoard extends DrawableElement {
                             parent.text(i + 1, cellX + sideLength1Quarter * (i % 3 + 1) - 3, cellY + sideLength1Quarter * (i / 3 + 1) + 3);
                     }
                 }
-            }
-        }
-        
-        // draw 3*3 boxes
-        parent.noFill();
-        parent.strokeWeight(5);
-        for (int x = 0; x < 3; x++) {//Draws thicc lines between the major boxes
-            for (int y = 0; y < 3; y++) {
-                int boxX = this.position.x - (spacing / 2) + x * 3 * (sideLength + spacing);
-                int boxY = this.position.y - (spacing / 2) + y * 3 * (sideLength + spacing);
-                parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
             }
         }
     }

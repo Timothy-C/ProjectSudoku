@@ -1,6 +1,7 @@
 package sudoku.states;
 
 import processing.core.PApplet;
+import sudoku.SolarizedColours;
 
 public class GameEngine {
     private static GameEngine instance;
@@ -23,7 +24,7 @@ public class GameEngine {
 
     public void changeState(GameState newState) {
         if (gameState != null) gameState.end();
-        parent.background(204f);
+        parent.background(SolarizedColours.getColour(2));
         gameState = newState;
         gameState.start();
     }
