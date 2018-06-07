@@ -127,7 +127,7 @@ public class SudokuBoard extends DrawableElement {
      */
     private void removeNumbers() {
         Random rand = new Random();
-        int tempX, tempY,counter=0;
+        int tempX, tempY,counter;
         boolean least=false;
         while(!least) {
             //Removes the number from 30 to 50 random places
@@ -137,6 +137,7 @@ public class SudokuBoard extends DrawableElement {
                 board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
                 board[tempX][tempY].unknown = true;
             }
+            counter=0;
             for (int x = 0; x < 9; x++) {
                 for (int y = 0; y < 9; y++) {
                     if(board[x][y].unknown)
