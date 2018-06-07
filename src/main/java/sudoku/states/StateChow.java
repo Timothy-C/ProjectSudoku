@@ -1,4 +1,4 @@
-package sudoku.states;
+package main.java.sudoku.states;
 
 import processing.core.PApplet;
 

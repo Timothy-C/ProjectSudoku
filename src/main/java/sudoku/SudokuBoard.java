@@ -1,8 +1,8 @@
-package sudoku;
+package main.java.sudoku;
 
+import main.java.sudoku.transform.ITransformation;
 import processing.core.PApplet;
 import processing.core.PConstants;
-import sudoku.transform.ITransformation;
 
 import java.util.Arrays;
 import java.util.Random;

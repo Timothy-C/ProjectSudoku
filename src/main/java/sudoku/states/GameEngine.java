@@ -1,7 +1,7 @@
-package sudoku.states;
+package main.java.sudoku.states;
 
+import main.java.sudoku.SolarizedColours;
 import processing.core.PApplet;
-import sudoku.SolarizedColours;
 
 public class GameEngine {
     private static GameEngine instance;

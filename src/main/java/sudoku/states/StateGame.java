@@ -1,8 +1,8 @@
-package sudoku.states;
+package main.java.sudoku.states;
 
+import main.java.sudoku.DigitBoard;
+import main.java.sudoku.SudokuBoard;
 import processing.core.PApplet;
-import sudoku.DigitBoard;
-import sudoku.SudokuBoard;
 
 public class StateGame extends GameState {
 

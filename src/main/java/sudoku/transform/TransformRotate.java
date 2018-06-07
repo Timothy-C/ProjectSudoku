@@ -1,6 +1,6 @@
-package sudoku.transform;
+package main.java.sudoku.transform;
 
-import sudoku.SudokuCell;
+import main.java.sudoku.SudokuCell;
 
 public class TransformRotate implements ITransformation {
     private int rotations;

@@ -1,7 +1,7 @@
-package sudoku.states;
+package main.java.sudoku.states;
 
+import main.java.sudoku.Input;
 import processing.core.PApplet;
-import sudoku.Input;
 
 public class StateMain extends GameState {
 

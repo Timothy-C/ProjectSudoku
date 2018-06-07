@@ -1,4 +1,4 @@
-package sudoku;
+package main.java.sudoku;
 
 import processing.core.PApplet;
 
