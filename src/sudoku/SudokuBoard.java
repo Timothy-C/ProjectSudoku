@@ -130,7 +130,7 @@ public class SudokuBoard extends DrawableElement {
         int tempX, tempY,counter;
         boolean least=false;
         while(!least) {
-            //Removes the number from 30 to 50 random places
+            //Removes the numbers from 31 to 50 random cells
             for (int i = 0; i < 50; i++) {
                 tempX = rand.nextInt(9);
                 tempY = rand.nextInt(9);
