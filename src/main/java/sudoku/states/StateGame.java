@@ -25,7 +25,7 @@ public class StateGame extends GameState {
     }
 
     @Override
-    public void start() {
+    public void start() {//Declares stuff
         digits = new DigitBoard(parent);
         board = new SudokuBoard(parent);
         board.digitBoard = digits;

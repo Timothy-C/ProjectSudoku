@@ -1,6 +1,7 @@
 package main.java.sudoku.states;
 
 import main.java.sudoku.Input;
+import main.java.sudoku.SolarizedColours;
 import processing.core.PApplet;
 
 public class StateMain extends GameState {
@@ -23,6 +24,8 @@ public class StateMain extends GameState {
     public void start() {
         parent.fill(50f);
         parent.rect(30, 30, 30, 30);
+        //parent.fill(50f);
+        parent.rect(60, 60, 50, 50);
     }
 
     @Override
@@ -32,8 +35,15 @@ public class StateMain extends GameState {
 
     @Override
     public void update() {
-        if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-            changeState(StateGame.getInstance());
+        if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS )) {
+            if(parent.mouseX>60 && parent.mouseX<110 && parent.mouseY>60 && parent.mouseY<110) {
+                changeState(StateGame.getInstance());
+                parent.background(SolarizedColours.getColour(2));
+            }
+            else
+            {
+                changeState(StateGame.getInstance());
+            }
         }
     }
 

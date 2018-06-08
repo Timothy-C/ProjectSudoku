@@ -9,7 +9,7 @@ public class MainClass extends PApplet {
     private GameEngine gameEngine;
     
     public static void main(String[] args) {
-        PApplet.main("main.sudoku.MainClass");
+        PApplet.main("main.java.sudoku.MainClass");
     }
     
     @Override

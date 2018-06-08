@@ -8,6 +8,13 @@ public class StateChow extends GameState {
         super(parent);
     }
 
+    /*
+         ---  |   |   --  \          /
+        /     |___|  /  \  \        /
+        \     |   |  \  /   \  /\  /
+         ---  |   |   --     \/  \/
+    */
+
     /**
      * Gets the singleton instance of this GameState
      *

@@ -53,7 +53,7 @@ public class SudokuCell {
     
     //The "GIVEN" status makes it so that the player cannot mess with the given cells
     enum Status {
-        UNSELECTED(SolarizedColours.getColour(2)), SELECTED(SolarizedColours.getColour(0)), HIGHLIGHTED(0xFFF0F000), CONFLICTED(0xFFFF0000), GIVEN(SolarizedColours.getColour(3));
+        UNSELECTED(SolarizedColours.getColour(2)), SELECTED(SolarizedColours.getColour(1)), HIGHLIGHTED(0xFFF0F000), CONFLICTED(0xFFFF0000), GIVEN(SolarizedColours.getColour(3));
         
         public final int colour;
         
