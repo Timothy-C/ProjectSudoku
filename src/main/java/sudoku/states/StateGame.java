@@ -31,7 +31,7 @@ public class StateGame extends GameState {
         board.digitBoard = digits;
 
         board.setPosition(60, 60);
-        digits.setPosition(500 - 10, 60 - 4);
+        digits.setPosition(500 + 20, 60);
     }
 
     @Override

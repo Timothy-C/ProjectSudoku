@@ -3,8 +3,8 @@ package main.java.sudoku;
 import processing.core.PApplet;
 
 public class DigitBoard extends DrawableElement {
-    private static final int sideLength = 75;
-    private static final int spacing = 5;
+    private static final int sideLength = 60;
+    private static final int spacing = 10;
 
     private int[] digits;
 
@@ -37,6 +37,7 @@ public class DigitBoard extends DrawableElement {
 
     @Override
     public void draw() {
+        parent.pushStyle();
         parent.textFont(parent.createFont("Consolas", 50, true));
     
         parent.noStroke();
@@ -64,6 +65,7 @@ public class DigitBoard extends DrawableElement {
 
             }
         }
+        parent.popStyle();
     }
 }
 

@@ -28,8 +28,8 @@ public final class SolarizedColours {
     private static final int baseD2L = 0xFF1B444F;
     // baseL2 darkened:  2/3 baseL2, 1/3 baseL1
     private static final int baseL2D = 0xFFD7D6C8;
-    
-    private static boolean lightTheme = false;
+
+    private static boolean lightTheme = true;
     
     public static int getText() {
         return lightTheme ? yellow : cyan;

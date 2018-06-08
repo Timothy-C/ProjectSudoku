@@ -9,12 +9,8 @@ import java.util.Random;
 
 public class SudokuBoard extends DrawableElement {
     private static final int sideLength = 40;
-    private static final int spacing = 4;
-    
-    private static final int backing = SolarizedColours.getColour(4);
-    private static final int border = SolarizedColours.getColour(1);
-    
-    
+    private static final int spacing = 8;
+
     public DigitBoard digitBoard;
     SudokuCell[][] board;
     SudokuCell selected;
@@ -211,6 +207,7 @@ public class SudokuBoard extends DrawableElement {
     
     @Override
     public void draw() {
+        parent.pushStyle();
         final int sideLength1Quarter = sideLength / 4;
         final int sideLength3Quarter = sideLength - sideLength1Quarter;
     
@@ -219,18 +216,18 @@ public class SudokuBoard extends DrawableElement {
     
         // draw backing
         parent.noStroke();
-        parent.fill(backing);
+        parent.fill(SolarizedColours.getColour(4));
         parent.rect(this.position.x - spacing, this.position.y - spacing, 9 * (sideLength + spacing) + spacing, 9 * (sideLength + spacing) + spacing);
     
         // draw 3*3 border
-        parent.strokeWeight(spacing);
+        parent.strokeWeight(spacing / 2 - 1);
         parent.noFill();
-        parent.stroke(border);
+        parent.stroke(SolarizedColours.getColour(1));
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                int boxX = this.position.x - (spacing / 2) + x * 3 * (sideLength + spacing);
-                int boxY = this.position.y - (spacing / 2) + y * 3 * (sideLength + spacing);
-                parent.rect(boxX, boxY, 3 * (sideLength + spacing), 3 * (sideLength + spacing));
+                int boxX = this.position.x - (spacing / 2) + x * 3 * (sideLength + spacing) - 1;
+                int boxY = this.position.y - (spacing / 2) + y * 3 * (sideLength + spacing) - 1;
+                parent.rect(boxX, boxY, 3 * (sideLength + spacing) + 1, 3 * (sideLength + spacing) + 1);
             }
         }
     
@@ -258,6 +255,7 @@ public class SudokuBoard extends DrawableElement {
                 }
             }
         }
+        parent.popStyle();
     }
     
     /**
