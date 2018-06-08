@@ -17,7 +17,7 @@ public class SudokuBoard extends DrawableElement {
     
     // board is organized like this
     // board[x][y]
-    // 0 x -
+    // 0 x
     // y
     // |
     
