@@ -29,22 +29,26 @@ public class MainClass extends PApplet {
     
     @Override
     public void draw() {
+        Input.updateInput();
         if (gameEngine.running) {
-            Input.updateInput();
             gameEngine.update();
             gameEngine.draw();
         } else {
             gameEngine.end();
             exit();
         }
+        //drawGrid();
+    }
 
-//        fill(10f);
-//        int grid = 10;
-//        for (int i = 0; i < width; i += grid) {
-//            line(i, 0, i, height);
-//        }
-//        for (int i = 0; i < height; i += grid) {
-//            line(0, i, width, i);
-//        }
+    private void drawGrid() {
+        fill(10f);
+        strokeWeight(1);
+        int grid = 8;
+        for (int i = 0; i < width; i += grid) {
+            line(i, 0, i, height);
+        }
+        for (int i = 0; i < height; i += grid) {
+            line(0, i, width, i);
+        }
     }
 }
