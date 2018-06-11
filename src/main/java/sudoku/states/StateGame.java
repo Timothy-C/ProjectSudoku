@@ -1,6 +1,7 @@
 package main.java.sudoku.states;
 
 import main.java.sudoku.DigitBoard;
+import main.java.sudoku.SolarizedColours;
 import main.java.sudoku.SudokuBoard;
 import processing.core.PApplet;
 
@@ -26,6 +27,7 @@ public class StateGame extends GameState {
 
     @Override
     public void start() {//Declares stuff
+
         digits = new DigitBoard(parent);
         board = new SudokuBoard(parent);
         board.digitBoard = digits;

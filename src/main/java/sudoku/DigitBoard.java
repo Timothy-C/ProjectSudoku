@@ -1,6 +1,7 @@
 package main.java.sudoku;
 
 import processing.core.PApplet;
+import main.java.sudoku.Input;
 
 public class DigitBoard extends DrawableElement {
     private static final int sideLength = 60;
@@ -33,6 +34,7 @@ public class DigitBoard extends DrawableElement {
                 }
             }
         }
+        // use keyboard
     }
 
     @Override

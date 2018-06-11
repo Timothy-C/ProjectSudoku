@@ -14,7 +14,7 @@ public class MainClass extends PApplet {
     
     @Override
     public void settings() {
-        size(900, 600);//Space on the right for the numbers
+        size(900, 600);//Dimensions of the run window
     }
     
     @Override
@@ -37,7 +37,7 @@ public class MainClass extends PApplet {
             gameEngine.end();
             exit();
         }
-        //drawGrid();
+        //drawGrid();//This draws a small grid on the run window
     }
 
     private void drawGrid() {

@@ -160,7 +160,7 @@ public class SudokuBoard extends DrawableElement {
             for (int y = 0; y < 9; y++) {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
-    
+
                 // if the cursor is in this box
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
                         (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
@@ -169,7 +169,7 @@ public class SudokuBoard extends DrawableElement {
                         if (selected != null) {
                             if (selected.status != SudokuCell.Status.GIVEN) {
                                 selected.status = SudokuCell.Status.UNSELECTED;
-    
+
                                 for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be highlighted.
                                     if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN) {
                                         board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
@@ -181,9 +181,9 @@ public class SudokuBoard extends DrawableElement {
                         if (selected.status != SudokuCell.Status.GIVEN) {
                             selected.status = SudokuCell.Status.SELECTED;
                         }
-    
+
                     }
-    
+
                     // mouse left click
                     if (selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
                         if (selected.unknown) {
@@ -238,7 +238,7 @@ public class SudokuBoard extends DrawableElement {
                 int cellX = this.position.x + x * (sideLength + spacing);
                 int cellY = this.position.y + y * (sideLength + spacing);
     
-                parent.fill(board[x][y].status.colour);
+                parent.fill(board[x][y].status.getColour());
                 parent.rect(cellX, cellY, sideLength, sideLength);
     
                 // cell number
@@ -259,7 +259,7 @@ public class SudokuBoard extends DrawableElement {
     }
     
     /**
-     * Applies a {@link ITransformation transformation} to the board.
+     * {@link ITransformation transformation} to the board.
      *
      * @param transformation transformation to apply
      * @return this SudokuBoard for method chaining

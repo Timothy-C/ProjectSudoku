@@ -24,7 +24,7 @@ public class GameEngine {
 
     public void changeState(GameState newState) {
         if (gameState != null) gameState.end();
-        parent.background(SolarizedColours.getColour(1));
+        parent.background(SolarizedColours.getColour(2));
         gameState = newState;
         gameState.start();
     }

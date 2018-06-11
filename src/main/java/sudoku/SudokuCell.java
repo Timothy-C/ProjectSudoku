@@ -1,6 +1,8 @@
 package main.java.sudoku;
 
+import java.lang.reflect.Method;
 import java.util.HashSet;
+import java.util.function.IntSupplier;
 
 public class SudokuCell {
     public int value = 0;
@@ -53,12 +55,23 @@ public class SudokuCell {
     
     //The "GIVEN" status makes it so that the player cannot mess with the given cells
     enum Status {
-        UNSELECTED(SolarizedColours.getColour(2)), SELECTED(SolarizedColours.getColour(1)), HIGHLIGHTED(0xFFF0F000), CONFLICTED(0xFFFF0000), GIVEN(SolarizedColours.getColour(3));
-        
-        public final int colour;
-        
-        Status(int colour) {
-            this.colour = colour;
+        UNSELECTED(() -> SolarizedColours.getColour(2)),
+        SELECTED(() -> SolarizedColours.getColour(1)),
+        HIGHLIGHTED(0xFFF0F000),
+        CONFLICTED(0xFFFF0000),
+        GIVEN(() -> SolarizedColours.getColour(3));
+
+        public final IntSupplier supplier;
+        Status(IntSupplier supplier) {
+            this.supplier = supplier;
+        }
+
+        Status (int colour) {
+            this.supplier = () -> colour;
+        }
+
+        public int getColour() {
+            return supplier.getAsInt();
         }
     }
 }

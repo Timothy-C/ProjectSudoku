@@ -22,8 +22,9 @@ public class StateMain extends GameState {
 
     @Override
     public void start() {
+
         parent.fill(50f);
-        parent.rect(30, 30, 30, 30);
+     //   parent.rect(30, 30, 30, 30);
         //parent.fill(50f);
         parent.rect(60, 60, 50, 50);
     }
@@ -37,11 +38,14 @@ public class StateMain extends GameState {
     public void update() {
         if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS )) {
             if(parent.mouseX>60 && parent.mouseX<110 && parent.mouseY>60 && parent.mouseY<110) {
+                SolarizedColours.lightTheme=false;
                 changeState(StateGame.getInstance());//If clicked in whatever, change to light
-                parent.background(SolarizedColours.getColour(2));
+
             }
             else
             {
+
+                SolarizedColours.lightTheme=true;
                 changeState(StateGame.getInstance());
             }
         }
@@ -49,7 +53,7 @@ public class StateMain extends GameState {
 
     @Override
     public void draw() {
-        parent.rect(30, 30, 30, 30);
+       // parent.rect(30, 30, 30, 30);
     }
 
 }
