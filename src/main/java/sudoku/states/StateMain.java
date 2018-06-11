@@ -37,7 +37,7 @@ public class StateMain extends GameState {
     public void update() {
         if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS )) {
             if(parent.mouseX>60 && parent.mouseX<110 && parent.mouseY>60 && parent.mouseY<110) {
-                changeState(StateGame.getInstance());
+                changeState(StateGame.getInstance());//If clicked in whatever, change to light
                 parent.background(SolarizedColours.getColour(2));
             }
             else

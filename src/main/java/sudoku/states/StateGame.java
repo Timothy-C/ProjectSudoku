@@ -43,7 +43,7 @@ public class StateGame extends GameState {
     public void update() {
         digits.update();
         board.update();//Should pass selected number in here
-        if (digits.selectedDigit == 7) {
+        if (digits.selectedDigit == 7) {//Goes to main menu
             changeState(StateMain.getInstance());
         } else if (digits.selectedDigit == 8) {
             GameEngine.getInstance().exit();
