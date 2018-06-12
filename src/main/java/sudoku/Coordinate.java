@@ -29,7 +29,8 @@ public class Coordinate implements Comparable<Coordinate> {
         if (this.x != o.x) {
             if (this.x < o.x) return -1;
             else return 1;
-        } else {
+        }
+        else {
             if (this.y < o.y) return -1;
             else return 1;
         }
