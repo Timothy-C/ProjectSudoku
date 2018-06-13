@@ -35,16 +35,16 @@ public class StateMain extends GameState {
 
         themeButton = new Button(
                 parent,
-                new Coordinate(100, 100),
-                new Coordinate(50, 50),
-                0xFF0000FF,
-                "theme",
-                () -> SolarizedColours.lightTheme = !SolarizedColours.lightTheme
+                new Coordinate(100, 100), new Coordinate(50, 50),
+                0xFF0000FF, "theme",
+                () -> {
+                    SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
+                    changeState(getInstance());
+                }
         );
         startButton = new Button(
                 parent,
-                new Coordinate(60, 60),
-                new Coordinate(50, 50),
+                new Coordinate(60, 60), new Coordinate(50, 50),
                 0xFFFF0000, "start",
                 () -> changeState(StateGame.getInstance())
         );
