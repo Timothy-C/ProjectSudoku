@@ -155,7 +155,7 @@ public class SudokuBoard extends DrawableElement {
 
     private void validnum(int num, int a, int b) {
         for (Coordinate neighbor : board[a][b].neighbors) {//This is used to get all the neighboring cells to be highlighted.
-            if (board[neighbor.x][neighbor.y].value == num) {
+            if (board[neighbor.x][neighbor.y].value == num ) {
                 board[a][b].status = SudokuCell.Status.CONFLICTED;
             }
         }
@@ -172,17 +172,17 @@ public class SudokuBoard extends DrawableElement {
                 // if the cursor is in this box
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
                         (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
-                    // if the selected box is not this one
+                    // if the selected box is not the old selected, selected is changed
                     if (selected != board[x][y]) {
                         if (selected != null) {
                             if (selected.status != SudokuCell.Status.GIVEN) {
-                                selected.status = SudokuCell.Status.UNSELECTED;
+                                selected.status = SudokuCell.Status.UNSELECTED;//Changes the old selected into unselected
 
-                                for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be highlighted.
-                                    if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN) {
-                                        board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
-                                    }
-                                }
+//                                for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be unselected.
+//                                    if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN) {
+//                                        board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
+//                                    }
+//                                }
                             }
                         }
                         selected = board[x][y];
@@ -194,7 +194,6 @@ public class SudokuBoard extends DrawableElement {
 
                     // mouse left click
                     if (selected.status == SudokuCell.Status.SELECTED && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-
                         selected.value = digitBoard.selectedDigit;
                         for (int i = 0; i < 9; i++) {
                             selected.notes[i] = false;
@@ -218,7 +217,7 @@ public class SudokuBoard extends DrawableElement {
         }
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
-                if (board[x][y].value != 0) {
+                if (board[x][y].value != 0 && board[x][y].status !=SudokuCell.Status.GIVEN && board[x][y] != selected) {
                     validnum(board[x][y].value, x, y);
                 }
             }
