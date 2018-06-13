@@ -8,6 +8,8 @@ public class Input {
     private static boolean[] wasHeld = new boolean[3];
     private static boolean[] isHeld = new boolean[3];
 
+    private static Coordinate mouse = new Coordinate(0, 0);
+
     /**
      * Runs every frame to update the mouse status of this frame and the previous
      */
@@ -16,6 +18,8 @@ public class Input {
             wasHeld[i] = isHeld[i];
             isHeld[i] = parent.mousePressed && parent.mouseButton == Button.values()[i].keycode;
         }
+        mouse.x = parent.mouseX;
+        mouse.y = parent.mouseY;
     }
 
     /**
@@ -36,6 +40,15 @@ public class Input {
         }
 
         return false;
+    }
+
+    /**
+     * Wraps the mouse coordinates into a Coordinate object.
+     *
+     * @return the position of the mouse in Coordinate form
+     */
+    public static Coordinate getMousePosition() {
+        return mouse;
     }
 
     public enum Button {
