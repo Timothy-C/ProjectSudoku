@@ -132,7 +132,7 @@ public class SudokuBoard extends DrawableElement {
         boolean least = false;
         while (!least) {
             //Removes the numbers from 30 to 35 to random cells, so that there are between 46 to 51 clues.
-            for (int i = 0; i < 35; i++) {
+            for (int i = 0; i < 2; i++) {//<35
                 tempX = rand.nextInt(9);
                 tempY = rand.nextInt(9);
                 board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
@@ -147,7 +147,7 @@ public class SudokuBoard extends DrawableElement {
                     }
                 }
             }
-            if (counter > 30) {
+            if (counter > 00) {//>30
                 least = true;
             }
         }
@@ -164,7 +164,7 @@ public class SudokuBoard extends DrawableElement {
     {
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
-                if (board[x][y].value == 0 || board[x][y].status !=SudokuCell.Status.CONFLICTED) {
+                if (board[x][y].value == 0 || board[x][y].status ==SudokuCell.Status.CONFLICTED) {
                     return false;
                 }
             }
@@ -237,7 +237,7 @@ public class SudokuBoard extends DrawableElement {
         }
         if(isSolved())
         {
-            //win
+            //win stuff
         }
     }
 
