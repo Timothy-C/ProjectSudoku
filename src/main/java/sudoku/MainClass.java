@@ -33,7 +33,8 @@ public class MainClass extends PApplet {
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();
-        } else {
+        }
+        else {
             gameEngine.end();
             exit();
         }

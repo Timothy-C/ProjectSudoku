@@ -2,7 +2,7 @@ package main.java.sudoku.states;
 
 import processing.core.PApplet;
 
-public abstract class GameState {
+public abstract class GameState {//Parent state for all game states
     PApplet parent;
 
     static GameState instance;

@@ -42,6 +42,7 @@ public class StateChow extends GameState {
 
     @Override
     public void draw() {
-
+        parent.fill(50f);
+        parent.text("YOU WON",450,300);
     }
 }

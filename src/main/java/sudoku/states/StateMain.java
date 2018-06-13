@@ -24,8 +24,6 @@ public class StateMain extends GameState {
     public void start() {
 
         parent.fill(50f);
-     //   parent.rect(30, 30, 30, 30);
-        //parent.fill(50f);
         parent.rect(60, 60, 50, 50);
     }
 
@@ -53,7 +51,6 @@ public class StateMain extends GameState {
 
     @Override
     public void draw() {
-       // parent.rect(30, 30, 30, 30);
     }
 
 }

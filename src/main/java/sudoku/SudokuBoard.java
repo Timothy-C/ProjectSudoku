@@ -14,7 +14,7 @@ public class SudokuBoard extends DrawableElement {
     public DigitBoard digitBoard;
     SudokuCell[][] board;
     SudokuCell selected;
-
+    public boolean solved=false;
     // board is organized like this
     // board[x][y]
     // 0 x
@@ -237,7 +237,7 @@ public class SudokuBoard extends DrawableElement {
         }
         if(isSolved())
         {
-            //win stuff
+            solved=true;
         }
     }
 
