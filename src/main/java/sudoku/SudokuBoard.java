@@ -124,15 +124,15 @@ public class SudokuBoard extends DrawableElement {
     }
 
     /**
-     * Randomly selects up to 50 cells to be removed.
+     * Randomly selects up to 45 cells to be removed. Any more than 48 clues will probably result in multiple solutions.
      */
     private void removeNumbers() {
         Random rand = new Random();
         int tempX, tempY, counter;
         boolean least = false;
         while (!least) {
-            //Removes the numbers from 31 to 50 random cells
-            for (int i = 0; i < 50; i++) {
+            //Removes the numbers from 30 to 35 to random cells, so that there are between 46 to 51 clues.
+            for (int i = 0; i < 35; i++) {
                 tempX = rand.nextInt(9);
                 tempY = rand.nextInt(9);
                 board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell
@@ -160,6 +160,18 @@ public class SudokuBoard extends DrawableElement {
             }
         }
     }
+    private boolean isSolved()
+    {
+        for (int x = 0; x < 9; x++) {
+            for (int y = 0; y < 9; y++) {
+                if (board[x][y].value == 0 || board[x][y].status !=SudokuCell.Status.CONFLICTED) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     @Override
     public void update() {
@@ -178,7 +190,7 @@ public class SudokuBoard extends DrawableElement {
                             if (selected.status != SudokuCell.Status.GIVEN) {
                                 selected.status = SudokuCell.Status.UNSELECTED;//Changes the old selected into unselected
 
-//                                for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be unselected.
+//                                for (Coordinate neighbor : selected.neighbors) {//This is used to get all the neighboring cells to be highlighted, but now unusable
 //                                    if (board[neighbor.x][neighbor.y].status != SudokuCell.Status.GIVEN) {
 //                                        board[neighbor.x][neighbor.y].status = SudokuCell.Status.UNSELECTED;
 //                                    }
@@ -215,12 +227,17 @@ public class SudokuBoard extends DrawableElement {
                 }
             }
         }
+
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
                 if (board[x][y].value != 0 && board[x][y].status !=SudokuCell.Status.GIVEN && board[x][y] != selected) {
                     validnum(board[x][y].value, x, y);
                 }
             }
+        }
+        if(isSolved())
+        {
+            //win
         }
     }
 
