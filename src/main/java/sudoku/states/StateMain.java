@@ -5,7 +5,9 @@ import main.java.sudoku.SolarizedColours;
 import processing.core.PApplet;
 
 public class StateMain extends GameState {
-
+    
+    private static GameState instance;
+    
     private StateMain(PApplet parent) {
         super(parent);
     }
@@ -38,11 +40,9 @@ public class StateMain extends GameState {
             if(parent.mouseX>60 && parent.mouseX<110 && parent.mouseY>60 && parent.mouseY<110) {
                 SolarizedColours.lightTheme=false;
                 changeState(StateGame.getInstance());//If clicked in whatever, change to light
-
             }
             else
             {
-
                 SolarizedColours.lightTheme=true;
                 changeState(StateGame.getInstance());
             }

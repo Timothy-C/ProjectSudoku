@@ -5,13 +5,9 @@ import processing.core.PApplet;
 public abstract class GameState {//Parent state for all game states
     PApplet parent;
 
-    static GameState instance;
-
     GameState(PApplet parent) {
         this.parent = parent;
     }
-
-    // Run once
 
     /**
      * Runs once at the beginning to set up default values and such when entering a GameState.
@@ -22,8 +18,6 @@ public abstract class GameState {//Parent state for all game states
      * Runs once at the end to clean up objects and such when leaving of a GameState.
      */
     public abstract void end();
-
-    // Run every frame
 
     /**
      * Runs every frame, run logic related code in here.

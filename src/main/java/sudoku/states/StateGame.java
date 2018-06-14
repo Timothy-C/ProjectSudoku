@@ -1,13 +1,12 @@
 package main.java.sudoku.states;
 
 import main.java.sudoku.DigitBoard;
-import main.java.sudoku.SolarizedColours;
 import main.java.sudoku.SudokuBoard;
 import processing.core.PApplet;
 
 public class StateGame extends GameState {//The actual state of the current game
-
-    private static StateGame instance;
+    
+    private static GameState instance;
     private SudokuBoard board;
     private DigitBoard digits;
 

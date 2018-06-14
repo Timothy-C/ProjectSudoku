@@ -13,13 +13,12 @@ public class GameEngine {
         if (instance == null) instance = new GameEngine();
         return instance;
     }
-
+    
     public void start() {
         running = true;
     }
-
+    
     public void end() {
-
     }
 
     public void changeState(GameState newState) {
