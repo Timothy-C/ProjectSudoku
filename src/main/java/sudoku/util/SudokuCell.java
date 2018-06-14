@@ -1,4 +1,4 @@
-package main.java.sudoku;
+package main.java.sudoku.util;
 
 import java.util.HashSet;
 import java.util.function.IntSupplier;

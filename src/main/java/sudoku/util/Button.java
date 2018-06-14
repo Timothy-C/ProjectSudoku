@@ -1,4 +1,4 @@
-package main.java.sudoku;
+package main.java.sudoku.util;
 
 import processing.core.PApplet;
 import processing.core.PConstants;

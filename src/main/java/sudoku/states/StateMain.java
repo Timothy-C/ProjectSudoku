@@ -1,8 +1,8 @@
 package main.java.sudoku.states;
 
-import main.java.sudoku.Button;
-import main.java.sudoku.Coordinate;
-import main.java.sudoku.SolarizedColours;
+import main.java.sudoku.util.Button;
+import main.java.sudoku.util.Coordinate;
+import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
 public class StateMain extends GameState {

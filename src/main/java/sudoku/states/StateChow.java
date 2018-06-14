@@ -1,6 +1,6 @@
 package main.java.sudoku.states;
 
-import main.java.sudoku.Input;
+import main.java.sudoku.util.Input;
 import processing.core.PApplet;
 
 public class StateChow extends GameState {
@@ -37,7 +37,7 @@ public class StateChow extends GameState {
 
     @Override
     public void end() {
-
+        //
     }
 
     @Override

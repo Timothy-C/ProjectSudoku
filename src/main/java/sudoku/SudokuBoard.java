@@ -1,6 +1,7 @@
 package main.java.sudoku;
 
 import main.java.sudoku.transform.ITransformation;
+import main.java.sudoku.util.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
 

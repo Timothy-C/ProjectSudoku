@@ -1,4 +1,4 @@
-package main.java.sudoku;
+package main.java.sudoku.util;
 
 public class Coordinate implements Comparable<Coordinate> {
 

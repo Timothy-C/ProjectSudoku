@@ -1,4 +1,4 @@
-package main.java.sudoku;
+package main.java.sudoku.util;
 
 public final class SolarizedColours {
     // legit solarized shades, d - dark, l - light

@@ -2,6 +2,7 @@ package main.java.sudoku;
 
 import main.java.sudoku.states.GameEngine;
 import main.java.sudoku.states.StateMain;
+import main.java.sudoku.util.Input;
 import processing.core.PApplet;
 
 public class MainClass extends PApplet {

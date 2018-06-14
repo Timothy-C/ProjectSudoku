@@ -1,6 +1,6 @@
 package main.java.sudoku.states;
 
-import main.java.sudoku.SolarizedColours;
+import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
 public class GameEngine {

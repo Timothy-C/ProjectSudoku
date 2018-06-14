@@ -1,5 +1,8 @@
 package main.java.sudoku;
 
+import main.java.sudoku.util.DrawableElement;
+import main.java.sudoku.util.Input;
+import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
 public class DigitBoard extends DrawableElement {

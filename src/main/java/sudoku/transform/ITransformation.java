@@ -1,6 +1,6 @@
 package main.java.sudoku.transform;
 
-import main.java.sudoku.SudokuCell;
+import main.java.sudoku.util.SudokuCell;
 
 public interface ITransformation {
     /**
