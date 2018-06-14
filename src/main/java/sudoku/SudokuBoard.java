@@ -133,7 +133,7 @@ public class SudokuBoard extends DrawableElement {
         boolean least = false;
         while (!least) {
             //Removes the numbers from 30 to 35 to random cells, so that there are between 46 to 51 clues.
-            for (int i = 0; i < 4; i++) {//<35
+            for (int i = 0; i < 2; i++) {//<35
                 tempX = rand.nextInt(9);
                 tempY = rand.nextInt(9);
                 board[tempX][tempY].status = SudokuCell.Status.UNSELECTED;//Unselected to be an unknown cell

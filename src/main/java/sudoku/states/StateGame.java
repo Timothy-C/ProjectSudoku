@@ -43,8 +43,8 @@ public class StateGame extends GameState {//The actual state of the current game
         digits.setPosition(500 + 20, 60);
 
         quitButton = new Button(parent,
-                new Coordinate(520, 50), new Coordinate(200, 60),
-                0xFF00FFFF, "Quit",
+                new Coordinate(815, 520), new Coordinate(80, 50),
+                0xFFFF0000 , "Quit",//UJML colours
                 () -> changeState(StateMain.getInstance())
         );
 
@@ -76,7 +76,7 @@ public class StateGame extends GameState {//The actual state of the current game
         board.draw();
         digits.draw();
         quitButton.draw();
-
+        parent.fill(0xFFFFFFFF );
         parent.text(stopwatch.getElapsedTimeSeconds(), 520, 50);
     }
 }

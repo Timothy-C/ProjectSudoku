@@ -1,16 +1,14 @@
 package main.java.sudoku.states;
-
+import java.io.*;
 import main.java.sudoku.util.Input;
 import processing.core.PApplet;
 
 public class StateHowTo extends GameState {
 
     private static GameState instance;
-
     private StateHowTo(PApplet parent) {
         super(parent);
     }
-
 
 
     /**
@@ -44,6 +42,15 @@ public class StateHowTo extends GameState {
 
     @Override
     public void draw() {
+      /*  BufferedReader br = new BufferedReader(getClass().getResourceAsStream("/Sudoku Instructions.txt"));
+        int x=0;int y=0;
+        String st;
+        parent.fill(0xFF00FF00);
+        while ((st = br.()) != null){
+            parent.text(st,x,y);
+            y+=50;
+        }*/
+
         //put the instructions here by using textfile stremaing.
     }
 }

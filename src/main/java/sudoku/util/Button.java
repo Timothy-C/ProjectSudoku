@@ -46,5 +46,9 @@ public class Button extends DrawableElement {
         parent.rectMode(PConstants.CORNER);
         parent.fill(colour);
         parent.rect(position.x, position.y, size.x, size.y);
+        parent.fill(0xFFFFFFFF );
+        parent.textAlign(PConstants.LEFT, PConstants.TOP);
+        parent.text(label,position.x,position.y);
+        parent.textAlign(PConstants.LEFT, PConstants.BOTTOM);
     }
 }

@@ -9,7 +9,7 @@ public class StateMain extends GameState {
 
     public Button themeButton;
     public Button startButton;
-
+    private Button quitButton;
     
     private static GameState instance;
     
@@ -45,9 +45,14 @@ public class StateMain extends GameState {
         );
         startButton = new Button(
                 parent,
-                new Coordinate(60, 60), new Coordinate(50, 50),
+                new Coordinate(50, 50), new Coordinate(50, 50),
                 0xFFFF0000, "start",
                 () -> changeState(StateGame.getInstance())
+        );
+        quitButton = new Button(parent,
+                new Coordinate(815, 520), new Coordinate(80, 50),
+                0xFFFF0000 , "Quit",//UJML colours
+                () -> GameEngine.getInstance().exit()
         );
     }
 
@@ -66,6 +71,7 @@ public class StateMain extends GameState {
     public void draw() {
         themeButton.draw();
         startButton.draw();
+        quitButton.draw();
     }
 
 }
