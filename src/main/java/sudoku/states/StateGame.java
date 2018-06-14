@@ -2,6 +2,9 @@ package main.java.sudoku.states;
 
 import main.java.sudoku.DigitBoard;
 import main.java.sudoku.SudokuBoard;
+import main.java.sudoku.util.Button;
+import main.java.sudoku.util.Coordinate;
+import main.java.sudoku.util.SolarizedColours;
 import main.java.sudoku.util.Stopwatch;
 import processing.core.PApplet;
 
@@ -10,6 +13,8 @@ public class StateGame extends GameState {//The actual state of the current game
     private static GameState instance;
     private SudokuBoard board;
     private DigitBoard digits;
+
+    private Button quitButton;
     
     private Stopwatch stopwatch;
     
@@ -29,18 +34,22 @@ public class StateGame extends GameState {//The actual state of the current game
 
     @Override
     public void start() {//Declares stuff
-    
-        stopwatch = new Stopwatch();
-        stopwatch.start();
-        
         digits = new DigitBoard(parent);
         board = new SudokuBoard(parent);
+
         board.digitBoard = digits;
 
         board.setPosition(60, 60);
         digits.setPosition(500 + 20, 60);
-    
-    
+
+        quitButton = new Button(parent,
+                new Coordinate(520, 50), new Coordinate(200, 60),
+                0xFF00FFFF, "Quit",
+                () -> changeState(StateMain.getInstance())
+        );
+
+        stopwatch = new Stopwatch();
+        stopwatch.start();
     }
 
     @Override
@@ -53,7 +62,8 @@ public class StateGame extends GameState {//The actual state of the current game
     public void update() {
         digits.update();
         board.update();//Should pass selected number in here
-    
+        quitButton.update();
+
         if (board.solved) {
             changeState(StateChow.getInstance());
         }
@@ -61,7 +71,12 @@ public class StateGame extends GameState {//The actual state of the current game
 
     @Override
     public void draw() {
+        parent.background(SolarizedColours.getColour(2));
+
         board.draw();
         digits.draw();
+        quitButton.draw();
+
+        parent.text(stopwatch.getElapsedTimeSeconds(), 520, 50);
     }
 }
