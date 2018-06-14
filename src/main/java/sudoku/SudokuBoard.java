@@ -160,16 +160,9 @@ public class SudokuBoard extends DrawableElement {
             }
         }
     }
-    private boolean isSolved()
-    {
-        for (int x = 0; x < 9; x++) {
-            for (int y = 0; y < 9; y++) {
-                if (board[x][y].value == 0 || board[x][y].status ==SudokuCell.Status.CONFLICTED) {
-                    return false;
-                }
-            }
-        }
-        return true;
+    
+    private boolean isSolved() {
+        return isValid();
     }
 
 
