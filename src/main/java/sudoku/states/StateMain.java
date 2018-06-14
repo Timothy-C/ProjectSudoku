@@ -1,10 +1,15 @@
 package main.java.sudoku.states;
 
-import main.java.sudoku.Input;
+import main.java.sudoku.Button;
+import main.java.sudoku.Coordinate;
 import main.java.sudoku.SolarizedColours;
 import processing.core.PApplet;
 
 public class StateMain extends GameState {
+
+    public Button themeButton;
+    public Button startButton;
+
     
     private static GameState instance;
     
@@ -26,7 +31,24 @@ public class StateMain extends GameState {
     public void start() {
 
         parent.fill(50f);
-        parent.rect(60, 60, 50, 50);
+        //   parent.rect(30, 30, 30, 30);
+        //parent.fill(50f);
+
+        themeButton = new Button(
+                parent,
+                new Coordinate(100, 100), new Coordinate(50, 50),
+                0xFF0000FF, "theme",
+                () -> {
+                    SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
+                    changeState(getInstance());
+                }
+        );
+        startButton = new Button(
+                parent,
+                new Coordinate(60, 60), new Coordinate(50, 50),
+                0xFFFF0000, "start",
+                () -> changeState(StateGame.getInstance())
+        );
     }
 
     @Override
@@ -36,21 +58,14 @@ public class StateMain extends GameState {
 
     @Override
     public void update() {
-        if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS )) {
-            if(parent.mouseX>60 && parent.mouseX<110 && parent.mouseY>60 && parent.mouseY<110) {
-                SolarizedColours.lightTheme=false;
-                changeState(StateGame.getInstance());//If clicked in whatever, change to light
-            }
-            else
-            {
-                SolarizedColours.lightTheme=true;
-                changeState(StateGame.getInstance());
-            }
-        }
+        themeButton.update();
+        startButton.update();
     }
 
     @Override
     public void draw() {
+        themeButton.draw();
+        startButton.draw();
     }
 
 }
