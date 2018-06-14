@@ -1,7 +1,6 @@
 package main.java.sudoku.states;
 
 import main.java.sudoku.DigitBoard;
-import main.java.sudoku.SolarizedColours;
 import main.java.sudoku.SudokuBoard;
 import processing.core.PApplet;
 

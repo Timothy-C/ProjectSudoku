@@ -1,11 +1,9 @@
 package main.java.sudoku.states;
 
+import main.java.sudoku.Button;
 import main.java.sudoku.Coordinate;
-import main.java.sudoku.DrawableElement;
-import main.java.sudoku.Input;
 import main.java.sudoku.SolarizedColours;
 import processing.core.PApplet;
-import processing.core.PConstants;
 
 public class StateMain extends GameState {
 
@@ -66,50 +64,5 @@ public class StateMain extends GameState {
         themeButton.draw();
         startButton.draw();
     }
-
-    class Button extends DrawableElement {
-        Coordinate size;
-        String label;
-        Runnable action;
-        int colour;
-
-        public Button(PApplet parent, Coordinate position, Coordinate size, int colour, String label, Runnable action) {
-            super(parent);
-            this.position = position;
-            this.size = size;
-            this.colour = colour;
-            this.label = label;
-            this.action = action;
-        }
-
-        public Button(PApplet parent, Coordinate position, Coordinate size, int colour) {
-            this(parent, position, size, colour, null, () -> {
-            });
-        }
-
-        public Button(PApplet parent, Coordinate position, Coordinate size) {
-            this(parent, position, size, 0xFFFFFFFF, null, () -> {
-            });
-        }
-
-        public boolean hovering() {
-            Coordinate mouse = Input.getMousePosition();
-            return mouse.x > position.x && mouse.x < position.x + size.x &&
-                    mouse.y > position.y && mouse.y < position.y + size.y;
-        }
-
-        @Override
-        public void update() {
-            if (hovering() && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-                action.run();
-            }
-        }
-
-        @Override
-        public void draw() {
-            parent.rectMode(PConstants.CORNER);
-            parent.fill(colour);
-            parent.rect(position.x, position.y, size.x, size.y);
-        }
-    }
+    
 }

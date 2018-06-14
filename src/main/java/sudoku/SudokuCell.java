@@ -1,28 +1,27 @@
 package main.java.sudoku;
 
-import java.lang.reflect.Method;
 import java.util.HashSet;
 import java.util.function.IntSupplier;
 
 public class SudokuCell {
     public int value = 0;
-    Coordinate position;
-
-    boolean unknown = false;//This is true if the cell is empty, not empty if the cell is filled
-    boolean[] notes = new boolean[9];//Notes for the cell
-    Status status = Status.GIVEN;
+    public Coordinate position;
+    
+    public boolean unknown = false;//This is true if the cell is empty, not empty if the cell is filled
+    public boolean[] notes = new boolean[9];//Notes for the cell
+    public Status status = Status.GIVEN;
 
     /**
      * Contains all coordinates that interact with this cell.
      */
-    HashSet<Coordinate> neighbors = new HashSet<>();
-
-    SudokuCell(Coordinate position) {
+    public HashSet<Coordinate> neighbors = new HashSet<>();
+    
+    public SudokuCell(Coordinate position) {
         this.position = position;
         this.generateNeighbors();
     }
-
-    SudokuCell(int x, int y, int value) {
+    
+    public SudokuCell(int x, int y, int value) {
         this.position = new Coordinate(x, y);
         this.value = value;
         this.generateNeighbors();
@@ -54,7 +53,7 @@ public class SudokuCell {
     }
     
     //The "GIVEN" status makes it so that the player cannot mess with the given cells
-    enum Status {
+    public enum Status {
         UNSELECTED(() -> SolarizedColours.getColour(2)),
         SELECTED(() -> SolarizedColours.getColour(1)),
         HIGHLIGHTED(0xFFF0F000),
