@@ -42,7 +42,7 @@ public class DigitBoard extends DrawableElement {
             selectedDigit = ((int) parent.key - 60 + 12);
         }
 
-        System.out.println(selectedDigit);
+    //    System.out.println(selectedDigit);
     }
 
     @Override

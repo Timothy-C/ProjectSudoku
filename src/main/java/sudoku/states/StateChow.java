@@ -2,6 +2,7 @@ package main.java.sudoku.states;
 
 import main.java.sudoku.util.Input;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 public class StateChow extends GameState {
     
@@ -50,6 +51,8 @@ public class StateChow extends GameState {
     @Override
     public void draw() {
         parent.fill(0xFF00FF00);
+        parent.textAlign(PConstants.RIGHT);
         parent.text("YOU WON",450,300);
+
     }
 }

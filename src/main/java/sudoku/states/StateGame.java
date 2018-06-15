@@ -7,6 +7,7 @@ import main.java.sudoku.util.Coordinate;
 import main.java.sudoku.util.SolarizedColours;
 import main.java.sudoku.util.Stopwatch;
 import processing.core.PApplet;
+import processing.core.PConstants;
 
 public class StateGame extends GameState {//The actual state of the current game
     
@@ -76,7 +77,8 @@ public class StateGame extends GameState {//The actual state of the current game
         board.draw();
         digits.draw();
         quitButton.draw();
-        parent.fill(0xFFFFFFFF );
-        parent.text(stopwatch.getElapsedTimeSeconds(), 520, 50);
+        parent.textAlign(PConstants.RIGHT);
+        parent.text(stopwatch.getElapsedTimeSeconds(), 720, 50);
+        parent.textAlign(PConstants.LEFT);
     }
 }

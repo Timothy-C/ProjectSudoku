@@ -28,8 +28,15 @@ public class Stopwatch {
         return (running ? System.nanoTime() : stopTime) - startTime;
     }
     
-    public long getElapsedTimeSeconds() {
-        return getElapsedTime() / 1000000000;
+    public int getElapsedTimeSeconds() {
+        long temp= getElapsedTime() / 1000000000;
+        int counter=0;
+        while (temp>0)
+        {
+            counter+=1;
+            temp-=1;
+        }
+        return counter;
     }
     
 }
