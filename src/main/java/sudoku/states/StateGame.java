@@ -9,6 +9,8 @@ import main.java.sudoku.util.Stopwatch;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
+import java.time.Duration;
+
 public class StateGame extends GameState {//The actual state of the current game
     
     private static GameState instance;
@@ -18,7 +20,7 @@ public class StateGame extends GameState {//The actual state of the current game
     private Button quitButton;
     
     private Stopwatch stopwatch;
-    
+
     private StateGame(PApplet parent) {
         super(parent);
     }
@@ -78,7 +80,12 @@ public class StateGame extends GameState {//The actual state of the current game
         digits.draw();
         quitButton.draw();
         parent.textAlign(PConstants.RIGHT);
-        parent.text(stopwatch.getElapsedTimeSeconds(), 720, 50);
+        Duration duration = stopwatch.getDuration();
+
+        parent.text(String.format("%2d:%02d:%03d",
+                duration.toMinutesPart(),
+                duration.toSecondsPart(),
+                duration.toMillisPart()), 720, 50);
         parent.textAlign(PConstants.LEFT);
     }
 }
