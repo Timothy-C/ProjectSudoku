@@ -33,7 +33,7 @@ public class StateChow extends GameState {
 
     @Override
     public void start() {
-    
+        //add the text-file streaming to high scores here
     }
 
     @Override

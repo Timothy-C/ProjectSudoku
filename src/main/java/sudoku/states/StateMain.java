@@ -10,7 +10,7 @@ public class StateMain extends GameState {
     public Button themeButton;
     public Button startButton;
     private Button quitButton;
-    
+    public Button instructButton;
     private static GameState instance;
     
     private StateMain(PApplet parent) {
@@ -52,6 +52,11 @@ public class StateMain extends GameState {
                 0xFFFF0000 , "Quit",//UJML colours
                 () -> GameEngine.getInstance().exit()
         );
+        instructButton = new Button(parent,
+                new Coordinate(200,200), new Coordinate (150,50),
+                0xFF0000FF,"Instructions",
+                () ->changeState(StateHowTo.getInstance())
+                );
     }
 
     @Override
@@ -63,6 +68,8 @@ public class StateMain extends GameState {
     public void update() {
         themeButton.update();
         startButton.update();
+        quitButton.update();
+        instructButton.update();
     }
 
     @Override
@@ -70,6 +77,7 @@ public class StateMain extends GameState {
         themeButton.draw();
         startButton.draw();
         quitButton.draw();
+        instructButton.draw();
     }
 
 }

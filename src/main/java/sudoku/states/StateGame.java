@@ -45,7 +45,7 @@ public class StateGame extends GameState {//The actual state of the current game
 
         quitButton = new Button(parent,
                 new Coordinate(815, 520), new Coordinate(80, 50),
-                0xFFFF0000 , "Quit",//UJML colours
+                0xFFFF0000 , "Quit",//UJML colour codes
                 () -> changeState(StateMain.getInstance())
         );
 
