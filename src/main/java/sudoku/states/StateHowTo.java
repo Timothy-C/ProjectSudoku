@@ -64,7 +64,7 @@ public class StateHowTo extends GameState {
             BufferedReader br = new BufferedReader(new FileReader(file));
             String st;
             int y=50;
-            parent.textSize(12);
+            parent.textSize(14);
             parent.fill(SolarizedColours.getText());
             while ((st = br.readLine()) != null) {
                 //System.out.println(st);

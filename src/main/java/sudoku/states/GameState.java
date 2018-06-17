@@ -4,7 +4,6 @@ import processing.core.PApplet;
 
 public abstract class GameState {//Parent state for all game states
     PApplet parent;
-    public float time=0;
     GameState(PApplet parent) {
         this.parent = parent;
     }

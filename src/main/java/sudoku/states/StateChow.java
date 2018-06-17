@@ -8,7 +8,7 @@ import processing.core.PConstants;
 public class StateChow extends GameState {
     
     private static GameState instance;
-    
+    public static float time;
     private StateChow(PApplet parent) {
         super(parent);
     }
@@ -25,10 +25,11 @@ public class StateChow extends GameState {
      *
      * @return the instance of this GameState
      */
-    public static GameState getInstance() {
+    public static GameState getInstance(int temp) {
         if (instance == null) {
             instance = new StateChow(GameEngine.getInstance().parent);
         }
+        time=temp;
         return instance;
     }
 
@@ -55,7 +56,7 @@ public class StateChow extends GameState {
         parent.textAlign(PConstants.CENTER,PConstants.CENTER);
         parent.text("YOU WON",450,250);
         parent.text("CLICK TO CONTINUE",450,350);
-        parent.text(instance.time, 450, 450);
+        parent.text(time, 450, 450);
 
     }
 }

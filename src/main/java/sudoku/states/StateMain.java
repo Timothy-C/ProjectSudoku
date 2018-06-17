@@ -75,10 +75,11 @@ public class StateMain extends GameState {
     @Override
     public void draw() {
         SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
-        themeButton.buttoncolour(SolarizedColours.getColour(2));
+        themeButton.buttoncolour(SolarizedColours.getText());
         themeButton.draw();
         SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
         startButton.draw();
+
         quitButton.draw();
         instructButton.draw();
     }
