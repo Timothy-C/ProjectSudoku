@@ -39,15 +39,15 @@ public final class SolarizedColours {
     public static int getColour(int ID) {
         switch (ID) {
             case 0:
-                return lightTheme ? baseL0 : baseD0;
+                return lightTheme ? baseL0 : baseD0;//Board edges
             case 1:
-                return lightTheme ? baseL1 : baseD1;
+                return lightTheme ? baseL1 : baseD1;//
             case 2:
                 return lightTheme ? baseL2 : baseD2;//Is background
             case 3:
-                return lightTheme ? baseL3 : baseD3;
+                return lightTheme ? baseL3 : baseD3;//Cell background
             case 4:
-                return lightTheme ? baseL2D : baseD2L;
+                return lightTheme ? baseL2D : baseD2L;//Cell dividing colour
         }
         return -1;
     }

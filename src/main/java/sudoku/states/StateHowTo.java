@@ -4,6 +4,7 @@ import java.io.*;
 import main.java.sudoku.util.Button;
 import main.java.sudoku.util.Coordinate;
 import main.java.sudoku.util.Input;
+import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
 public class StateHowTo extends GameState {
@@ -42,27 +43,33 @@ public class StateHowTo extends GameState {
 
     @Override
     public void update() {
-        if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {//add quit button or just click to continue?
-            changeState(StateMain.getInstance());
-        }
+        //if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {//add quit button or just click to continue?
+         //   changeState(StateMain.getInstance());
+        //}
         quitButton.update();
     }
 
     @Override
     public void draw() {
         //Fileinputstream
-        quitButton.draw();
+
       //  String fileName = "instruct.txt";
        // String text;
 
         //put the instructions here by using textfile stremaing.
-
+        parent.fill(SolarizedColours.getColour(2));
+        parent.rect(0,0,900,600);
         try{
             File file = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String st;
+            int y=50;
+            parent.textSize(12);
+            parent.fill(SolarizedColours.getText());
             while ((st = br.readLine()) != null) {
-                System.out.println(st);
+                //System.out.println(st);
+                parent.text(st,50,y);
+                y+=20;
             }
         }
         catch(FileNotFoundException ex) {
@@ -71,7 +78,7 @@ public class StateHowTo extends GameState {
         catch(IOException ex) {
             System.out.println("error with file");
         }
-
+        quitButton.draw();
         /*
         //Just some test code
         try {
