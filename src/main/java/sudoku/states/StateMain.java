@@ -7,10 +7,10 @@ import processing.core.PApplet;
 
 public class StateMain extends GameState {
 
-    public Button themeButton;
-    public Button startButton;
+    private Button themeButton;
+    private Button startButton;
     private Button quitButton;
-    public Button instructButton;
+    private Button instructButton;
     private static GameState instance;
     
     private StateMain(PApplet parent) {
@@ -34,8 +34,8 @@ public class StateMain extends GameState {
 
         themeButton = new Button(
                 parent,
-                new Coordinate(100, 100), new Coordinate(80, 50),
-                0xFF0000FF, "theme",
+                new Coordinate(100, 100), new Coordinate(85, 50),
+                SolarizedColours.getColour(2), "Theme",
                 () -> {
                     SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
                     changeState(getInstance());
@@ -44,7 +44,7 @@ public class StateMain extends GameState {
         startButton = new Button(
                 parent,
                 new Coordinate(50, 50), new Coordinate(80, 50),
-                0xFFFF0000, "start",
+                0xFFFF0000, "Start",
                 () -> changeState(StateGame.getInstance())
         );
         quitButton = new Button(parent,
@@ -74,7 +74,10 @@ public class StateMain extends GameState {
 
     @Override
     public void draw() {
+        SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
+        themeButton.buttoncolour(SolarizedColours.getColour(2));
         themeButton.draw();
+        SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
         startButton.draw();
         quitButton.draw();
         instructButton.draw();

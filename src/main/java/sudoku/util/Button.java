@@ -17,6 +17,11 @@ public class Button extends DrawableElement {
         this.label = label;
         this.action = action;
     }
+
+    public void buttoncolour(int col)
+    {
+        colour=col;
+    }
     
     public Button(PApplet parent, Coordinate position, Coordinate size, int colour) {
         this(parent, position, size, colour, null, () -> {

@@ -1,6 +1,7 @@
 package main.java.sudoku.states;
 
 import main.java.sudoku.util.Input;
+import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
@@ -50,10 +51,11 @@ public class StateChow extends GameState {
 
     @Override
     public void draw() {
-        parent.fill(0xFF00FF00);
+        parent.fill(SolarizedColours.getColour(0));
         parent.textAlign(PConstants.CENTER,PConstants.CENTER);
         parent.text("YOU WON",450,250);
         parent.text("CLICK TO CONTINUE",450,350);
+        parent.text(instance.time, 450, 450);
 
     }
 }

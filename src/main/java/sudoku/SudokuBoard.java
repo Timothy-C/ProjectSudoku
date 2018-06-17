@@ -161,11 +161,6 @@ public class SudokuBoard extends DrawableElement {
             }
         }
     }
-    
-    private boolean isSolved() {
-        return isValid();
-    }
-
 
     @Override
     public void update() {
@@ -229,7 +224,7 @@ public class SudokuBoard extends DrawableElement {
                 }
             }
         }
-        if(isSolved())
+        if(isValid())
         {
             solved=true;
         }

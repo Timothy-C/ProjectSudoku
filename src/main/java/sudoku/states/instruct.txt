@@ -1,24 +1,18 @@
 Instructions
 
-A Sudoku is a number puzzle on a 9 x 9 grid with a set of
-certain given numbers, and nine 3 x 3 sub-cells. To solve
-the puzzle, one must place the numbers from 1 to 9 in the
-empty squares so that each row, column, and 3 by 3 box has
+A Sudoku is a number puzzle on a 9 x 9 grid with a set of certain given numbers, and nine 3 x 3 sub-cells. To solve
+the puzzle, one must place the numbers from 1 to 9 in the empty squares so that each row, column, and 3 by 3 box has
 no repeated numbers.
 
-In our game, placing a number into the box is done by first
-selecting a number by clicking on one of the numbers in the
-grey box. After selecting a number, left-click on a cell (one
-that is not given when the grid was generated) to add a number,
+In our game, placing a number into the box is done by first selecting a number by clicking on one of the numbers in the
+grey box. After selecting a number, left-click on a cell (one that is not given when the grid was generated) to add a number,
 or right-click on a cell to add/remove a note.
 
-When right-clicking, if there is no note on a cell(note is a
-possibility of what a number could be), there will be a note
-added to the cell with the selected number. If there already
-is a note with the selected number, the note will be removed.
+When right-clicking, if there is no note on a cell(note is a possibility of what a number could be), there will be a note
+added to the cell with the selected number. If there already is a note with the selected number, the note will be removed.
 
-When a cell is filled by a number, all notes will be removed.
-When a cell is filled by an invalid number, the cell will be
-highlighted red. Given cells, which are the cells that are
-filled when the board is generated, are always highlighted
+When a cell is filled by a number, all notes will be removed. When a cell is filled by an invalid number, the cell will be
+highlighted red. Given cells, which are the cells that are filled when the board is generated, are always highlighted
 grey and cannot be edited by adding a number or a note.
+
+Press Quit to go back to menu

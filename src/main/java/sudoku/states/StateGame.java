@@ -16,7 +16,6 @@ public class StateGame extends GameState {//The actual state of the current game
     private static GameState instance;
     private SudokuBoard board;
     private DigitBoard digits;
-
     private Button quitButton;
     
     private Stopwatch stopwatch;
@@ -57,6 +56,7 @@ public class StateGame extends GameState {//The actual state of the current game
 
     @Override
     public void end() {
+        instance.time=stopwatch.getElapsedTimeSeconds();
         stopwatch.stop();
         System.out.println(stopwatch.getElapsedTimeSeconds());
     }
