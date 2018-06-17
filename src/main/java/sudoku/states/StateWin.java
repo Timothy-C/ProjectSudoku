@@ -5,11 +5,14 @@ import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-public class StateChow extends GameState {
+import java.time.Duration;
+
+public class StateWin extends GameState {
     
     private static GameState instance;
-    public static float time;
-    private StateChow(PApplet parent) {
+    public static Duration time;
+    
+    private StateWin(PApplet parent) {
         super(parent);
     }
 
@@ -25,11 +28,11 @@ public class StateChow extends GameState {
      *
      * @return the instance of this GameState
      */
-    public static GameState getInstance(int temp) {
+    public static GameState getInstance(Duration timeIN) {
         if (instance == null) {
-            instance = new StateChow(GameEngine.getInstance().parent);
+            instance = new StateWin(GameEngine.getInstance().parent);
         }
-        time=temp;
+        time = timeIN;
         return instance;
     }
 
@@ -56,7 +59,10 @@ public class StateChow extends GameState {
         parent.textAlign(PConstants.CENTER,PConstants.CENTER);
         parent.text("YOU WON",450,250);
         parent.text("CLICK TO CONTINUE",450,350);
-        parent.text(time, 450, 450);
+        parent.text(String.format("%2d:%02d.%03d",
+                time.toMinutesPart(),
+                time.toSecondsPart(),
+                time.toMillisPart()), 450, 450);
 
     }
 }

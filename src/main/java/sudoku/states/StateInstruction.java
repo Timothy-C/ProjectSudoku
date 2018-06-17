@@ -1,16 +1,17 @@
 package main.java.sudoku.states;
-import java.io.*;
 
 import main.java.sudoku.util.Button;
 import main.java.sudoku.util.Coordinate;
-import main.java.sudoku.util.Input;
 import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
-public class StateHowTo extends GameState {
+import java.io.*;
+
+public class StateInstruction extends GameState {
 
     private static GameState instance;
-    private StateHowTo(PApplet parent) {
+    
+    private StateInstruction(PApplet parent) {
         super(parent);
     }
     private Button quitButton;
@@ -22,7 +23,7 @@ public class StateHowTo extends GameState {
      */
     public static GameState getInstance() {
         if (instance == null) {
-            instance = new StateHowTo(GameEngine.getInstance().parent);
+            instance = new StateInstruction(GameEngine.getInstance().parent);
         }
         return instance;
     }
