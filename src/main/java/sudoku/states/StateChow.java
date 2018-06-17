@@ -51,8 +51,9 @@ public class StateChow extends GameState {
     @Override
     public void draw() {
         parent.fill(0xFF00FF00);
-        parent.textAlign(PConstants.RIGHT);
-        parent.text("YOU WON",450,300);
+        parent.textAlign(PConstants.CENTER,PConstants.CENTER);
+        parent.text("YOU WON",450,250);
+        parent.text("CLICK TO CONTINUE",450,350);
 
     }
 }

@@ -51,48 +51,47 @@ public class StateHowTo extends GameState {
     @Override
     public void draw() {
         //Fileinputstream
-        String fileName = "instruct.txt";
-//
-//        // This will reference one line at a time
-//        String line=null;
-//        quitButton.draw();
-//        try {
-//            // FileReader reads text files in the default encoding.
-//            FileReader fileReader = new FileReader("");
-//
-//            // wraps filereader in bufferedreader
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//
-//            while((line = bufferedReader.readLine()) != null) {
-//                System.out.println(line);
-//            }
-//
-//            bufferedReader.close();//closes file
-//        }
-//        catch(FileNotFoundException ex) {
-//            //System.out.println("Unable to open file '" + fileName + "'");
-//            System.out.println(System.getProperty("user.dir"));
-//        }
-//        catch(IOException ex) {
-//            System.out.println("Error reading file '"  + "'");
-//            // Or we could just do this:
-//            // ex.printStackTrace();
-//        }
-
-
-        /*BufferedReader br = new BufferedReader(getClass().getResourceAsStream("/instruct.txt"));
-        int x=0;int y=0;
-        String st;
-        parent.fill(0xFF00FF00);
-        while ((st = br.()) != false){
-            parent.text(st,x,y);
-            y+=50;
-        }*/
+        quitButton.draw();
+      //  String fileName = "instruct.txt";
+       // String text;
 
         //put the instructions here by using textfile stremaing.
 
-        File file = new File(fileName);
+        try{
+            File file = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String st;
+            while ((st = br.readLine()) != null) {
+                System.out.println(st);
+            }
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        }
+        catch(IOException ex) {
+            System.out.println("error with file");
+        }
+
+        /*
+        //Just some test code
+        try {
+            File myFile = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
+
+            System.out.println("Attempting to read from file in: " + myFile.getCanonicalPath());
+        }
+        catch(FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        }
+        catch(IOException ex) {
+            System.out.println("error with file");
+        }*/
+        /*
+        //This test code deals with the proper absolute path for the instructions
+        File file = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
+
         System.out.println(file.getPath());
+
         System.out.println(file.exists());
+        */
     }
 }
