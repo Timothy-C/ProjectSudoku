@@ -55,7 +55,7 @@ public class StateMain extends GameState {
         instructButton = new Button(parent,
                 new Coordinate(200,200), new Coordinate (150,50),
                 0xFF0000FF,"Instructions",
-                () ->changeState(StateHowTo.getInstance())
+                () -> changeState(StateInstruction.getInstance())
                 );
     }
 

@@ -11,7 +11,7 @@ public class Input {
     private static Coordinate mouse = new Coordinate(0, 0);
 
     /**
-     * Runs every frame to update the mouse status of this frame and the previous
+     * Runs every frame to update the mouse cellType of this frame and the previous
      */
     public static void updateInput() {
         for (int i = 0; i < 3; i++) {
@@ -26,8 +26,8 @@ public class Input {
      * Wraps the default way of getting mouse input with Processing into a neater and more accessible method
      *
      * @param button the mouse button to check
-     * @param event  the type of event to check for
-     * @return the status of the event and mouse queried
+     * @param event  the cellType of event to check for
+     * @return the cellType of the event and mouse queried
      */
     public static boolean getMouseButton(Button button, Event event) {
         switch (event) {

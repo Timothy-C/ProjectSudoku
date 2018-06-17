@@ -67,8 +67,7 @@ public class StateGame extends GameState {//The actual state of the current game
         quitButton.update();
 
         if (board.solved) {
-
-            changeState(StateChow.getInstance(stopwatch.getElapsedTimeSeconds()));
+            changeState(StateWin.getInstance(stopwatch.getDuration()));
         }
     }
 
@@ -82,7 +81,7 @@ public class StateGame extends GameState {//The actual state of the current game
         parent.textAlign(PConstants.RIGHT);
         Duration duration = stopwatch.getDuration();
         parent.fill(SolarizedColours.getText());
-        parent.text(String.format("%2d:%02d:%03d",
+        parent.text(String.format("%2d:%02d.%03d",
                 duration.toMinutesPart(),
                 duration.toSecondsPart(),
                 duration.toMillisPart()), 720, 50);

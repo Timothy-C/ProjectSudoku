@@ -13,11 +13,11 @@ public final class SolarizedColours {
     
     // legit solarized colours
     private static final int yellow = 0xFFb58900;
-    //    private static final int orange = 0xFFcb4b16;
 //    private static final int red = 0xFFdc322f;
-//    private static final int magenta = 0xFFd33682;
+public static final int magenta = 0xFFd33682;
+    private static final int orange = 0xFFcb4b16;
 //    private static final int violet = 0xFF6c71c4;
-//    private static final int blue = 0xFF268bd2;
+private static final int blue = 0xFF268bd2;
     private static final int cyan = 0xFF2aa198;
 //    private static final int green = 0xFF859900;
     
@@ -29,19 +29,23 @@ public final class SolarizedColours {
     // baseL2 darkened:  2/3 baseL2, 1/3 baseL1
     private static final int baseL2D = 0xFFD7D6C8;
     
-    public static boolean lightTheme;//Option to have light theme or blue theme
+    // current theme: light or dark
+    public static boolean lightTheme;
     
     public static int getText() {
         return lightTheme ? yellow : cyan;
     }
     
+    public static int getSelect() {
+        return lightTheme ? orange : blue;
+    }
     // 0 - 3 for main colours, 4 for the hybrid colour
     public static int getColour(int ID) {
         switch (ID) {
             case 0:
                 return lightTheme ? baseL0 : baseD0;//Board edges
             case 1:
-                return lightTheme ? baseL1 : baseD1;//
+                return lightTheme ? baseL1 : baseD1;
             case 2:
                 return lightTheme ? baseL2 : baseD2;//Is background
             case 3:

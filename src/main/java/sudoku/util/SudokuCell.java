@@ -9,7 +9,8 @@ public class SudokuCell {
     
     public boolean unknown = false;//This is true if the cell is empty, not empty if the cell is filled
     public boolean[] notes = new boolean[9];//Notes for the cell
-    public Status status = Status.GIVEN;
+    public CellType cellType = CellType.GIVEN;
+    public CellStatus cellStatus = CellStatus.UNSELECTED;
 
     /**
      * Contains all coordinates that interact with this cell.
@@ -52,25 +53,45 @@ public class SudokuCell {
         return value != 0 ? value + "" : "";
     }
     
-    //The "GIVEN" status makes it so that the player cannot mess with the given cells
-    public enum Status {
-        UNSELECTED(() -> SolarizedColours.getColour(2)),
-        SELECTED(() -> SolarizedColours.getColour(1)),
-        HIGHLIGHTED(0xFFF0F000),
-        CONFLICTED(0xFFFF0000),
+    //The "GIVEN" cellType makes it so that the player cannot mess with the given cells
+    public enum CellType {
+        EMPTY(() -> SolarizedColours.getColour(2)),
         GIVEN(() -> SolarizedColours.getColour(3));
-
+        
         public final IntSupplier supplier;
-        Status(IntSupplier supplier) {
+        
+        CellType(IntSupplier supplier) {
             this.supplier = supplier;
         }
-
-        Status (int colour) {
+        
+        CellType(int colour) {
             this.supplier = () -> colour;
         }
-
+        
         public int getColour() {
             return supplier.getAsInt();
         }
     }
+    
+    public enum CellStatus {
+        UNSELECTED(0x00FFFFFF),
+        SELECTED(SolarizedColours::getSelect),
+        HIGHLIGHTED(SolarizedColours::getText),
+        CONFLICTED(SolarizedColours.magenta);
+        
+        public final IntSupplier supplier;
+        
+        CellStatus(IntSupplier supplier) {
+            this.supplier = supplier;
+        }
+        
+        CellStatus(int colour) {
+            this.supplier = () -> colour;
+        }
+        
+        public int getColour() {
+            return supplier.getAsInt();
+        }
+    }
+    
 }
