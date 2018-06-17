@@ -24,18 +24,18 @@ public class TransformReflect implements ITransformation {
     }
 
     private void swap(SudokuCell[] a, SudokuCell[] b) {
-        SudokuCell[] temp = new SudokuCell[a.length];
-        System.arraycopy(a, 0, temp, 0, a.length);
-        System.arraycopy(b, 0, a, 0, a.length);
-        System.arraycopy(temp, 0, b, 0, a.length);
+        for (int i = 0; i < a.length; i++) {
+            int temp = a[i].value;
+            a[i].value = b[i].value;
+            b[i].value = temp;
+        }
     }
 
     private void reverse(SudokuCell[] a) {
         for (int i = 0; i < a.length / 2; i++) {
-            SudokuCell temp;
-            temp = a[i];
-            a[i] = a[a.length - i - 1];
-            a[a.length - i - 1] = temp;
+            int temp = a[i].value;
+            a[i].value = a[a.length - i - 1].value;
+            a[a.length - i - 1].value = temp;
         }
     }
 
