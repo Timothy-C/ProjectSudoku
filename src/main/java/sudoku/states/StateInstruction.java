@@ -6,16 +6,37 @@ import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
 import java.io.*;
+import java.util.ArrayList;
 
 public class StateInstruction extends GameState {
-
+    
     private static GameState instance;
+    private Button quitButton;
+    
+    private ArrayList<String> instructions;
     
     private StateInstruction(PApplet parent) {
         super(parent);
+    
+        instructions = new ArrayList<>();
+    
+        // read the instructions file
+        try {
+            // open a file stream to the file of interest
+            File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\sudoku\\states\\instruct.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            // while there are lines to read, add lines to the list
+            while ((line = br.readLine()) != null)
+                instructions.add(line);
+        
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        } catch (IOException ex) {
+            System.out.println("Error reading file");
+        }
     }
-    private Button quitButton;
-
+    
     /**
      * Gets the singleton instance of this GameState
      *
@@ -27,79 +48,41 @@ public class StateInstruction extends GameState {
         }
         return instance;
     }
-
+    
     @Override
     public void start() {
         quitButton = new Button(parent,
                 new Coordinate(815, 520), new Coordinate(80, 50),
-                0xFFFF0000 , "Quit",//UJML colour codes
+                0xFFFF0000, "Quit",//UJML colour codes
                 () -> changeState(StateMain.getInstance())
         );
     }
-
+    
     @Override
     public void end() {
-        //
+    
     }
-
+    
     @Override
     public void update() {
-        //if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {//add quit button or just click to continue?
-         //   changeState(StateMain.getInstance());
-        //}
         quitButton.update();
     }
-
+    
     @Override
     public void draw() {
-        //Fileinputstream
-
-      //  String fileName = "instruct.txt";
-       // String text;
-
-        //put the instructions here by using textfile stremaing.
         parent.fill(SolarizedColours.getColour(2));
-        parent.rect(0,0,900,600);
-        try{
-            File file = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            String st;
-            int y=50;
-            parent.textSize(14);
-            parent.fill(SolarizedColours.getText());
-            while ((st = br.readLine()) != null) {
-                //System.out.println(st);
-                parent.text(st,50,y);
-                y+=20;
-            }
-        }
-        catch(FileNotFoundException ex) {
-            System.out.println("Unable to open file");
-        }
-        catch(IOException ex) {
-            System.out.println("error with file");
-        }
+        parent.rect(0, 0, 900, 600);
+        
         quitButton.draw();
-        /*
-        //Just some test code
-        try {
-            File myFile = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
-
-            System.out.println("Attempting to read from file in: " + myFile.getCanonicalPath());
+        
+        //put the instructions here by using text file streaming
+        parent.fill(SolarizedColours.getText());
+        parent.textSize(14);
+        
+        int y = 50;
+        for (String line : instructions) {
+            parent.text(line, 50, y);
+            y += 20;
         }
-        catch(FileNotFoundException ex) {
-            System.out.println("Unable to open file");
-        }
-        catch(IOException ex) {
-            System.out.println("error with file");
-        }*/
-        /*
-        //This test code deals with the proper absolute path for the instructions
-        File file = new File(System.getProperty("user.dir")+"\\src\\main\\java\\sudoku\\states\\instruct.txt");
-
-        System.out.println(file.getPath());
-
-        System.out.println(file.exists());
-        */
     }
 }
