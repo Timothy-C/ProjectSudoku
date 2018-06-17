@@ -24,13 +24,15 @@ public class DigitBoard extends DrawableElement {
 
     @Override
     public void update() {
+        int cellX;
+        int cellY;
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                int cellX = this.position.x + x * (sideLength + spacing);
-                int cellY = this.position.y + y * (sideLength + spacing);
+                cellX = this.position.x + x * (sideLength + spacing);
+                cellY = this.position.y + y * (sideLength + spacing);
 
                 if ((parent.mouseX > cellX && parent.mouseX < cellX + sideLength) &&
-                        (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {
+                        (parent.mouseY > cellY && parent.mouseY < cellY + sideLength)) {//Selects digit
                     if (selectedDigit != digits[x + y * 3] && Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
                         selectedDigit = digits[x + y * 3];
                     }
@@ -38,7 +40,7 @@ public class DigitBoard extends DrawableElement {
             }
         }
         // use keyboard
-        if (parent.keyPressed && Character.isDigit(parent.key) && parent.key != '0') {
+        if (parent.keyPressed && Character.isDigit(parent.key) && parent.key != '0') {//Because of java reading the mouse as a weird input
             selectedDigit = ((int) parent.key - 60 + 12);
         }
 
@@ -51,11 +53,12 @@ public class DigitBoard extends DrawableElement {
         parent.textFont(parent.createFont("Consolas", 50, true));
 
         parent.noStroke();
-
+        int cellX;
+        int cellY;
         for (int x = 0; x < 3; x++) {
             for (int y = 0; y < 3; y++) {
-                int cellX = this.position.x + x * (sideLength + spacing);
-                int cellY = this.position.y + y * (sideLength + spacing);
+                cellX = this.position.x + x * (sideLength + spacing);
+                cellY = this.position.y + y * (sideLength + spacing);
 
                 if (digits[x + y * 3] == selectedDigit) {
                     parent.fill(SolarizedColours.getColour(4));
