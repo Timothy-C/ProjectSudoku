@@ -1,6 +1,8 @@
 package main.java.sudoku;
 
 import main.java.sudoku.transform.ITransformation;
+import main.java.sudoku.transform.TransformReflect;
+import main.java.sudoku.transform.TransformRotate;
 import main.java.sudoku.util.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
@@ -15,8 +17,8 @@ public class SudokuBoard extends DrawableElement {
     
     public DigitBoard digitBoard;
     public boolean solved = false;
-    SudokuCell[][] board;
-    SudokuCell selected;
+    private SudokuCell[][] board;
+    private SudokuCell selected;
     // board is organized like this
     // board[x][y]
     // 0 x
@@ -75,6 +77,15 @@ public class SudokuBoard extends DrawableElement {
                 board[i][j].cellType = SudokuCell.CellType.GIVEN;//Sets default to be given
                 board[i][j].unknown = false;//Sets default to be known
             }
+        }
+    
+        // apply some random series of reflections and rotations to the board
+        Random random = new Random();
+        for (int i = 0, j = random.nextInt(3); i < j; i++) {
+            transformBoard(random.nextInt(2) % 2 == 0 ?
+                    new TransformReflect(TransformReflect.Reflection.values()[random.nextInt(2)]) :
+                    new TransformRotate(random.nextInt(4))
+            );
         }
     }
     

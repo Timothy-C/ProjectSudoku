@@ -23,7 +23,7 @@ public class StateInstruction extends GameState {
         // read the instructions file
         try {
             // open a file stream to the file of interest
-            File file = new File(System.getProperty("user.dir") + "\\src\\main\\java\\sudoku\\states\\instruct.txt");
+            File file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\text\\instruct.txt");
             BufferedReader br = new BufferedReader(new FileReader(file));
             String line;
             // while there are lines to read, add lines to the list
@@ -52,8 +52,7 @@ public class StateInstruction extends GameState {
     @Override
     public void start() {
         quitButton = new Button(parent,
-                new Coordinate(815, 520), new Coordinate(80, 50),
-                0xFFFF0000, "Quit",//UJML colour codes
+                new Coordinate(815, 520), new Coordinate(80, 50), "Menu",//UJML colours
                 () -> changeState(StateMain.getInstance())
         );
     }

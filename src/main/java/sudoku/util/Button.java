@@ -8,29 +8,44 @@ public class Button extends DrawableElement {
     private String label;
     private Runnable action;
     private int colour;
+    private int hoverColour;
+    
+    public Button(PApplet parent, Coordinate position, Coordinate size, int colour, int hoverColour, String label, Runnable action) {
+        super(parent);
+        this.position = position;
+        this.size = size;
+        this.colour = colour;
+        this.hoverColour = hoverColour;
+        this.label = label;
+        this.action = action;
+    }
     
     public Button(PApplet parent, Coordinate position, Coordinate size, int colour, String label, Runnable action) {
         super(parent);
         this.position = position;
         this.size = size;
         this.colour = colour;
+        this.hoverColour = colour;
         this.label = label;
         this.action = action;
     }
-
-    public void buttoncolour(int col)
-    {
-        colour=col;
+    
+    public Button(PApplet parent, Coordinate position, Coordinate size, String label, Runnable action) {
+        super(parent);
+        this.position = position;
+        this.size = size;
+        this.colour = SolarizedColours.getColour(4);
+        this.hoverColour = SolarizedColours.getColour(1);
+        this.label = label;
+        this.action = action;
     }
     
-    public Button(PApplet parent, Coordinate position, Coordinate size, int colour) {
-        this(parent, position, size, colour, null, () -> {
-        });
+    public void setColour(int colour) {
+        this.colour = colour;
     }
     
-    public Button(PApplet parent, Coordinate position, Coordinate size) {
-        this(parent, position, size, 0xFFFFFFFF, null, () -> {
-        });
+    public void setHoverColour(int colour) {
+        this.hoverColour = colour;
     }
     
     public boolean hovering() {
@@ -49,12 +64,17 @@ public class Button extends DrawableElement {
     @Override
     public void draw() {
         parent.rectMode(PConstants.CORNER);
-        parent.fill(colour);
+        if (hovering()) {
+            parent.fill(hoverColour);
+        } else {
+            parent.fill(colour);
+        }
         parent.rect(position.x, position.y, size.x, size.y);
-        parent.fill(SolarizedColours.getColour(2) );
-        parent.textSize(size.y/2);
-        parent.textAlign(PConstants.LEFT, PConstants.TOP);
-        parent.text(label,position.x,position.y);
-        parent.textAlign(PConstants.TOP);
+        parent.fill(SolarizedColours.getText());
+        parent.textFont(parent.createFont("Consolas", 30, true));
+        parent.textSize(size.y / 2);
+        parent.textAlign(PConstants.CENTER, PConstants.CENTER);
+        parent.text(label, position.x + size.x / 2, position.y + size.y / 2);
+        parent.textAlign(PConstants.LEFT);
     }
 }

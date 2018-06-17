@@ -31,6 +31,8 @@ public class MainClass extends PApplet {
     @Override
     public void draw() {
         Input.updateInput();
+    
+        System.out.println(Input.getMousePosition());
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();
@@ -39,13 +41,13 @@ public class MainClass extends PApplet {
             gameEngine.end();
             exit();
         }
-        //drawGrid();//This draws a small grid on the run window
+        drawGrid(10);//This draws a small grid on the run window
     }
-
-    private void drawGrid() {
-        fill(10f);
+    
+    private void drawGrid(int grid) {
+        fill(5f);
         strokeWeight(1);
-        int grid = 8;
+        
         for (int i = 0; i < width; i += grid) {
             line(i, 0, i, height);
         }

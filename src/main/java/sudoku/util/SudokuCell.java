@@ -31,7 +31,7 @@ public class SudokuCell {
     /**
      * Populates the {@link #neighbors neighbors} HashSet with the {@link Coordinate Coordinates} that can interfere with this cell.
      */
-    private void generateNeighbors() {
+    public void generateNeighbors() {
         // column
         for (int i = 0; i < 9; i++)
             neighbors.add(new Coordinate(i, position.y));
@@ -53,7 +53,9 @@ public class SudokuCell {
         return value != 0 ? value + "" : "";
     }
     
-    //The "GIVEN" cellType makes it so that the player cannot mess with the given cells
+    /**
+     * The possible types of SudokuCell, also determines the base cell backing
+     */
     public enum CellType {
         EMPTY(() -> SolarizedColours.getColour(2)),
         GIVEN(() -> SolarizedColours.getColour(3));
@@ -73,6 +75,9 @@ public class SudokuCell {
         }
     }
     
+    /**
+     * The statuses of a SudokuCell, also determines the overlay colour.
+     */
     public enum CellStatus {
         UNSELECTED(0x00FFFFFF),
         SELECTED(SolarizedColours::getSelect),
