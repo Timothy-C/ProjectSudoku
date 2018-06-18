@@ -27,6 +27,9 @@ public class MainClass extends PApplet {
         gameEngine.parent = this;
         gameEngine.start();
         gameEngine.changeState(StateMain.getInstance());
+    
+    
+        textFont(createFont("Consolas", 30, true));
     }
 
     @Override
