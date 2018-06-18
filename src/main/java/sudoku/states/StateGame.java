@@ -40,13 +40,12 @@ public class StateGame extends GameState {//The actual state of the current game
         board = new SudokuBoard(parent);
 
         board.digitBoard = digits;
-
+    
         board.setPosition(60, 60);
         digits.setPosition(500 + 20, 60);
-
+    
         quitButton = new Button(parent,
-                new Coordinate(815, 520), new Coordinate(80, 50),
-                0xFFFF0000 , "Quit",//UJML colour codes
+                new Coordinate(815, 520), new Coordinate(80, 50), "Menu",//UJML colours
                 () -> changeState(StateMain.getInstance())
         );
 
@@ -65,7 +64,7 @@ public class StateGame extends GameState {//The actual state of the current game
         digits.update();
         board.update();//Should pass selected number in here
         quitButton.update();
-
+    
         if (board.solved) {
             changeState(StateWin.getInstance(stopwatch.getDuration()));
         }
@@ -78,13 +77,13 @@ public class StateGame extends GameState {//The actual state of the current game
         board.draw();
         digits.draw();
         quitButton.draw();
-        parent.textAlign(PConstants.RIGHT);
         Duration duration = stopwatch.getDuration();
         parent.fill(SolarizedColours.getText());
-        parent.text(String.format("%2d:%02d.%03d",
+        parent.textAlign(PConstants.LEFT);
+        parent.text(String.format("Time: %2d:%02d.%03d",
                 duration.toMinutesPart(),
                 duration.toSecondsPart(),
-                duration.toMillisPart()), 720, 50);
+                duration.toMillisPart()), 525, 300);
         parent.textAlign(PConstants.LEFT);
     }
 }

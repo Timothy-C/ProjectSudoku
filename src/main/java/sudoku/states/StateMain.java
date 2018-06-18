@@ -5,18 +5,17 @@ import main.java.sudoku.util.Coordinate;
 import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
-public class StateMain extends GameState {
+import java.util.ArrayList;
 
-    private Button themeButton;
-    private Button startButton;
-    private Button quitButton;
-    private Button instructButton;
+public class StateMain extends GameState {
+    
     private static GameState instance;
+    private ArrayList<Button> buttons;
     
     private StateMain(PApplet parent) {
         super(parent);
     }
-
+    
     /**
      * Gets the singleton instance of this GameState
      *
@@ -26,62 +25,63 @@ public class StateMain extends GameState {
         if (instance == null) instance = new StateMain(GameEngine.getInstance().parent);
         return instance;
     }
-
+    
     @Override
     public void start() {
-
-        parent.fill(50f);
-
-        themeButton = new Button(
+        buttons = new ArrayList<>();
+        
+        int y = 60;
+        
+        buttons.add(new Button(
                 parent,
-                new Coordinate(100, 100), new Coordinate(85, 50),
-                SolarizedColours.getColour(2), "Theme",
+                new Coordinate(550, y += 60), new Coordinate(160, 50), "Theme",
                 () -> {
                     SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
                     changeState(getInstance());
                 }
-        );
-        startButton = new Button(
+        ));
+        
+        buttons.add(new Button(
                 parent,
-                new Coordinate(50, 50), new Coordinate(80, 50),
-                0xFFFF0000, "Start",
+                new Coordinate(550, y += 60), new Coordinate(160, 50), "Start",
                 () -> changeState(StateGame.getInstance())
-        );
-        quitButton = new Button(parent,
-                new Coordinate(815, 520), new Coordinate(80, 50),
-                0xFFFF0000 , "Quit",//UJML colours
-                () -> GameEngine.getInstance().exit()
-        );
-        instructButton = new Button(parent,
-                new Coordinate(200,200), new Coordinate (150,50),
-                0xFF0000FF,"Instructions",
+        ));
+        
+        buttons.add(new Button(
+                parent,
+                new Coordinate(550, y += 60), new Coordinate(160, 50), "About",
                 () -> changeState(StateInstruction.getInstance())
-                );
+        ));
+        
+        buttons.add(new Button(
+                parent,
+                new Coordinate(550, y += 60), new Coordinate(160, 50), "Scores",
+                () -> changeState(StateScore.getInstance())
+        ));
+        
+        buttons.add(new Button(parent,
+                new Coordinate(550, y += 60), new Coordinate(160, 50), "Quit",//UJML colours
+                () -> GameEngine.getInstance().exit()
+        ));
     }
-
+    
     @Override
     public void end() {
-
+    
     }
-
+    
     @Override
     public void update() {
-        themeButton.update();
-        startButton.update();
-        quitButton.update();
-        instructButton.update();
+        for (Button button : buttons) {
+            button.update();
+        }
     }
-
+    
     @Override
     public void draw() {
-        SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
-        themeButton.buttoncolour(SolarizedColours.getText());
-        themeButton.draw();
-        SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
-        startButton.draw();
-
-        quitButton.draw();
-        instructButton.draw();
+        for (Button button : buttons) {
+            button.draw();
+        }
     }
-
+    
 }

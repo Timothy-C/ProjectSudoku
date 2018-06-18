@@ -6,46 +6,47 @@ import main.java.sudoku.util.Input;
 import processing.core.PApplet;
 
 public class MainClass extends PApplet {
-    
+
     private GameEngine gameEngine;
-    
+
     public static void main(String[] args) {
         PApplet.main("main.java.sudoku.MainClass");
     }
-    
+
     @Override
     public void settings() {
         size(900, 600);//Dimensions of the run window
     }
-    
+
     @Override
     public void setup() {
         Input.parent = this;
-        
+
         gameEngine = GameEngine.getInstance();
         gameEngine.parent = this;
         gameEngine.start();
         gameEngine.changeState(StateMain.getInstance());
     }
-    
+
     @Override
     public void draw() {
         Input.updateInput();
+
+        //System.out.println(Input.getMousePosition());
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();
-        }
-        else {
+        } else {
             gameEngine.end();
             exit();
         }
-        //drawGrid();//This draws a small grid on the run window
+        //drawGrid(10);//This draws a small grid on the run window
     }
 
-    private void drawGrid() {
-        fill(10f);
+    private void drawGrid(int grid) {
+        fill(5f);
         strokeWeight(1);
-        int grid = 8;
+
         for (int i = 0; i < width; i += grid) {
             line(i, 0, i, height);
         }
