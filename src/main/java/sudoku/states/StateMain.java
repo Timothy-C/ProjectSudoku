@@ -2,9 +2,9 @@ package main.java.sudoku.states;
 
 import main.java.sudoku.util.Button;
 import main.java.sudoku.util.Coordinate;
-import main.java.sudoku.util.Input;
 import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
+import processing.core.PConstants;
 import processing.core.PImage;
 
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class StateMain extends GameState {
                 new Coordinate(x, y += 60), new Coordinate(160, 50), "Theme",
                 () -> {
                     SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
+                    // reload current state
                     changeState(getInstance());
                 }
         ));
@@ -67,8 +68,8 @@ public class StateMain extends GameState {
                 new Coordinate(x, y += 60), new Coordinate(160, 50), "Quit",//UJML colours
                 () -> GameEngine.getInstance().exit()
         ));
-
-
+    
+        // load the logo based on the theme
         logo = parent.loadImage(System.getProperty("user.dir") + "\\src\\main\\resources\\img\\" + (SolarizedColours.lightTheme ? "LogoLight.png" : "LogoDark.png"));
         logo.resize(logo.width / 2, logo.height / 2);
     }
@@ -88,7 +89,11 @@ public class StateMain extends GameState {
     @Override
     public void draw() {
         parent.image(logo, 70, parent.height / 2 - logo.height / 2);
-        //System.out.println(Input.getMousePosition());
+        parent.textSize(80);
+        parent.fill(SolarizedColours.getText());
+        parent.textAlign(PConstants.LEFT, PConstants.CENTER);
+        parent.text("Sudoku", 70 + logo.width + 60, parent.height / 2 - 5);
+        parent.textAlign(PConstants.LEFT);
         for (Button button : buttons) {
             button.draw();
         }
