@@ -2,8 +2,10 @@ package main.java.sudoku.states;
 
 import main.java.sudoku.util.Button;
 import main.java.sudoku.util.Coordinate;
+import main.java.sudoku.util.Input;
 import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
+import processing.core.PImage;
 
 import java.util.ArrayList;
 
@@ -11,6 +13,7 @@ public class StateMain extends GameState {
     
     private static GameState instance;
     private ArrayList<Button> buttons;
+    PImage logo;
     
     private StateMain(PApplet parent) {
         super(parent);
@@ -29,12 +32,13 @@ public class StateMain extends GameState {
     @Override
     public void start() {
         buttons = new ArrayList<>();
-        
-        int y = 60;
+
+        int x = 650;
+        int y = 100;
         
         buttons.add(new Button(
                 parent,
-                new Coordinate(550, y += 60), new Coordinate(160, 50), "Theme",
+                new Coordinate(x, y += 60), new Coordinate(160, 50), "Theme",
                 () -> {
                     SolarizedColours.lightTheme = !SolarizedColours.lightTheme;
                     changeState(getInstance());
@@ -43,26 +47,30 @@ public class StateMain extends GameState {
         
         buttons.add(new Button(
                 parent,
-                new Coordinate(550, y += 60), new Coordinate(160, 50), "Start",
+                new Coordinate(x, y += 60), new Coordinate(160, 50), "Start",
                 () -> changeState(StateGame.getInstance())
         ));
         
         buttons.add(new Button(
                 parent,
-                new Coordinate(550, y += 60), new Coordinate(160, 50), "About",
+                new Coordinate(x, y += 60), new Coordinate(160, 50), "About",
                 () -> changeState(StateInstruction.getInstance())
         ));
         
         buttons.add(new Button(
                 parent,
-                new Coordinate(550, y += 60), new Coordinate(160, 50), "Scores",
+                new Coordinate(x, y += 60), new Coordinate(160, 50), "Scores",
                 () -> changeState(StateScore.getInstance())
         ));
         
         buttons.add(new Button(parent,
-                new Coordinate(550, y += 60), new Coordinate(160, 50), "Quit",//UJML colours
+                new Coordinate(x, y += 60), new Coordinate(160, 50), "Quit",//UJML colours
                 () -> GameEngine.getInstance().exit()
         ));
+
+
+        logo = parent.loadImage(System.getProperty("user.dir") + "\\src\\main\\resources\\img\\" + (SolarizedColours.lightTheme ? "LogoLight.png" : "LogoDark.png"));
+        logo.resize(logo.width / 2, logo.height / 2);
     }
     
     @Override
@@ -79,6 +87,8 @@ public class StateMain extends GameState {
     
     @Override
     public void draw() {
+        parent.image(logo, 70, parent.height / 2 - logo.height / 2);
+        System.out.println(Input.getMousePosition());
         for (Button button : buttons) {
             button.draw();
         }

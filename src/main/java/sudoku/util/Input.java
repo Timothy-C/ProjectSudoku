@@ -9,6 +9,8 @@ public class Input {
     private static boolean[] isHeld = new boolean[3];
 
     private static Coordinate mouse = new Coordinate(0, 0);
+    private static int mouseScroll;
+    private static boolean hasScrolled;
 
     /**
      * Runs every frame to update the mouse cellType of this frame and the previous
@@ -20,6 +22,19 @@ public class Input {
         }
         mouse.x = parent.mouseX;
         mouse.y = parent.mouseY;
+        if (!hasScrolled) {
+            mouseScroll = 0;
+        }
+        hasScrolled = false;
+    }
+
+    public static void setScroll(int scroll) {
+        mouseScroll = scroll;
+        hasScrolled = true;
+    }
+
+    public static int getMouseScroll() {
+        return mouseScroll;
     }
 
     /**

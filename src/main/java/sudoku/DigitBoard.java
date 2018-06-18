@@ -44,7 +44,10 @@ public class DigitBoard extends DrawableElement {
             selectedDigit = ((int) parent.key - 60 + 12);
         }
 
-    //    System.out.println(selectedDigit);
+        // use scroll wheel
+        if (Input.getMouseScroll() != 0) {
+            selectedDigit = (selectedDigit + 8 + Input.getMouseScroll()) % 9 + 1;
+        }
     }
 
     @Override

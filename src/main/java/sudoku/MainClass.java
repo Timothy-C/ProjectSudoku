@@ -4,6 +4,7 @@ import main.java.sudoku.states.GameEngine;
 import main.java.sudoku.states.StateMain;
 import main.java.sudoku.util.Input;
 import processing.core.PApplet;
+import processing.event.MouseEvent;
 
 public class MainClass extends PApplet {
 
@@ -32,7 +33,6 @@ public class MainClass extends PApplet {
     public void draw() {
         Input.updateInput();
 
-        //System.out.println(Input.getMousePosition());
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();
@@ -40,7 +40,9 @@ public class MainClass extends PApplet {
             gameEngine.end();
             exit();
         }
-        //drawGrid(10);//This draws a small grid on the run window
+
+        //This draws a small grid on the run window
+        //drawGrid(10);
     }
 
     private void drawGrid(int grid) {
@@ -53,5 +55,10 @@ public class MainClass extends PApplet {
         for (int i = 0; i < height; i += grid) {
             line(0, i, width, i);
         }
+    }
+
+    @Override
+    public void mouseWheel(MouseEvent event) {
+        Input.setScroll(event.getCount());
     }
 }
