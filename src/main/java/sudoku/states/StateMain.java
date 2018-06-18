@@ -92,7 +92,9 @@ public class StateMain extends GameState {
         parent.textSize(80);
         parent.fill(SolarizedColours.getText());
         parent.textAlign(PConstants.LEFT, PConstants.CENTER);
-        parent.text("Sudoku", 70 + logo.width + 60, parent.height / 2 - 5);
+        parent.text("Sudoku", 70 + logo.width + 60, parent.height / 2 - 30);
+        parent.textSize(18);
+        parent.text("By Timothy Chan \n   and Ethan Wong", 70 + logo.width + 60 + 20, parent.height / 2 + 40);
         parent.textAlign(PConstants.LEFT);
         for (Button button : buttons) {
             button.draw();
