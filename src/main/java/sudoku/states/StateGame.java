@@ -55,7 +55,6 @@ public class StateGame extends GameState {//The actual state of the current game
 
     @Override
     public void end() {
-        System.out.println(stopwatch.getElapsedTimeSeconds());
         stopwatch.stop();
     }
 

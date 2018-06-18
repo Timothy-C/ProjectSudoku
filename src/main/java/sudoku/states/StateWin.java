@@ -13,6 +13,7 @@ public class StateWin extends GameState {
     
     private static GameState instance;
     private static Duration time;
+    public static int scorePosition = -1;
     
     private StateWin(PApplet parent) {
         super(parent);
@@ -67,12 +68,8 @@ public class StateWin extends GameState {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             /* read elements */
             long[] scores = new long[11];
-            String temp;
-            for (int i = 0; i < 10; i++) {
-                temp = br.readLine();
-                System.out.println(temp);
-                scores[i] = Long.parseLong(temp);
-            }
+            for (int i = 0; i < 10; i++)
+                scores[i] = Long.parseLong(br.readLine());
             
             scores[10] = score.toNanos();
             

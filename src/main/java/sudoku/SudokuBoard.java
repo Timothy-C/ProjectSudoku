@@ -199,9 +199,9 @@ public class SudokuBoard extends DrawableElement {
                 }
             }
         }
-        for (int y = 0; y < 9; y++) {
-            System.out.println(y + 1 + " " + numbers[y]);
-        }
+//        for (int y = 0; y < 9; y++) {
+//            System.out.println(y + 1 + " " + numbers[y]);
+//        }
     }
 
     /**
