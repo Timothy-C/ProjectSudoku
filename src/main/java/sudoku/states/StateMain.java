@@ -11,10 +11,6 @@ public class StateMain extends GameState {
     
     private static GameState instance;
     private ArrayList<Button> buttons;
-    private Button themeButton;
-    private Button startButton;
-    private Button quitButton;
-    private Button instructButton;
     
     private StateMain(PApplet parent) {
         super(parent);
@@ -54,11 +50,6 @@ public class StateMain extends GameState {
         buttons.add(new Button(
                 parent,
                 new Coordinate(550, y += 60), new Coordinate(160, 50), "About",
-                () -> changeState(StateAbout.getInstance())
-        ));
-        
-        buttons.add(new Button(parent,
-                new Coordinate(550, y += 60), new Coordinate(160, 50), "Instructions",
                 () -> changeState(StateInstruction.getInstance())
         ));
         

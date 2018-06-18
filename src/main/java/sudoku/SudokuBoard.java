@@ -236,6 +236,8 @@ public class SudokuBoard extends DrawableElement {
     
                 if (selected != currentCell)
                     currentCell.cellStatus = SudokuCell.CellStatus.UNSELECTED;
+                else
+                    currentCell.cellStatus = SudokuCell.CellStatus.SELECTED;
     
                 if (cellHasConflict(currentCell))
                     currentCell.cellStatus = SudokuCell.CellStatus.CONFLICTED;
