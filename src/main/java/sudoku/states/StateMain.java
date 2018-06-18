@@ -88,7 +88,7 @@ public class StateMain extends GameState {
     @Override
     public void draw() {
         parent.image(logo, 70, parent.height / 2 - logo.height / 2);
-        System.out.println(Input.getMousePosition());
+        //System.out.println(Input.getMousePosition());
         for (Button button : buttons) {
             button.draw();
         }
