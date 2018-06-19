@@ -130,9 +130,9 @@ public class StateWin extends GameState {
     
         parent.text("You won!", 450, 150);
         parent.text(String.format("Time: %2d:%02d.%03d",
-                time.toMinutesPart(),
-                time.toSecondsPart(),
-                time.toMillisPart()), 450, 250);
+                time.toMinutes(),
+                time.getSeconds() % 60,
+                time.toMillis() % 1000), 450, 250);
     
         if (scorePosition == -1) {
             parent.text("Click to continue", 450, 350);

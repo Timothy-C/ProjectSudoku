@@ -80,9 +80,9 @@ public class StateGame extends GameState {//The actual state of the current game
         parent.fill(SolarizedColours.getText());
         parent.textAlign(PConstants.LEFT);
         parent.text(String.format("Time: %2d:%02d.%03d",
-                duration.toMinutesPart(),
-                duration.toSecondsPart(),
-                duration.toMillisPart()), 525, 300);
+                duration.toMinutes(),
+                duration.getSeconds() % 60,
+                duration.toMillis() % 1000), 525, 300);
         parent.textAlign(PConstants.LEFT);
     }
 }

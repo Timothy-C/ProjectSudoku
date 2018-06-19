@@ -123,7 +123,10 @@ public class StateScore extends GameState {
             // time
             Duration time = Duration.ofNanos(scores[i]);
             String text = scores[i] != Long.MAX_VALUE ?
-                    String.format("%02d:%02d.%03d", time.toMinutesPart(), time.toSecondsPart(), time.toMillisPart()) :
+                    String.format("%02d:%02d.%03d",
+                            time.toMinutes(),
+                            time.getSeconds() % 60,
+                            time.toMillis() % 1000) :
                     "--:--.---";
             parent.text(text, 525, y);
     
