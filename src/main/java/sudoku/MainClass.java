@@ -35,7 +35,7 @@ public class MainClass extends PApplet {
     @Override
     public void draw() {
         Input.updateInput();
-        System.out.println(Input.getMousePosition());
+//        System.out.println(Input.getMousePosition());
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();

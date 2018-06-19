@@ -5,7 +5,9 @@ import main.java.sudoku.util.Coordinate;
 import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class StateInstruction extends GameState {
@@ -37,25 +39,24 @@ public class StateInstruction extends GameState {
                 new Coordinate(815, 520), new Coordinate(80, 50), "Menu",//UJML colours
                 () -> changeState(StateMain.getInstance())
         );
-
+    
         instructions = new ArrayList<>();
-
         // read the instructions file
         try {
             // open a file stream to the file of interest
-            File file = new File(System.getProperty("user.dir") + "\\src\\main\\resources\\text\\instruct.txt");
-            BufferedReader br = new BufferedReader(new FileReader(file));
+            BufferedReader br = new BufferedReader(parent.createReader("instruct.txt"));
             String line;
             // while there are lines to read, add lines to the list
             while ((line = br.readLine()) != null)
                 instructions.add(line);
-
+    
         } catch (FileNotFoundException ex) {
             System.out.println("Unable to open file");
         } catch (IOException ex) {
             System.out.println("Error reading file");
         }
     }
+    
     
     @Override
     public void end() {

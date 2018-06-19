@@ -16,4 +16,4 @@ When a cell is filled by a number, all notes will be removed. When a cell is fil
 the cell will be highlighted red. Given cells, which are the cells that are filled when the board is
 generated, are always highlighted grey and cannot be edited by adding a number or a note.
 
-Press Quit to go back to menu
+Press Quit to go back to menu.

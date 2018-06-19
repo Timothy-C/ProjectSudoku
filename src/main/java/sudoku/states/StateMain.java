@@ -70,7 +70,7 @@ public class StateMain extends GameState {
         ));
     
         // load the logo based on the theme
-        logo = parent.loadImage(System.getProperty("user.dir") + "\\src\\main\\resources\\img\\" + (SolarizedColours.lightTheme ? "LogoLight.png" : "LogoDark.png"));
+        logo = parent.loadImage((SolarizedColours.lightTheme ? "LogoLight.png" : "LogoDark.png"));
         logo.resize(logo.width / 2, logo.height / 2);
     }
     
