@@ -164,7 +164,7 @@ public class SudokuBoard extends DrawableElement {
             }
         }
 
-        if (counter < 40) {//
+        if (counter < 40) {//Makes sure there is at least 40 unknown cells, otherwise the puzzle will be too easy
             while(!least)
             {
                 tempX = rand.nextInt(9);
@@ -180,7 +180,7 @@ public class SudokuBoard extends DrawableElement {
                         }
                     }
                 }
-                if(counter>=45)
+                if(counter>=45)//Puzzle has 45 unknown cells
                 {
                     least=true;
                 }
