@@ -8,7 +8,10 @@ To solve the puzzle, one must place the numbers from 1 to 9 in the empty squares
 
 __Warning:__ Due to computational limits, there is a chance that the puzzles created by this program have more than one solution.
 
-## Controls:
+## Controls
 - Select number using button panel, number keys, or scroll wheel.  
 - Left click on an empty cell to add/remove a number.  
 - Right click on an empty cell to add/remove a note.  
+
+## Installation
+Execute the .jar file.
