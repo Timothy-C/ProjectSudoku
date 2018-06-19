@@ -47,7 +47,7 @@ public class SudokuBoard extends DrawableElement {
      *
      * @see <a href="URL#https://gamedev.stackexchange.com/a/138228">generation algorithm</a>
      */
-    public void generate() {
+    private void generate() {
         Random rand = new Random();
         boolean repeated;
 
@@ -193,7 +193,7 @@ public class SudokuBoard extends DrawableElement {
      */
     private void removeNumbers() {
         SudokuCell tempboard[][]=board;
-        boolean toomuch=false;
+        boolean toomuch;
         remove();
         int[] numbers = new int[9];
         for (int y = 0; y < 9; y++) {
@@ -205,14 +205,31 @@ public class SudokuBoard extends DrawableElement {
                     numbers[board[x][y].value - 1]++;
                 }
             }
-            if(numbers[x]>=8)
+        }
+        for(int i=0;i<9;i++){
+            if(numbers[i]>7)
             {
                 toomuch=true;
                 while(toomuch)
                 {
-                    board=tempboard;
+                    board=tempboard;//Resets board for removing
                     remove();
-
+                    for (int x = 0; x < 9; x++) {//Resets numbers
+                        numbers[x]=0;
+                    }
+                    for (int x = 0; x < 9; x++) {
+                        for (int y = 0; y < 9; y++) {
+                            if (board[x][y].value != 0) {
+                                numbers[board[x][y].value - 1]++;//Finds numbers
+                            }
+                        }
+                    }
+                    toomuch=false;
+                    for (int x = 0; x < 9; x++) {
+                        if (numbers[x] > 7) {
+                            toomuch = true;
+                        }
+                    }
                 }
 
             }
@@ -394,7 +411,7 @@ public class SudokuBoard extends DrawableElement {
      * @param transformation transformation to apply
      * @return this SudokuBoard for method chaining
      */
-    public SudokuBoard transformBoard(ITransformation transformation) {
+    private SudokuBoard transformBoard(ITransformation transformation) {
         transformation.apply(board);
         return this;
     }
