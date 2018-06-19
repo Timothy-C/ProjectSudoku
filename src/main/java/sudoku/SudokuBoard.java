@@ -143,7 +143,7 @@ public class SudokuBoard extends DrawableElement {
         return true;
     }
 
-    private void remove()
+    private void remove()//Removes numbers from board
     {
         Random rand = new Random();
         int tempX, tempY,counter=0;
