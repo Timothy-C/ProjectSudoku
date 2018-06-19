@@ -4,6 +4,7 @@ import main.java.sudoku.states.GameEngine;
 import main.java.sudoku.states.StateMain;
 import main.java.sudoku.util.Input;
 import processing.core.PApplet;
+import processing.event.KeyEvent;
 import processing.event.MouseEvent;
 
 public class MainClass extends PApplet {
@@ -28,14 +29,13 @@ public class MainClass extends PApplet {
         gameEngine.start();
         gameEngine.changeState(StateMain.getInstance());
     
-    
         textFont(createFont("Consolas", 30, true));
     }
 
     @Override
     public void draw() {
         Input.updateInput();
-
+        System.out.println(Input.getMousePosition());
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();
@@ -63,5 +63,11 @@ public class MainClass extends PApplet {
     @Override
     public void mouseWheel(MouseEvent event) {
         Input.setScroll(event.getCount());
+    }
+    
+    @Override
+    public void keyPressed(KeyEvent event) {
+        System.out.println(event.getKeyCode());
+        Input.setKey(event.getKey());
     }
 }

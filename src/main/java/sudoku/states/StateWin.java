@@ -11,9 +11,13 @@ import java.util.Arrays;
 
 public class StateWin extends GameState {
     
+    static int scorePosition = -1;
     private static GameState instance;
     private static Duration time;
-    public static int scorePosition = -1;
+    private long[] scores = new long[11];
+    private String[] names = new String[10];
+    private String name = "";
+    private boolean nameSet = false;
     
     private StateWin(PApplet parent) {
         super(parent);
@@ -41,19 +45,63 @@ public class StateWin extends GameState {
     
     @Override
     public void start() {
-        //add the text-file streaming to high scores here
-        addScore(time);
+        scorePosition = -1;
+        name = "";
+        nameSet = false;
+    
+        // read scores to scores[]
+        // open a BufferedReader to the scores file using try-with-resources
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+            /* read elements */
+            String[] temp;
+            for (int i = 0; i < 10; i++) {
+                temp = br.readLine().split(" ");
+                scores[i] = Long.parseLong(temp[0]);
+                names[i] = temp[1];
+            }
+            scores[10] = time.toNanos();
+            Arrays.sort(scores);
+        } catch (FileNotFoundException ex) {
+            System.out.println("Unable to open file");
+        } catch (IOException ex) {
+            System.out.println("Error reading file");
+        }
+    
+        // if your score is in top 10 then allow initials
+        if (scores[10] != time.toNanos()) {
+            scorePosition = Arrays.binarySearch(scores, time.toNanos());
+        }
     }
     
     @Override
     public void end() {
-        //
+        addScore(time);
     }
     
     @Override
     public void update() {
-        if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
-            changeState(StateMain.getInstance());
+        if (scorePosition == -1) {
+            if (Input.getMouseButton(Input.Button.LEFT, Input.Event.PRESS)) {
+                changeState(StateMain.getInstance());
+            }
+        } else {
+            if (Input.getKeyEvent(Input.Event.PRESS)) {
+                if (Input.keyIsHeld == 8 && name.length() > 0) {
+                    name = name.substring(0, name.length() - 1);
+                } else if (Input.keyIsHeld == 10) {
+                    nameSet = true;
+                } else if (name.length() < 5) {
+                    char key = (char) Input.keyIsHeld;
+                    if (Character.isLetterOrDigit(key)) {
+                        name += Character.toUpperCase((char) Input.keyIsHeld);
+                    }
+                }
+            }
+            if (nameSet) {
+                names[scorePosition] = name;
+                changeState(StateScore.getInstance());
+            }
         }
     }
     
@@ -63,28 +111,14 @@ public class StateWin extends GameState {
      * @param score next score to add
      */
     private void addScore(Duration score) {
-        // open a BufferedReader to the scores file using try-with-resources
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            /* read elements */
-            long[] scores = new long[11];
+        // open PrintWriter to scores file using try-with-resources
+        try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
+            /* write elements */
             for (int i = 0; i < 10; i++)
-                scores[i] = Long.parseLong(br.readLine());
-            
-            scores[10] = score.toNanos();
-            
-            Arrays.sort(scores);
-            
-            // open PrintWriter using try-with-resources because opening it automatically deletes all data
-            try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
-                /* write elements */
-                for (int i = 0; i < 10; i++)
-                    pw.println(scores[i]);
-            }
-        } catch (FileNotFoundException ex) {
-            System.out.println("Unable to open file");
-        } catch (IOException ex) {
-            System.out.println("Error reading file");
+                pw.println(scores[i] + " " + names[i]);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     
@@ -92,14 +126,26 @@ public class StateWin extends GameState {
     public void draw() {
         parent.fill(SolarizedColours.getText());
         parent.textAlign(PConstants.CENTER, PConstants.CENTER);
+        parent.noStroke();
         parent.textSize(50);
-        parent.text("YOU WON", 450, 150);
-        parent.text("CLICK TO CONTINUE", 450, 250);
-        parent.text(String.format("%2d:%02d.%03d",
+    
+        parent.text("You won!", 450, 150);
+        parent.text(String.format("Time: %2d:%02d.%03d",
                 time.toMinutesPart(),
                 time.toSecondsPart(),
-                time.toMillisPart()), 450, 350);
+                time.toMillisPart()), 450, 250);
+    
+        if (scorePosition == -1) {
+            parent.text("Click to continue", 450, 350);
+        } else {
+            parent.text("Enter your initials:", 450, 350);
+            parent.textSize(30);
+            parent.fill(SolarizedColours.getColour(2));
         
+            parent.rect(0, 380, parent.width, 50);
+            parent.fill(SolarizedColours.getText());
+            parent.text(name, 450, 400);
+        }
         
     }
 }
