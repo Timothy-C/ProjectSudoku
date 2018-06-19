@@ -7,7 +7,6 @@ import main.java.sudoku.util.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -142,9 +141,11 @@ public class SudokuBoard extends DrawableElement {
         }
         return true;
     }
-
-    private void remove()//Removes numbers from board(reuse if the board result is invalid
-    {
+    
+    /**
+     * Removes numbers from board, and regenerates board if the result is invalid.
+     */
+    private void remove() {
         Random rand = new Random();
         int tempX, tempY,counter=0;
         boolean least = false;
