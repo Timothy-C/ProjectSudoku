@@ -1,6 +1,7 @@
 # ProjectSudoku
 ## Description
-Final project for ICS3U, implementation of Sudoku logic game using [Java](https://java.com/en/) and the [Processing](https://processing.org/) graphics library.
+Final project for ICS3U, by Timothy Chan and Ethan Wong.
+Implementation of Sudoku logic game using [Java](https://java.com/en/) and the [Processing](https://processing.org/) graphics library.
 
 ## Game Description
 [Sudoku](https://en.wikipedia.org/wiki/Sudoku) is a number puzzle on a 9×9 grid with a set of certain given numbers, and nine 3×3 sub-cells.
