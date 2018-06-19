@@ -1,5 +1,9 @@
 package main.java.sudoku.util;
 
+/**
+ * Contains all colours and colour scheme for the game.
+ * Based off of the Solarized colour scheme devised by Ethan Schoonover.
+ */
 public final class SolarizedColours {
     // legit solarized shades, d - dark, l - light
     private static final int baseD3 = 0xFF002b36;
@@ -32,14 +36,31 @@ private static final int blue = 0xFF268bd2;
     // current theme: light or dark
     public static boolean lightTheme;
     
+    /**
+     * Gives the pair of colours that is used for writing text.
+     * It is based off the colour scheme in general, the light theme to yellow, the dark theme to blue.
+     *
+     * @return the colour yellow or cyan as integer
+     */
     public static int getText() {
         return lightTheme ? yellow : cyan;
     }
     
+    /**
+     * Gives the pair of colours that is used for highlighting cells.
+     * It is based off of the fact that they are darker versions than those used for text.
+     * @return the colour orange or blue as integer
+     */
     public static int getSelect() {
         return lightTheme ? orange : blue;
     }
     // 0 - 3 for main colours, 4 for the hybrid colour
+    
+    /**
+     * Returns a colour from the scheme based on the currently selected theme and the numeric ID passed in.
+     * @param ID determines which colour pair to choose from
+     * @return a colour as an integer
+     */
     public static int getColour(int ID) {
         switch (ID) {
             case 0:
@@ -53,6 +74,7 @@ private static final int blue = 0xFF268bd2;
             case 4:
                 return lightTheme ? baseL2D : baseD2L;//Cell dividing colour
         }
+        // compiler requires it
         return -1;
     }
 }

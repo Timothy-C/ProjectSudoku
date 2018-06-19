@@ -34,7 +34,7 @@ public class StateScore extends GameState {
     }
     
     /**
-     * Saves the score data from scores.txt to the scores array
+     * Saves the score data from scores.txt to the scores and names arrays
      */
     private void getScore() {
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
@@ -52,6 +52,9 @@ public class StateScore extends GameState {
         }
     }
     
+    /**
+     * Replaces all scores with Long.MAX_VALUE and all names with "-----"
+     */
     private void eraseScore() {
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
         try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
@@ -99,12 +102,14 @@ public class StateScore extends GameState {
         quitButton.draw();
         clearButton.draw();
     
-        // draw scores to screen
+    
         parent.textAlign(PConstants.CENTER);
     
+        // header
         parent.textSize(40);
         parent.text("HIGHSCORES", parent.width / 2, 60);
     
+        // subheaders
         parent.textSize(30);
         parent.textAlign(PConstants.RIGHT);
         parent.text("RANK", 250, 120);
@@ -112,15 +117,18 @@ public class StateScore extends GameState {
         parent.text("NAME", 700, 120);
     
         for (int i = 0, y = 160; i < 10; i++, y += 40) {
+            // rank
             parent.fill(i == StateWin.scorePosition ? SolarizedColours.getSelect() : SolarizedColours.getText());
             parent.text((i + 1) + (i == 0 ? "st" : i == 1 ? "nd" : i == 2 ? "rd" : "th"), 250, y);
-            
+    
+            // time
             Duration time = Duration.ofNanos(scores[i]);
             String text = scores[i] != Long.MAX_VALUE ?
                     String.format("%02d:%02d.%03d", time.toMinutesPart(), time.toSecondsPart(), time.toMillisPart()) :
                     "--:--.---";
             parent.text(text, 525, y);
-        
+    
+            // name
             parent.text(names[i], 700, y);
         }
     

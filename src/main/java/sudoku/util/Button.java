@@ -10,26 +10,6 @@ public class Button extends DrawableElement {
     private int colour;
     private int hoverColour;
     
-    public Button(PApplet parent, Coordinate position, Coordinate size, int colour, int hoverColour, String label, Runnable action) {
-        super(parent);
-        this.position = position;
-        this.size = size;
-        this.colour = colour;
-        this.hoverColour = hoverColour;
-        this.label = label;
-        this.action = action;
-    }
-    
-    public Button(PApplet parent, Coordinate position, Coordinate size, int colour, String label, Runnable action) {
-        super(parent);
-        this.position = position;
-        this.size = size;
-        this.colour = colour;
-        this.hoverColour = colour;
-        this.label = label;
-        this.action = action;
-    }
-    
     public Button(PApplet parent, Coordinate position, Coordinate size, String label, Runnable action) {
         super(parent);
         this.position = position;
@@ -40,15 +20,12 @@ public class Button extends DrawableElement {
         this.action = action;
     }
     
-    public void setColour(int colour) {
-        this.colour = colour;
-    }
-    
-    public void setHoverColour(int colour) {
-        this.hoverColour = colour;
-    }
-    
-    public boolean hovering() {
+    /**
+     * Checks if the mouse is within its bounds. (hovering)
+     *
+     * @return whether the mouse is hovering over the button
+     */
+    private boolean hovering() {
         Coordinate mouse = Input.getMousePosition();
         return mouse.x > position.x && mouse.x < position.x + size.x &&
                 mouse.y > position.y && mouse.y < position.y + size.y;

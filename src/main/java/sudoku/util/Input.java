@@ -2,6 +2,9 @@ package main.java.sudoku.util;
 
 import processing.core.PApplet;
 
+/**
+ * Custom input handling class for things such as edge checking, scroll, and keyboard
+ */
 public class Input {
     
     public static PApplet parent;
@@ -26,7 +29,7 @@ public class Input {
         if (!hasScrolled)
             mouseScroll = 0;
         hasScrolled = false;
-    
+        
         if (!hasKey) keyIsHeld = 0;
         hasKey = false;
     }
@@ -61,7 +64,7 @@ public class Input {
             case RELEASE:
                 return wasHeld[button.ordinal()] && !isHeld[button.ordinal()];
         }
-    
+        
         return false;
     }
     
