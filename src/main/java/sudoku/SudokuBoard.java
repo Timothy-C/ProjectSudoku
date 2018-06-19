@@ -7,6 +7,7 @@ import main.java.sudoku.util.*;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -142,22 +143,19 @@ public class SudokuBoard extends DrawableElement {
         return true;
     }
 
-    /**
-     * Randomly selects up to 45 cells to be removed. Any more than 48 clues will probably result in multiple solutions.
-     */
-    private void removeNumbers() {
+    private void remove()
+    {
         Random rand = new Random();
-        int tempX, tempY, counter;
+        int tempX, tempY,counter=0;
         boolean least = false;
-        //Removes the numbers from 30 to 35 to random cells, so that there are between 46 to 51 clues.
-        for (int i = 0; i < 35; i++) {//<35
+
+        for (int i = 0; i < 45; i++) {//<35
             tempX = rand.nextInt(9);
             tempY = rand.nextInt(9);
             board[tempX][tempY].cellType = SudokuCell.CellType.EMPTY;//Unselected to be an unknown cell
             board[tempX][tempY].value = 0;
             board[tempX][tempY].unknown = true;
         }
-        counter = 0;
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
                 if (board[x][y].unknown) {
@@ -165,7 +163,8 @@ public class SudokuBoard extends DrawableElement {
                 }
             }
         }
-        if (counter < 30) {//>25
+
+        if (counter < 40) {
             while(!least)
             {
                 tempX = rand.nextInt(9);
@@ -181,13 +180,21 @@ public class SudokuBoard extends DrawableElement {
                         }
                     }
                 }
-                if(counter>30)
+                if(counter>45)
                 {
                     least=true;
                 }
             }
         }
+    }
 
+    /**
+     * Randomly selects up to 45 cells to be removed. Any more than 48 clues will probably result in multiple solutions.
+     */
+    private void removeNumbers() {
+        SudokuCell tempboard[][]=board;
+        boolean toomuch=false;
+        remove();
         int[] numbers = new int[9];
         for (int y = 0; y < 9; y++) {
             numbers[y] = 0;
@@ -198,10 +205,19 @@ public class SudokuBoard extends DrawableElement {
                     numbers[board[x][y].value - 1]++;
                 }
             }
+            if(numbers[x]>=8)
+            {
+                toomuch=true;
+                while(toomuch)
+                {
+                    board=tempboard;
+                    remove();
+
+                }
+
+            }
         }
-//        for (int y = 0; y < 9; y++) {
-//            System.out.println(y + 1 + " " + numbers[y]);
-//        }
+
     }
 
     /**

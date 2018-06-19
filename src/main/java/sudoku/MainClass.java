@@ -35,7 +35,7 @@ public class MainClass extends PApplet {
     @Override
     public void draw() {
         Input.updateInput();
-        System.out.println(Input.getMousePosition());
+       // System.out.println(Input.getMousePosition());
         if (gameEngine.running) {
             gameEngine.update();
             gameEngine.draw();
@@ -67,7 +67,7 @@ public class MainClass extends PApplet {
     
     @Override
     public void keyPressed(KeyEvent event) {
-        System.out.println(event.getKeyCode());
+        //System.out.println(event.getKeyCode());
         Input.setKey(event.getKey());
     }
 }
