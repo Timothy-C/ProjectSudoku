@@ -7,6 +7,7 @@
       </element>
       <element id="module-output" name="ProjectSudoku" />
       <element id="extracted-dir" path="$PROJECT_DIR$/core.jar" path-in-jar="/" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/data" />
     </root>
   </artifact>
 </component>

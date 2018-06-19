@@ -6,7 +6,10 @@ import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.Duration;
 
 public class StateScore extends GameState {
@@ -37,8 +40,7 @@ public class StateScore extends GameState {
      * Saves the score data from scores.txt to the scores and names arrays
      */
     private void getScore() {
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(parent.createReader("scores.txt"))) {
             String[] temp;
             for (int i = 0; i < 10; i++) {
                 temp = br.readLine().split(" ");
@@ -56,12 +58,9 @@ public class StateScore extends GameState {
      * Replaces all scores with Long.MAX_VALUE and all names with "-----"
      */
     private void eraseScore() {
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
-        try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
+        try (PrintWriter pw = new PrintWriter(parent.createWriter("scores.txt"))) {
             for (int i = 0; i < 10; i++)
                 pw.println(Long.MAX_VALUE + " -----");
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         StateWin.scorePosition = -1;
     }

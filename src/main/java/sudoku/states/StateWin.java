@@ -5,7 +5,10 @@ import main.java.sudoku.util.SolarizedColours;
 import processing.core.PApplet;
 import processing.core.PConstants;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.Duration;
 import java.util.Arrays;
 
@@ -51,8 +54,7 @@ public class StateWin extends GameState {
     
         // read scores to scores[]
         // open a BufferedReader to the scores file using try-with-resources
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+        try (BufferedReader br = new BufferedReader(parent.createReader("scores.txt"))) {
             /* read elements */
             String[] temp;
             for (int i = 0; i < 10; i++) {
@@ -111,14 +113,11 @@ public class StateWin extends GameState {
      * @param score next score to add
      */
     private void addScore(Duration score) {
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\text\\scores.txt";
         // open PrintWriter to scores file using try-with-resources
-        try (PrintWriter pw = new PrintWriter(new FileWriter(path))) {
+        try (PrintWriter pw = new PrintWriter(parent.createWriter("scores.txt"))) {
             /* write elements */
             for (int i = 0; i < 10; i++)
                 pw.println(scores[i] + " " + names[i]);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     
