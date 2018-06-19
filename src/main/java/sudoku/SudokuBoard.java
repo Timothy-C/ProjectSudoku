@@ -143,13 +143,13 @@ public class SudokuBoard extends DrawableElement {
         return true;
     }
 
-    private void remove()//Removes numbers from board
+    private void remove()//Removes numbers from board(reuse if the board result is invalid
     {
         Random rand = new Random();
         int tempX, tempY,counter=0;
         boolean least = false;
 
-        for (int i = 0; i < 45; i++) {//<35
+        for (int i = 0; i < 45; i++) {//At most 45 cells unknown, otherwise, the sudoku will have multiple solutions
             tempX = rand.nextInt(9);
             tempY = rand.nextInt(9);
             board[tempX][tempY].cellType = SudokuCell.CellType.EMPTY;//Unselected to be an unknown cell
@@ -159,12 +159,12 @@ public class SudokuBoard extends DrawableElement {
         for (int x = 0; x < 9; x++) {
             for (int y = 0; y < 9; y++) {
                 if (board[x][y].unknown) {
-                    counter++;
+                    counter++;//Counts how many of each number is unknown
                 }
             }
         }
 
-        if (counter < 40) {
+        if (counter < 40) {//
             while(!least)
             {
                 tempX = rand.nextInt(9);
@@ -180,7 +180,7 @@ public class SudokuBoard extends DrawableElement {
                         }
                     }
                 }
-                if(counter>45)
+                if(counter>=45)
                 {
                     least=true;
                 }
